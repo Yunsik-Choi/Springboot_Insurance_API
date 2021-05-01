@@ -17,6 +17,8 @@ public class Test {
     @GeneratedValue
     private Long id;
 
+    private String name;
+
     private int age;
 
 }

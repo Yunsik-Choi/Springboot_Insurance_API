@@ -13,6 +13,22 @@ public class TestController {
 
     private final TestRepository testRepository;
 
+    @GetMapping("/")
+    public String index(){
+        return "<h1>Hello</h1>";
+    }
+
+    @GetMapping("/api/test/save")
+    public Test saveGetTest(
+            @RequestParam(value = "name",defaultValue = "최윤식") String name,
+            @RequestParam(value = "age", defaultValue = "24") int age){
+        Test test = Test.builder()
+                        .name(name)
+                        .age(age)
+                        .build();
+        testRepository.saveTest(test);
+        return test;
+    }
 
     @GetMapping("/api/test")
     public List<Test> showAllTest(){
@@ -27,7 +43,7 @@ public class TestController {
     }
 
     @PostMapping("/api/test/save")
-    public Test saveTest(@RequestBody Test test){
+    public Test savePostTest(@RequestBody Test test){
         Long testID = testRepository.saveTest(test);
         Test findTest = testRepository.searchTest(testID);
         return findTest;
