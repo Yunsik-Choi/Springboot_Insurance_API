@@ -1,13 +1,20 @@
 package com.Insurance.hm.partner.domain;
 
+import com.Insurance.hm.domain.BaseTime;
 import com.Insurance.hm.domain.ClaimPartner;
 import com.Insurance.hm.employee.domain.Employee;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Partner {
+@Getter @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Partner extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

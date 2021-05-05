@@ -3,15 +3,20 @@ package com.Insurance.hm.claim.domain;
 import com.Insurance.hm.client.domain.Client;
 import com.Insurance.hm.compensation.domain.Compensation;
 import com.Insurance.hm.contract.domain.Contract;
+import com.Insurance.hm.domain.BaseTime;
 import com.Insurance.hm.domain.ClaimPartner;
 import com.Insurance.hm.employee.domain.Employee;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class Claim{
+@Getter @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Claim extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +39,11 @@ public class Claim{
 
     @ManyToOne
     @JoinColumn(name = "contract_id")
+    @NotNull
     private Contract contract;
     @OneToOne
     @JoinColumn(name = "employee_id")
+    @NotNull
     private Employee employee;
 
     @OneToMany(mappedBy = "claim")

@@ -1,13 +1,21 @@
 package com.Insurance.hm.client.domain;
 
+import com.Insurance.hm.claim.domain.Claim;
 import com.Insurance.hm.contract.domain.Contract;
+import com.Insurance.hm.domain.BaseTime;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Client {
+public class Client extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

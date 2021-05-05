@@ -1,9 +1,17 @@
 package com.Insurance.hm.employee.domain;
 
+import com.Insurance.hm.domain.BaseTime;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
-public class Employee {
+@Getter @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Employee extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
