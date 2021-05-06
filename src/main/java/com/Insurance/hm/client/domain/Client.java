@@ -1,18 +1,18 @@
 package com.Insurance.hm.client.domain;
 
-import com.Insurance.hm.claim.domain.Claim;
+import com.Insurance.hm.client.domain.entity.Bank;
+import com.Insurance.hm.client.domain.entity.RRN;
 import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.domain.BaseTime;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Builder
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Client extends BaseTime {
@@ -33,6 +33,24 @@ public class Client extends BaseTime {
     private RRN rrn;
 
     @OneToMany(mappedBy = "client")
-    private List<Contract> contract_list;
+    private List<Contract> contract_list = new ArrayList<>();
 
+    @Builder
+    public Client(String name, String account_number, String address, Bank bank, RRN rrn, List<Contract> contract_list) {
+        this.name = name;
+        this.account_number = account_number;
+        this.address = address;
+        this.bank = bank;
+        this.rrn = rrn;
+        this.contract_list = contract_list;
+    }
+
+    protected void addClientInfo(String name, String account_number, String address, Bank bank, RRN rrn, List<Contract> contract_list) {
+        this.name = name;
+        this.account_number = account_number;
+        this.address = address;
+        this.bank = bank;
+        this.rrn = rrn;
+        this.contract_list = contract_list;
+    }
 }

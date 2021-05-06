@@ -1,7 +1,7 @@
 package com.Insurance.hm.claim.domain;
 
-import com.Insurance.hm.client.domain.Client;
-import com.Insurance.hm.compensation.domain.Compensation;
+import com.Insurance.hm.claim.domain.entity.ClaimStatus;
+import com.Insurance.hm.claim.domain.entity.ClaimType;
 import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.domain.BaseTime;
 import com.Insurance.hm.domain.ClaimPartner;
@@ -11,10 +11,12 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Builder
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Claim extends BaseTime {
 
@@ -47,6 +49,18 @@ public class Claim extends BaseTime {
     private Employee employee;
 
     @OneToMany(mappedBy = "claim")
-    private List<ClaimPartner> claimpartner_list;
+    private List<ClaimPartner> claimpartner_list = new ArrayList<>();
 
+    @Builder
+    public Claim(LocalDateTime accident_date, Long damage_cost, String hospital_statement, LocalDateTime receipt_date, ClaimStatus status, ClaimType type, Contract contract, Employee employee, List<ClaimPartner> claimpartner_list) {
+        this.accident_date = accident_date;
+        this.damage_cost = damage_cost;
+        this.hospital_statement = hospital_statement;
+        this.receipt_date = receipt_date;
+        this.status = status;
+        this.type = type;
+        this.contract = contract;
+        this.employee = employee;
+        this.claimpartner_list = claimpartner_list;
+    }
 }

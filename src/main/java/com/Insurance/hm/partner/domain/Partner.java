@@ -3,16 +3,16 @@ package com.Insurance.hm.partner.domain;
 import com.Insurance.hm.domain.BaseTime;
 import com.Insurance.hm.domain.ClaimPartner;
 import com.Insurance.hm.employee.domain.Employee;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.Insurance.hm.partner.domain.entity.PartnerCategory;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Builder
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Partner extends BaseTime {
 
@@ -33,6 +33,15 @@ public class Partner extends BaseTime {
     private Employee employee;
 
     @OneToMany(mappedBy = "partner")
-    private List<ClaimPartner> claimpartner_list;
+    private List<ClaimPartner> claim_partner_list = new ArrayList<>();
 
+    @Builder
+    public Partner(String name, String address, String contact_number, PartnerCategory category, Employee employee, List<ClaimPartner> claim_partner_list) {
+        this.name = name;
+        this.address = address;
+        this.contact_number = contact_number;
+        this.category = category;
+        this.employee = employee;
+        this.claim_partner_list = claim_partner_list;
+    }
 }

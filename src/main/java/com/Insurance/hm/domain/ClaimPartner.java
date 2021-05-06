@@ -3,15 +3,13 @@ package com.Insurance.hm.domain;
 import com.Insurance.hm.claim.domain.Claim;
 import com.Insurance.hm.partner.domain.Partner;
 import com.sun.istack.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter @Builder
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ClaimPartner extends BaseTime{
 
@@ -29,6 +27,9 @@ public class ClaimPartner extends BaseTime{
     @NotNull
     private Partner partner;
 
-
-
+    @Builder
+    public ClaimPartner(Claim claim, Partner partner) {
+        this.claim = claim;
+        this.partner = partner;
+    }
 }

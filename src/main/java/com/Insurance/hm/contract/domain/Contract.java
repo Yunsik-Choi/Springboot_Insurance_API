@@ -1,19 +1,20 @@
 package com.Insurance.hm.contract.domain;
 
 import com.Insurance.hm.client.domain.Client;
+import com.Insurance.hm.contract.domain.entity.Channel;
+import com.Insurance.hm.contract.domain.entity.ContractDate;
+import com.Insurance.hm.contract.domain.entity.ContractStatus;
 import com.Insurance.hm.domain.BaseTime;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.sun.istack.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter @Builder
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Contract extends BaseTime {
 
@@ -48,4 +49,17 @@ public class Contract extends BaseTime {
     @NotNull
     private Employee employee;
 
+    @Builder
+    public Contract(Long insurance_premium, Long accumulated_premium, Double premium_rate, Long reimbursement_cost, ContractStatus status, Channel channel, ContractDate contract_date, Client client, Insurance insurance, Employee employee) {
+        this.insurance_premium = insurance_premium;
+        this.accumulated_premium = accumulated_premium;
+        this.premium_rate = premium_rate;
+        this.reimbursement_cost = reimbursement_cost;
+        this.status = status;
+        this.channel = channel;
+        this.contract_date = contract_date;
+        this.client = client;
+        this.insurance = insurance;
+        this.employee = employee;
+    }
 }
