@@ -19,6 +19,7 @@ public class Employee extends BaseTime {
     private Long id;
 
     private String name;
+    @Column(unique = true)
     private String login_id;
     private String password;
     private String phone_number;

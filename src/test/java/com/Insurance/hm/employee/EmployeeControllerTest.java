@@ -2,58 +2,77 @@ package com.Insurance.hm.employee;
 
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.EmployeeRepository;
+import com.Insurance.hm.employee.domain.entity.Role;
 import com.Insurance.hm.employee.dto.LoginEmployeeDto;
 import com.Insurance.hm.employee.dto.LoginInfoDto;
+import com.Insurance.hm.test.TestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.Before;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
+import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
-
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@SpringBootTest
 @AutoConfigureMockMvc
+@SpringBootTest
 class EmployeeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private WebApplicationContext ctx;
+
+    ObjectMapper mapper = new ObjectMapper();
+
+    @BeforeEach
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))
+                .alwaysDo(print())
+                .build();
+    }
 
     @Test
-    public void Employee로그인_테스트() throws Exception{
-        ObjectMapper mapper = new ObjectMapper();
+    void Employee로그인_테스트() throws Exception {
 
         Employee employee = EmployeeTest.getEmployee();
         employeeRepository.save(employee);
 
-        LoginInfoDto loginInfoDto = new LoginInfoDto();
-        loginInfoDto.setId("abc");
-        loginInfoDto.setPassword("1234");
-        Map<String, Object> model = mockMvc.perform(get("/api/employee/login/")
+        LoginInfoDto loginInfoDto = new LoginInfoDto("abc","1234");
+        MockHttpServletResponse model = mockMvc.perform(post("/api/employee/login/")
                 .content(mapper.writeValueAsString(loginInfoDto))
                 .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getModelAndView().getModel();
-
-        System.out.println(model.toString());
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andReturn()
+                .getResponse();
 
     }
+
 }

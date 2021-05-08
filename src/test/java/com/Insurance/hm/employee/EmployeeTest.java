@@ -1,11 +1,13 @@
 package com.Insurance.hm.employee;
 
-import com.Insurance.hm.employee.EmployeeService;
 import com.Insurance.hm.employee.domain.EmployeeRepository;
 import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.entity.Role;
-import org.assertj.core.api.Assertions;
+import com.Insurance.hm.employee.dto.LoginEmployeeDto;
+import com.Insurance.hm.employee.dto.LoginInfoDto;
+import com.Insurance.hm.exception.SimpleMessageException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,19 +34,31 @@ public class EmployeeTest {
     }
 
     @Test
-    public void Employee로그인() throws Exception{
+    public void 같은_아이디로_회원가입() throws Exception{
         //given
-        Employee employee = getEmployee();
+        Employee e1 = getEmployee();
+        Employee e2 = getEmployee();
 
         //when
-        Employee saveEmployee = employeeRepository.save(employee);
-        Employee findEmployee = employeeService.findByLoginId(saveEmployee.getLogin_id(), saveEmployee.getPassword());
+        employeeService.join(e1);
 
         //then
-        assertThat(findEmployee).isNotNull();
-        assertThat(findEmployee.getId()).isEqualTo(employee.getId());
-        assertThat(findEmployee.getLogin_id()).isEqualTo(employee.getLogin_id());
-        assertThat(findEmployee.getPassword()).isEqualTo(employee.getPassword());
+        org.junit.jupiter.api.Assertions.assertThrows(SimpleMessageException.class,() -> employeeService.join(e2));
+    }
+
+    @Test
+    void 로그인(){
+        Employee e = getEmployee();
+        employeeService.join(e);
+
+        Assertions.assertThrows(SimpleMessageException.class,
+                () -> employeeService.login(new LoginInfoDto("ccc","1234")));
+        Assertions.assertThrows(SimpleMessageException.class,
+                () -> employeeService.login(new LoginInfoDto("abc","4444")));
+        org.assertj.core.api.Assertions
+                .assertThat(employeeService.login(new LoginInfoDto(e.getLogin_id(),e.getPassword())))
+                .isInstanceOf(LoginEmployeeDto.class);
+
     }
 
     public static Employee getEmployee() {
