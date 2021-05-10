@@ -28,15 +28,15 @@ public class Compensation extends BaseTime {
     @Enumerated(EnumType.STRING)
     private CompensationStatus status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "claim_id")
     @NotNull
     private Claim claim;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
     @NotNull
     private Contract contract;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     @NotNull
     private Employee employee;

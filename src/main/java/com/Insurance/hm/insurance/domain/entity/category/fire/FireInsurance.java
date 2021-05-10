@@ -17,8 +17,8 @@ public class FireInsurance extends Insurance {
     private int building_grade;
 
     @Builder
-    public FireInsurance(String name, String description, InsuranceTarget target, Employee employee, List<Contract> contract_list, int building_grade) {
-        super.addInsuranceInfo(name, description, target, employee, contract_list);
+    public FireInsurance(String name, String description, InsuranceTarget target, Employee employee, int building_grade) {
+        super.addInsuranceInfo(name, description, target, employee);
         this.building_grade = building_grade;
     }
 }

@@ -39,11 +39,11 @@ public class Claim extends BaseTime {
     @Enumerated(value = EnumType.STRING)
     private ClaimType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
     @NotNull
     private Contract contract;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     @NotNull
     private Employee employee;
@@ -52,7 +52,8 @@ public class Claim extends BaseTime {
     private List<ClaimPartner> claimpartner_list = new ArrayList<>();
 
     @Builder
-    public Claim(LocalDateTime accident_date, Long damage_cost, String hospital_statement, LocalDateTime receipt_date, ClaimStatus status, ClaimType type, Contract contract, Employee employee, List<ClaimPartner> claimpartner_list) {
+    public Claim(LocalDateTime accident_date, Long damage_cost, String hospital_statement, LocalDateTime receipt_date,
+                 ClaimStatus status, ClaimType type, Contract contract, Employee employee) {
         this.accident_date = accident_date;
         this.damage_cost = damage_cost;
         this.hospital_statement = hospital_statement;
@@ -61,6 +62,6 @@ public class Claim extends BaseTime {
         this.type = type;
         this.contract = contract;
         this.employee = employee;
-        this.claimpartner_list = claimpartner_list;
     }
+
 }

@@ -18,8 +18,9 @@ public class TravellerContractor extends Client {
     private String passport_number;
 
     @Builder(builderMethodName = "makeTravellerContractor")
-    protected TravellerContractor(String name, String account_number, String address, Bank bank, RRN rrn, List<Contract> contract_list, String passport_number) {
-        super.addClientInfo(name, account_number, address, bank, rrn, contract_list);
+    protected TravellerContractor(String name, String account_number, String address, String phone_number, String email,
+                                  Bank bank, RRN rrn, List<Contract> contract_list) {
+        super.addClientInfo(name, account_number, address, phone_number, email, bank, rrn, contract_list);
         this.passport_number = passport_number;
     }
 }

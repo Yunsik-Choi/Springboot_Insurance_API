@@ -25,6 +25,8 @@ public class Client extends BaseTime {
     private String name;
     private String account_number;
     private String address;
+    private String phone_number;
+    private String email;
 
     @Enumerated(value = EnumType.STRING)
     private Bank bank;
@@ -36,19 +38,25 @@ public class Client extends BaseTime {
     private List<Contract> contract_list = new ArrayList<>();
 
     @Builder
-    public Client(String name, String account_number, String address, Bank bank, RRN rrn, List<Contract> contract_list) {
+    public Client(String name, String account_number, String address, String phone_number, String email, Bank bank,
+                  RRN rrn, List<Contract> contract_list) {
         this.name = name;
         this.account_number = account_number;
         this.address = address;
+        this.phone_number = phone_number;
+        this.email = email;
         this.bank = bank;
         this.rrn = rrn;
         this.contract_list = contract_list;
     }
 
-    protected void addClientInfo(String name, String account_number, String address, Bank bank, RRN rrn, List<Contract> contract_list) {
+    protected void addClientInfo(String name, String account_number, String address, String phone_number, String email,
+                                 Bank bank, RRN rrn, List<Contract> contract_list) {
         this.name = name;
         this.account_number = account_number;
         this.address = address;
+        this.phone_number = phone_number;
+        this.email = email;
         this.bank = bank;
         this.rrn = rrn;
         this.contract_list = contract_list;

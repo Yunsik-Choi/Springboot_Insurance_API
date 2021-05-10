@@ -3,7 +3,6 @@ package com.Insurance.hm.employee.domain;
 import com.Insurance.hm.domain.BaseTime;
 import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.domain.entity.Role;
-import com.Insurance.hm.employee.dto.JoinEmployeeDto;
 import lombok.*;
 
 import javax.persistence.*;

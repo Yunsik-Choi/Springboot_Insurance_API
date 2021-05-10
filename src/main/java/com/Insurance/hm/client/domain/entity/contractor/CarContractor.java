@@ -18,8 +18,9 @@ public class CarContractor extends Client {
     private String car_number;
 
     @Builder(builderMethodName = "makeCarContractor")
-    protected CarContractor(String name, String account_number, String address, Bank bank, RRN rrn, List<Contract> contract_list, String car_number) {
-        super.addClientInfo(name, account_number, address, bank, rrn, contract_list);
+    protected CarContractor(String name, String account_number, String address, String phone_number, String email,
+                            Bank bank, RRN rrn, List<Contract> contract_list) {
+        super.addClientInfo(name, account_number, address, phone_number, email, bank, rrn, contract_list);
         this.car_number = car_number;
     }
 }

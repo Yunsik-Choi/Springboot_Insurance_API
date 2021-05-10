@@ -5,8 +5,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class RRN {
 
-    private int birthday;
-    private int number;
+    private int rrn_front;
+    private int rrn_back;
 
 
 }

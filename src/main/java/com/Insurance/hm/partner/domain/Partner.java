@@ -28,20 +28,19 @@ public class Partner extends BaseTime {
     @Enumerated(value = EnumType.STRING)
     private PartnerCategory category;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @OneToMany(mappedBy = "partner")
-    private List<ClaimPartner> claim_partner_list = new ArrayList<>();
+    private List<ClaimPartner> claimpartner_list = new ArrayList<>();
 
     @Builder
-    public Partner(String name, String address, String contact_number, PartnerCategory category, Employee employee, List<ClaimPartner> claim_partner_list) {
+    public Partner(String name, String address, String contact_number, PartnerCategory category, Employee employee) {
         this.name = name;
         this.address = address;
         this.contact_number = contact_number;
         this.category = category;
         this.employee = employee;
-        this.claim_partner_list = claim_partner_list;
     }
 }

@@ -11,6 +11,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,21 +37,22 @@ public class Contract extends BaseTime {
     @Embedded
     private ContractDate contract_date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     @NotNull
     private Client client;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insurance_id")
     @NotNull
     private Insurance insurance;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     @NotNull
     private Employee employee;
 
     @Builder
-    public Contract(Long insurance_premium, Long accumulated_premium, Double premium_rate, Long reimbursement_cost, ContractStatus status, Channel channel, ContractDate contract_date, Client client, Insurance insurance, Employee employee) {
+    public Contract(Long insurance_premium, Long accumulated_premium, Double premium_rate, Long reimbursement_cost,
+                    ContractStatus status, Channel channel, ContractDate contract_date, Client client, Insurance insurance, Employee employee) {
         this.insurance_premium = insurance_premium;
         this.accumulated_premium = accumulated_premium;
         this.premium_rate = premium_rate;
@@ -59,7 +61,14 @@ public class Contract extends BaseTime {
         this.channel = channel;
         this.contract_date = contract_date;
         this.client = client;
-        this.insurance = insurance;
+        changeInsurance(insurance);
         this.employee = employee;
+    }
+
+    public void changeInsurance(Insurance insurance){
+        this.insurance = insurance;
+        List<Contract> contract_list = insurance.getContract_list();
+        if(!contract_list.contains(this))
+            contract_list.add(this);
     }
 }

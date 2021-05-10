@@ -17,8 +17,8 @@ public class DriverInsurance extends Insurance {
     private int driver_grade;
 
     @Builder
-    public DriverInsurance(String name, String description, InsuranceTarget target, Employee employee, List<Contract> contract_list, int driver_grade) {
-        super.addInsuranceInfo(name, description, target, employee, contract_list);
+    public DriverInsurance(String name, String description, InsuranceTarget target, Employee employee, int driver_grade) {
+        super.addInsuranceInfo(name, description, target, employee);
         this.driver_grade = driver_grade;
     }
 

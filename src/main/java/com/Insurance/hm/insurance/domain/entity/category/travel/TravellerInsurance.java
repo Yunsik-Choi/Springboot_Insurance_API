@@ -20,8 +20,8 @@ public class TravellerInsurance extends Insurance {
     private TravelAreaGrade travel_area_grade;
 
     @Builder
-    public TravellerInsurance(String name, String description, InsuranceTarget target, Employee employee, List<Contract> contract_list, TravelAreaGrade travel_area_grade) {
-        super.addInsuranceInfo(name, description, target, employee, contract_list);
+    public TravellerInsurance(String name, String description, InsuranceTarget target, Employee employee, TravelAreaGrade travel_area_grade) {
+        super.addInsuranceInfo(name, description, target, employee);
         this.travel_area_grade = travel_area_grade;
     }
 }

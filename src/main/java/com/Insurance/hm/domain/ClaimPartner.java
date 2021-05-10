@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,7 +30,21 @@ public class ClaimPartner extends BaseTime{
 
     @Builder
     public ClaimPartner(Claim claim, Partner partner) {
+        changeClaim(claim);
+        changePartner(partner);
+    }
+
+    public void changeClaim(Claim claim){
         this.claim = claim;
+        List<ClaimPartner> claimpartner_list = claim.getClaimpartner_list();
+        if(!claimpartner_list.contains(this))
+            claimpartner_list.add(this);
+    }
+
+    public void changePartner(Partner partner){
         this.partner = partner;
+        List<ClaimPartner> claimpartner_list = partner.getClaimpartner_list();
+        if(!claimpartner_list.contains(this))
+            claimpartner_list.add(this);
     }
 }

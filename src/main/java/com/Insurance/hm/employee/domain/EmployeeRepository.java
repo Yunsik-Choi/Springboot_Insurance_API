@@ -29,7 +29,9 @@ public class EmployeeRepository {
     }
 
     public Employee delete(Long id){
-        return null;
+        Employee findEmployee = findById(id);
+        em.remove(findEmployee);
+        return findEmployee;
     }
 
     public List<Employee> findByLoginId(String loginId) {
@@ -37,13 +39,5 @@ public class EmployeeRepository {
                 .setParameter("loginId", loginId)
                 .getResultList();
         return employeeList;
-    }
-
-    public Employee findByLoginIdAndPassword(String loginId, String password){
-        Employee findEmployee = em.createQuery("select e from Employee e where e.login_id =: loginId and e.password =: password", Employee.class)
-                .setParameter("loginId", loginId)
-                .setParameter("password", password)
-                .getSingleResult();
-        return findEmployee;
     }
 }

@@ -7,6 +7,7 @@ import com.Insurance.hm.employee.dto.LoginEmployeeDto;
 import com.Insurance.hm.employee.dto.LoginInfoDto;
 import com.Insurance.hm.test.TestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Before;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,23 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.ModelAndView;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @AutoConfigureMockMvc
@@ -61,18 +50,19 @@ class EmployeeControllerTest {
     @Test
     void Employee로그인_테스트() throws Exception {
 
-        Employee employee = EmployeeTest.getEmployee();
-        employeeRepository.save(employee);
-
-        LoginInfoDto loginInfoDto = new LoginInfoDto("abc","1234");
-        MockHttpServletResponse model = mockMvc.perform(post("/api/employee/login/")
-                .content(mapper.writeValueAsString(loginInfoDto))
-                .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andReturn()
-                .getResponse();
+//        Employee employee = EmployeeTest.getEmployee();
+//        employeeRepository.save(employee);
+//
+//        LoginInfoDto loginInfoDto = new LoginInfoDto("abc","1234");
+//        MockHttpServletResponse model = mockMvc.perform(post("/api/employee/login/")
+//                .content(mapper.writeValueAsString(loginInfoDto))
+//                .contentType(MediaType.APPLICATION_JSON)
+//        ).andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+//                .andReturn()
+//                .getResponse();
 
     }
+
 
 }

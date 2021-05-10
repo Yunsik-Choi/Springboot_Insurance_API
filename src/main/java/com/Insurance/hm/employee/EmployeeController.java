@@ -6,8 +6,10 @@ import com.Insurance.hm.employee.dto.DetailEmployeeDto;
 import com.Insurance.hm.employee.dto.JoinEmployeeDto;
 import com.Insurance.hm.employee.dto.LoginEmployeeDto;
 import com.Insurance.hm.employee.dto.LoginInfoDto;
+import com.Insurance.hm.exception.SimpleMessageException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +27,6 @@ public class EmployeeController {
 
     @PostMapping(value = "join")
     public void joinEmployee(@RequestBody JoinEmployeeDto joinEmployeeDto, HttpServletResponse response) throws IOException {
-        System.out.println(joinEmployeeDto.toString());
         Employee joinEmployee = employeeService.join(Employee.builder()
                 .name(joinEmployeeDto.getName())
                 .login_id(joinEmployeeDto.getLoginId())
@@ -50,8 +51,16 @@ public class EmployeeController {
     @RequestMapping(value = "{id}")
     public DetailEmployeeDto showDetailEmployeeById(@PathVariable Long id){
         Employee findEmployee = employeeRepository.findById(id);
+        if(findEmployee==null)
+            throw new SimpleMessageException(HttpStatus.BAD_REQUEST,"아이디 "+id+"와 일치하는 직원이 존재하지 않습니다.");
         DetailEmployeeDto detailEmployeeDto = new DetailEmployeeDto(findEmployee);
         return detailEmployeeDto;
+    }
+
+    @DeleteMapping(value = "{id}/delete")
+    public DetailEmployeeDto deleteEmployeeById(@PathVariable Long id){
+        employeeRepository.delete(id);
+        return null;
     }
 
 }
