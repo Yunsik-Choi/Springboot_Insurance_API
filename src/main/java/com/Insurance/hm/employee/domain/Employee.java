@@ -1,6 +1,6 @@
 package com.Insurance.hm.employee.domain;
 
-import com.Insurance.hm.domain.BaseTime;
+import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.domain.entity.Role;
 import lombok.*;

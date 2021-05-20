@@ -1,8 +1,9 @@
 package com.Insurance.hm.insurance.domain;
 
 import com.Insurance.hm.contract.domain.Contract;
-import com.Insurance.hm.domain.BaseTime;
+import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.employee.domain.Employee;
+import com.Insurance.hm.insurance.domain.entity.EmployeeCategory;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
 import lombok.*;
 
@@ -13,9 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "dtype")
-public abstract class Insurance extends BaseTime {
+public class Insurance extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +24,8 @@ public abstract class Insurance extends BaseTime {
     private String name;
     private String description;
 
-    //사고시 제출 서류
-    //private File accident_documents;
-    //보상범위
-    //private File liability_coverages;
+    @Enumerated(value = EnumType.STRING)
+    private EmployeeCategory category;
 
     @Embedded
     private InsuranceTarget target;

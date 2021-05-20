@@ -9,21 +9,23 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class DetailEmployeeDto {
+public class EmployeeDetailDto {
 
     private Long id;
     private String name;
     private String loginId;
+    private String password;
     private String phoneNumber;
     private String email;
     private Department department;
     private Role role;
     private LocalDateTime createTime;
 
-    public DetailEmployeeDto(Employee employee){
+    public EmployeeDetailDto(Employee employee){
         this.id = employee.getId();
         this.name = employee.getName();
         this.loginId = employee.getLogin_id();
+        this.password = employee.getPassword();
         this.phoneNumber = employee.getPhone_number();
         this.email = employee.getEmail();
         this.department = employee.getDepartment();

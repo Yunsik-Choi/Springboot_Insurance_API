@@ -1,5 +1,6 @@
 package com.Insurance.hm.util;
 
+import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
 
@@ -7,14 +8,13 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 
 public interface ApiDocumentUtils {
 
-
     static OperationRequestPreprocessor getDocumentRequest(){
-        return preprocessRequest(
-                prettyPrint());
+        return preprocessRequest(prettyPrint());
     }
 
-    static OperationResponsePreprocessor getDocumentResponse(){
+    static OperationResponsePreprocessor getDocumentResponse() {
         return preprocessResponse(prettyPrint());
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.Insurance.hm.domain;
+package com.Insurance.hm.global.domain;
 
 import com.Insurance.hm.claim.domain.Claim;
 import com.Insurance.hm.partner.domain.Partner;

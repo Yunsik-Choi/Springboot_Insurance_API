@@ -1,4 +1,4 @@
-package com.Insurance.hm.domain;
+package com.Insurance.hm.global.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

@@ -7,15 +7,17 @@ import com.Insurance.hm.employee.domain.entity.Role;
 import lombok.Data;
 
 @Data
-public class LoginEmployeeDto {
+public class EmployeeLoginResponseDto {
 
+    private String loginId;
     private String name;
     private String phoneNumber;
     private String email;
     private Department department;
     private Role role;
 
-    public LoginEmployeeDto(Employee employee){
+    public EmployeeLoginResponseDto(Employee employee){
+        this.loginId = employee.getLogin_id();
         this.name = employee.getName();
         this.phoneNumber = employee.getPhone_number();
         this.email = employee.getEmail();

@@ -2,14 +2,13 @@ package com.Insurance.hm.employee.domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.util.List;
+import javax.persistence.Query;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-@Transactional
 public class EmployeeRepository {
 
     private final EntityManager em;
@@ -20,7 +19,7 @@ public class EmployeeRepository {
         return findEmployee;
     }
 
-    public Employee findById(Long id){
+    public Employee findById(Long id) {
         return em.find(Employee.class,id);
     }
 
@@ -34,10 +33,10 @@ public class EmployeeRepository {
         return findEmployee;
     }
 
-    public List<Employee> findByLoginId(String loginId) {
-        List<Employee> employeeList = em.createQuery("select e from Employee e where e.login_id =: loginId", Employee.class)
-                .setParameter("loginId", loginId)
-                .getResultList();
-        return employeeList;
+    public Optional findByLoginId(String loginId) throws RuntimeException {
+        Query query = em.createQuery("select e from Employee e where e.login_id =: loginId", Employee.class)
+                .setParameter("loginId", loginId);
+        Optional findEmployee = query.getResultStream().findFirst();
+        return findEmployee;
     }
 }

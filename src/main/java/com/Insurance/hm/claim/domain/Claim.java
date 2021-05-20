@@ -3,8 +3,8 @@ package com.Insurance.hm.claim.domain;
 import com.Insurance.hm.claim.domain.entity.ClaimStatus;
 import com.Insurance.hm.claim.domain.entity.ClaimType;
 import com.Insurance.hm.contract.domain.Contract;
-import com.Insurance.hm.domain.BaseTime;
-import com.Insurance.hm.domain.ClaimPartner;
+import com.Insurance.hm.global.domain.BaseTime;
+import com.Insurance.hm.global.domain.ClaimPartner;
 import com.Insurance.hm.employee.domain.Employee;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -29,10 +29,6 @@ public class Claim extends BaseTime {
     private Long damage_cost;
     private String hospital_statement;
     private LocalDateTime receipt_date;
-    //정비에 필요한 서류
-    //private File maintenace_details;
-    //현장 사진 파일
-    //private File site_photos;
 
     @Enumerated(value = EnumType.STRING)
     private ClaimStatus status;

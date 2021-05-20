@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class JoinEmployeeDto {
+public class EmployeeJoinRequestDto {
 
     private String name;
     private String loginId;
@@ -17,5 +17,18 @@ public class JoinEmployeeDto {
     private String email;
     private Department department;
     private Role role;
+
+    public Employee toEntity(){
+        Employee employee = Employee.builder()
+                .name(name)
+                .login_id(loginId)
+                .password(password)
+                .phone_number(phoneNumber)
+                .email(email)
+                .department(department)
+                .role(role)
+                .build();
+        return employee;
+    }
 
 }

@@ -3,7 +3,7 @@ package com.Insurance.hm.compensation.domain;
 import com.Insurance.hm.claim.domain.Claim;
 import com.Insurance.hm.compensation.domain.entity.CompensationStatus;
 import com.Insurance.hm.contract.domain.Contract;
-import com.Insurance.hm.domain.BaseTime;
+import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.employee.domain.Employee;
 import com.sun.istack.NotNull;
 import lombok.*;
