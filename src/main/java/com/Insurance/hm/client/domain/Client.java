@@ -1,9 +1,11 @@
 package com.Insurance.hm.client.domain;
 
 import com.Insurance.hm.client.domain.entity.Bank;
+import com.Insurance.hm.client.domain.entity.Gender;
 import com.Insurance.hm.client.domain.entity.RRN;
 import com.Insurance.hm.contract.domain.Contract;
-import com.Insurance.hm.domain.BaseTime;
+import com.Insurance.hm.global.domain.AccidentHistory;
+import com.Insurance.hm.global.domain.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ public class Client extends BaseTime {
     private Long id;
 
     private String name;
+    private int age;
     private String account_number;
     private String address;
     private String phone_number;
@@ -30,35 +33,42 @@ public class Client extends BaseTime {
 
     @Enumerated(value = EnumType.STRING)
     private Bank bank;
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
+
 
     @Embedded
     private RRN rrn;
 
     @OneToMany(mappedBy = "client")
     private List<Contract> contract_list = new ArrayList<>();
+    @OneToMany(mappedBy = "client")
+    private List<AccidentHistory> accident_history_list = new ArrayList<>();
 
     @Builder
-    public Client(String name, String account_number, String address, String phone_number, String email, Bank bank,
-                  RRN rrn, List<Contract> contract_list) {
+    public Client(String name, int age, String account_number, String address, String phone_number, String email, Bank bank,
+                  Gender gender, RRN rrn) {
         this.name = name;
+        this.age = age;
         this.account_number = account_number;
         this.address = address;
         this.phone_number = phone_number;
         this.email = email;
         this.bank = bank;
+        this.gender = gender;
         this.rrn = rrn;
-        this.contract_list = contract_list;
     }
 
-    protected void addClientInfo(String name, String account_number, String address, String phone_number, String email,
-                                 Bank bank, RRN rrn, List<Contract> contract_list) {
+    protected void addClientInfo(String name, int age, String account_number, String address, String phone_number, String email,
+                                 Bank bank, Gender gender, RRN rrn) {
         this.name = name;
+        this.age = age;
         this.account_number = account_number;
         this.address = address;
         this.phone_number = phone_number;
         this.email = email;
         this.bank = bank;
+        this.gender = gender;
         this.rrn = rrn;
-        this.contract_list = contract_list;
     }
 }

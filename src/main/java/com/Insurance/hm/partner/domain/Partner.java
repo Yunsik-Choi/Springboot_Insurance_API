@@ -1,7 +1,7 @@
 package com.Insurance.hm.partner.domain;
 
-import com.Insurance.hm.domain.BaseTime;
-import com.Insurance.hm.domain.ClaimPartner;
+import com.Insurance.hm.global.domain.BaseTime;
+import com.Insurance.hm.global.domain.ClaimPartner;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.partner.domain.entity.PartnerCategory;
 import lombok.*;

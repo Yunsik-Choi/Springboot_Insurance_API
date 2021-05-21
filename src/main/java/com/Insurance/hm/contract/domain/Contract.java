@@ -4,7 +4,7 @@ import com.Insurance.hm.client.domain.Client;
 import com.Insurance.hm.contract.domain.entity.Channel;
 import com.Insurance.hm.contract.domain.entity.ContractDate;
 import com.Insurance.hm.contract.domain.entity.ContractStatus;
-import com.Insurance.hm.domain.BaseTime;
+import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.sun.istack.NotNull;
@@ -52,7 +52,8 @@ public class Contract extends BaseTime {
 
     @Builder
     public Contract(Long insurance_premium, Long accumulated_premium, Double premium_rate, Long reimbursement_cost,
-                    ContractStatus status, Channel channel, ContractDate contract_date, Client client, Insurance insurance, Employee employee) {
+                    ContractStatus status, Channel channel, ContractDate contract_date, Client client,
+                    Insurance insurance, Employee employee) {
         this.insurance_premium = insurance_premium;
         this.accumulated_premium = accumulated_premium;
         this.premium_rate = premium_rate;
@@ -62,12 +63,19 @@ public class Contract extends BaseTime {
         this.contract_date = contract_date;
         this.client = client;
         changeInsurance(insurance);
+        changeClient(client);
         this.employee = employee;
     }
 
     public void changeInsurance(Insurance insurance){
         this.insurance = insurance;
         List<Contract> contract_list = insurance.getContract_list();
+        if(!contract_list.contains(this))
+            contract_list.add(this);
+    }
+    public void changeClient(Client client){
+        this.client = client;
+        List<Contract> contract_list = client.getContract_list();
         if(!contract_list.contains(this))
             contract_list.add(this);
     }

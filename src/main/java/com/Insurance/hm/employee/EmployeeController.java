@@ -1,15 +1,16 @@
 package com.Insurance.hm.employee;
 
+import com.Insurance.hm.employee.constants.EmployeeResponseConstants;
 import com.Insurance.hm.employee.domain.Employee;
-import com.Insurance.hm.employee.domain.EmployeeRepository;
-import com.Insurance.hm.employee.dto.DetailEmployeeDto;
-import com.Insurance.hm.employee.dto.JoinEmployeeDto;
-import com.Insurance.hm.employee.dto.LoginEmployeeDto;
-import com.Insurance.hm.employee.dto.LoginInfoDto;
-import com.Insurance.hm.exception.SimpleMessageException;
+import com.Insurance.hm.employee.dto.EmployeeDetailDto;
+import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
+import com.Insurance.hm.employee.dto.EmployeeLoginResponseDto;
+import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
+import com.Insurance.hm.employee.service.EmployeeService;
+import com.Insurance.hm.global.constants.GlobalConstants;
+import com.Insurance.hm.global.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,44 +24,44 @@ import java.io.IOException;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-    private final EmployeeRepository employeeRepository;
+
+    @GetMapping(value = "{id}")
+    public ResponseDto showDetailEmployeeById(@PathVariable Long id){
+        Employee findEmployee = employeeService.findById(id);
+        return ResponseDto.builder()
+                .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id
+                        +" "+GlobalConstants.FIND_BY_ID.getMessage())
+                .data(new EmployeeDetailDto(findEmployee))
+                .build();
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseDto deleteEmployeeById(@PathVariable Long id){
+        Long deleteId = employeeService.deleteById(id);
+        return ResponseDto.builder()
+                .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id
+                        +" "+GlobalConstants.DELETE.getMessage())
+                .data(deleteId)
+                .build();
+    }
 
     @PostMapping(value = "join")
-    public void joinEmployee(@RequestBody JoinEmployeeDto joinEmployeeDto, HttpServletResponse response) throws IOException {
-        Employee joinEmployee = employeeService.join(Employee.builder()
-                .name(joinEmployeeDto.getName())
-                .login_id(joinEmployeeDto.getLoginId())
-                .password(joinEmployeeDto.getPassword())
-                .phone_number(joinEmployeeDto.getPhoneNumber())
-                .email(joinEmployeeDto.getEmail())
-                .department(joinEmployeeDto.getDepartment())
-                .role(joinEmployeeDto.getRole())
-                .build()
-        );
-        log.info(joinEmployee.getLogin_id()+" 저장 성공");
-        response.sendRedirect("/api/employee/"+joinEmployee.getId());
+    public void joinEmployee(@RequestBody EmployeeJoinRequestDto joinEmployeeDto,
+                                    HttpServletResponse response) throws IOException {
+        Long id = employeeService.join(joinEmployeeDto);
+        response.sendRedirect(id.toString());
     }
 
     @PostMapping(value = "login")
-    public LoginEmployeeDto loginEmployee(@RequestBody LoginInfoDto loginInfoDto, HttpSession session){
-        LoginEmployeeDto loginEmployeeDto = employeeService.login(loginInfoDto);
-        session.setAttribute("loginEmployeeDto",loginEmployeeDto);
-        return loginEmployeeDto;
+    public ResponseDto loginEmployee(@RequestBody EmployeeLoginRequestDto loginInfoDto){
+        Employee findEmployee
+                = employeeService.login(loginInfoDto);
+        return ResponseDto.builder()
+                .message(findEmployee.getLogin_id()+" "+EmployeeResponseConstants.LOGIN.getMessage())
+                .data(new EmployeeLoginResponseDto(findEmployee))
+                .build();
     }
 
-    @RequestMapping(value = "{id}")
-    public DetailEmployeeDto showDetailEmployeeById(@PathVariable Long id){
-        Employee findEmployee = employeeRepository.findById(id);
-        if(findEmployee==null)
-            throw new SimpleMessageException(HttpStatus.BAD_REQUEST,"아이디 "+id+"와 일치하는 직원이 존재하지 않습니다.");
-        DetailEmployeeDto detailEmployeeDto = new DetailEmployeeDto(findEmployee);
-        return detailEmployeeDto;
-    }
 
-    @DeleteMapping(value = "{id}/delete")
-    public DetailEmployeeDto deleteEmployeeById(@PathVariable Long id){
-        employeeRepository.delete(id);
-        return null;
-    }
 
 }
