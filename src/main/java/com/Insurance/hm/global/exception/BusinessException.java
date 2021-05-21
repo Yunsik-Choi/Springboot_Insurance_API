@@ -16,11 +16,4 @@ public class BusinessException extends RuntimeException {
         super(errorConstants.getMessage());
         this.errorConstants = errorConstants;
     }
-
-    @Override
-    public synchronized Throwable fillInStackTrace() {
-        return null;
-    }
-
-
 }

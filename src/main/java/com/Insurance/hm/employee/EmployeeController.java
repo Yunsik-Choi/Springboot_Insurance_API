@@ -27,37 +27,38 @@ public class EmployeeController {
 
     @GetMapping(value = "{id}")
     public ResponseDto showDetailEmployeeById(@PathVariable Long id){
-        EmployeeDetailDto employeeDetailDto = employeeService.findById(id);
+        Employee findEmployee = employeeService.findById(id);
         return ResponseDto.builder()
                 .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id
                         +" "+GlobalConstants.FIND_BY_ID.getMessage())
-                .data(employeeDetailDto)
+                .data(new EmployeeDetailDto(findEmployee))
                 .build();
     }
 
     @DeleteMapping(value = "{id}")
     public ResponseDto deleteEmployeeById(@PathVariable Long id){
-        employeeService.deleteById(id);
+        Long deleteId = employeeService.deleteById(id);
         return ResponseDto.builder()
                 .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id
                         +" "+GlobalConstants.DELETE.getMessage())
-                .data(id)
+                .data(deleteId)
                 .build();
     }
 
     @PostMapping(value = "join")
     public void joinEmployee(@RequestBody EmployeeJoinRequestDto joinEmployeeDto,
                                     HttpServletResponse response) throws IOException {
-        Long id = employeeService.join(joinEmployeeDto.toEntity());
+        Long id = employeeService.join(joinEmployeeDto);
         response.sendRedirect(id.toString());
     }
 
     @PostMapping(value = "login")
     public ResponseDto loginEmployee(@RequestBody EmployeeLoginRequestDto loginInfoDto){
-        EmployeeLoginResponseDto employeeLoginResponseDto = employeeService.login(loginInfoDto);
+        Employee findEmployee
+                = employeeService.login(loginInfoDto);
         return ResponseDto.builder()
-                .message(employeeLoginResponseDto.getLoginId()+" "+EmployeeResponseConstants.LOGIN.getMessage())
-                .data(employeeLoginResponseDto)
+                .message(findEmployee.getLogin_id()+" "+EmployeeResponseConstants.LOGIN.getMessage())
+                .data(new EmployeeLoginResponseDto(findEmployee))
                 .build();
     }
 

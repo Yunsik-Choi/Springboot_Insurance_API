@@ -1,6 +1,7 @@
 package com.Insurance.hm.employee.domain;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,8 +16,7 @@ public class EmployeeRepository {
 
     public Employee save(Employee employee){
         em.persist(employee);
-        Employee findEmployee = em.find(Employee.class,employee.getId());
-        return findEmployee;
+        return employee;
     }
 
     public Employee findById(Long id) {
@@ -27,10 +27,9 @@ public class EmployeeRepository {
         return null;
     }
 
-    public Employee delete(Long id){
-        Employee findEmployee = findById(id);
-        em.remove(findEmployee);
-        return findEmployee;
+    public Employee delete(Employee employee) {
+        em.remove(employee);
+        return employee;
     }
 
     public Optional findByLoginId(String loginId) throws RuntimeException {

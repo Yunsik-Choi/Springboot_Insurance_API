@@ -1,17 +1,17 @@
 package com.Insurance.hm.employee.service;
 
 import com.Insurance.hm.employee.domain.Employee;
-import com.Insurance.hm.employee.dto.EmployeeDetailDto;
+import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
-import com.Insurance.hm.employee.dto.EmployeeLoginResponseDto;
+import com.Insurance.hm.global.exception.business.NonMatchIdException;
 
 public interface EmployeeService {
 
-    Long join(Employee employee);
+    Long join(EmployeeJoinRequestDto joinRequestDto);
 
-    EmployeeLoginResponseDto login(EmployeeLoginRequestDto loginRequestDto);
+    Employee login(EmployeeLoginRequestDto loginRequestDto);
 
-    EmployeeDetailDto findById(Long id);
+    Employee findById(Long id);
 
     Long deleteById(Long id);
 }

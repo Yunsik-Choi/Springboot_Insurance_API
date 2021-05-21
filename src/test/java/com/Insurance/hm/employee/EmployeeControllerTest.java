@@ -5,6 +5,7 @@ import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.domain.entity.Role;
 import com.Insurance.hm.employee.dto.EmployeeDetailDto;
+import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginResponseDto;
 import com.Insurance.hm.employee.service.EmployeeService;
@@ -15,6 +16,7 @@ import com.Insurance.hm.util.ApiDocumentUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -33,8 +36,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static com.Insurance.hm.util.ApiDocumentUtils.*;
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
@@ -69,51 +70,48 @@ class EmployeeControllerTest {
     @Test
     void 직원_아이디로_찾기_API() throws Exception{
         //given
-        Employee employee = getEmployee();
-
+        EmployeeJoinRequestDto joinRequestDto = getEmployeeJoinRequestDto();
+//        given(employeeService.join(joinRequestDto)).willReturn(1L);
         //when
-        when(employeeService.findById(1L)).thenReturn(new EmployeeDetailDto(employee));
+        when(employeeService.findById(1L)).thenReturn(getEmployee());
         ResultActions result = this.mockMvc.perform(
                 get("/api/employee/{id}",1L)
         );
 
         //then
         result.andExpect(status().isOk())
-                .andDo(document("Employee 아이디로 찾기",
-                        getDocumentRequest(),
+                .andDo(document("Employee 아이디로 조회",
                         getDocumentResponse(),
                         responseFields(
-                                fieldWithPath("status").type(JsonFieldType.NUMBER).description("http status"),
-                                fieldWithPath("result").type(JsonFieldType.STRING).description("응답 결과"),
-                                fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
-                                fieldWithPath("data.id").type(JsonFieldType.NULL).description("직원 아이디"),
-                                fieldWithPath("data.name").type(JsonFieldType.STRING).description("직원 이름"),
-                                fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("직원 로그인 아이디"),
-                                fieldWithPath("data.password").type(JsonFieldType.STRING).description("직원 비밀번호"),
-                                fieldWithPath("data.phoneNumber").type(JsonFieldType.STRING).description("직원 전화번호"),
-                                fieldWithPath("data.email").type(JsonFieldType.STRING).description("직원 이메일"),
-                                fieldWithPath("data.department").type(JsonFieldType.STRING).description("직원 부서"),
-                                fieldWithPath("data.role").type(JsonFieldType.STRING).description("직원 직급"),
-                                fieldWithPath("data.createTime").type(JsonFieldType.NULL).description("직원 생성 시간")
+                                getResponseDetailEmployee()
                         )
                 ));
     }
 
+    private FieldDescriptor[] getResponseDetailEmployee() {
+        return new FieldDescriptor[]{fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태"),
+                fieldWithPath("result").type(JsonFieldType.STRING).description("응답 상태"),
+                fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                fieldWithPath("data.id").type(JsonFieldType.NULL).description("직원 아이디"),
+                fieldWithPath("data.name").type(JsonFieldType.STRING).description("직원 이름"),
+                fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("직원 로그인 아이디"),
+                fieldWithPath("data.password").type(JsonFieldType.STRING).description("직원 비밀번호"),
+                fieldWithPath("data.phoneNumber").type(JsonFieldType.STRING).description("직원 전화번호"),
+                fieldWithPath("data.email").type(JsonFieldType.STRING).description("직원 이메일"),
+                fieldWithPath("data.department").type(JsonFieldType.STRING).description("직원 부서"),
+                fieldWithPath("data.role").type(JsonFieldType.STRING).description("직원 직급"),
+                fieldWithPath("data.createTime").type(JsonFieldType.NULL).description("직원 생성 시간")};
+    }
 
     @Test
     void 직원_로그인_API() throws Exception{
         //given
         Employee employee = getEmployee();
-
         EmployeeLoginRequestDto loginRequestDto = new EmployeeLoginRequestDto();
         loginRequestDto.setLoginId(employee.getLogin_id());
         loginRequestDto.setPassword(employee.getPassword());
-
-        EmployeeLoginResponseDto employeeLoginResponseDto = new EmployeeLoginResponseDto(employee);
-
         //when
-        when(employeeService.login(loginRequestDto)).thenReturn(employeeLoginResponseDto);
-
+        when(employeeService.login(loginRequestDto)).thenReturn(employee);
         ResultActions result = this.mockMvc.perform(
                 post("/api/employee/login")
                         .content(objectMapper.writeValueAsString(loginRequestDto))
@@ -130,8 +128,8 @@ class EmployeeControllerTest {
                                 fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호")
                         ),
                         responseFields(
-                                fieldWithPath("status").type(JsonFieldType.NUMBER).description("http status"),
-                                fieldWithPath("result").type(JsonFieldType.STRING).description("응답 결과"),
+                                fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태"),
+                                fieldWithPath("result").type(JsonFieldType.STRING).description("응답 상태"),
                                 fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
                                 fieldWithPath("data.name").type(JsonFieldType.STRING).description("직원 이름"),
                                 fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("직원 로그인 아이디"),
@@ -144,31 +142,87 @@ class EmployeeControllerTest {
                 ));
     }
 
+    @Test
+    void 직원_삭제_API() throws Exception{
+        //given
+        //when
+        when(employeeService.deleteById(1L)).thenReturn(1L);
+        ResultActions result = mockMvc.perform(delete("/api/employee/{id}", 1L));
+        //then
+        result.andExpect(status().isOk())
+                .andDo(document("Employee 삭제",
+                        getDocumentResponse(),
+                        responseFields(
+                                fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태"),
+                                fieldWithPath("result").type(JsonFieldType.STRING).description("응답 상태"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                fieldWithPath("data").type(JsonFieldType.NUMBER).description("삭제된 직원 아이디")
+                        )
+                    )
+                );
+    }
+
+    @Test
+    @Disabled
+    void 직원_가입_API() throws Exception {
+        //given
+        EmployeeJoinRequestDto joinRequestDto = new EmployeeJoinRequestDto();
+        joinRequestDto.setName(getEmployee().getName());
+        joinRequestDto.setLoginId(getEmployee().getLogin_id());
+        joinRequestDto.setPassword(getEmployee().getPassword());
+        joinRequestDto.setPhoneNumber(getEmployee().getPhone_number());
+        joinRequestDto.setEmail(getEmployee().getEmail());
+        joinRequestDto.setDepartment(getEmployee().getDepartment());
+        joinRequestDto.setRole(getEmployee().getRole());
+        //when
+        when(employeeService.join(joinRequestDto)).thenReturn(1L);
+        ResultActions result = mockMvc.perform(post("/api/employee/join")
+                .content(objectMapper.writeValueAsString(joinRequestDto))
+                .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        //then
+        result.andExpect(status().isOk()).andDo(document("Employee 가입",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                requestFields(
+                        fieldWithPath("name").type(JsonFieldType.STRING).description("직원 이름"),
+                        fieldWithPath("loginId").type(JsonFieldType.STRING).description("직원 로그인 아이디"),
+                        fieldWithPath("password").type(JsonFieldType.STRING).description("직원 비밀번호"),
+                        fieldWithPath("phoneNumber").type(JsonFieldType.STRING).description("직원 전화번호"),
+                        fieldWithPath("email").type(JsonFieldType.STRING).description("직원 이메일"),
+                        fieldWithPath("department").type(JsonFieldType.STRING).description("직원 부서"),
+                        fieldWithPath("role").type(JsonFieldType.STRING).description("직원 직급")
+                ),
+                responseFields(
+                        getResponseDetailEmployee()
+                )
+                ));
+    }
+
+
     private Employee getEmployee() {
         return Employee.builder()
                     .name("최윤식")
                     .login_id("abcd")
                     .password("1234")
                     .phone_number("010-000-000")
-                    .email("choiys")
+                    .email("abcd")
                     .department(Department.개발)
                     .role(Role.과장)
                     .build();
     }
 
-    private RequestFieldsSnippet getEmployeeRequest() {
-        return requestFields(
-                fieldWithPath("id").type(JsonFieldType.NULL).description("아이디"),
-                fieldWithPath("name").type(JsonFieldType.STRING).description("이름"),
-                fieldWithPath("login_id").type(JsonFieldType.STRING).description("로그인 아이디"),
-                fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
-                fieldWithPath("phone_number").type(JsonFieldType.STRING).description("전화번호"),
-                fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
-                fieldWithPath("department").type(JsonFieldType.STRING).description("부서"),
-                fieldWithPath("role").type(JsonFieldType.STRING).description("부서"),
-                fieldWithPath("created_date").type(JsonFieldType.NULL).description("생성시간"),
-                fieldWithPath("modified_date").type(JsonFieldType.NULL).description("수정시간")
-        );
+    private EmployeeJoinRequestDto getEmployeeJoinRequestDto() {
+        EmployeeJoinRequestDto joinRequestDto = new EmployeeJoinRequestDto();
+        joinRequestDto.setDepartment(Department.개발);
+        joinRequestDto.setEmail("abcd@aaa.com");
+        joinRequestDto.setLoginId("abcd");
+        joinRequestDto.setName("에이비씨");
+        joinRequestDto.setPassword("1234");
+        joinRequestDto.setPhoneNumber("010-0000-0000");
+        joinRequestDto.setRole(Role.과장);
+        return joinRequestDto;
     }
 
 }
