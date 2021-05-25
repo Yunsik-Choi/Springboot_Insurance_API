@@ -22,9 +22,9 @@ public class EmployeeJoinRequestDto {
     public Employee toEntity(){
         Employee employee = Employee.builder()
                 .name(name)
-                .login_id(loginId)
+                .loginId(loginId)
                 .password(password)
-                .phone_number(phoneNumber)
+                .phoneNumber(phoneNumber)
                 .email(email)
                 .department(department)
                 .role(role)

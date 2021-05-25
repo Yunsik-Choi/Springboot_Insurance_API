@@ -32,23 +32,23 @@ public class Insurance extends BaseTime {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "create_employee_id")
-    private Employee create_employee;
+    private Employee createEmployee;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "management_employee_id")
-    private Employee management_employee;
+    private Employee managementEmployee;
 
     @OneToMany(mappedBy = "insurance")
-    private List<Contract> contract_list = new ArrayList<>();
+    private List<Contract> contractList = new ArrayList<>();
 
     @Builder
     public Insurance(String name, String description, InsuranceCategory category, InsuranceTarget target,
-                     Employee create_employee, Employee management_employee) {
+                     Employee createEmployee, Employee managementEmployee) {
         this.name = name;
         this.description = description;
         this.category = category;
         this.target = target;
-        this.create_employee = create_employee;
-        this.management_employee = management_employee;
+        this.createEmployee = createEmployee;
+        this.managementEmployee = managementEmployee;
     }
 }

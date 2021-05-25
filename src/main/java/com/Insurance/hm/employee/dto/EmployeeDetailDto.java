@@ -24,12 +24,12 @@ public class EmployeeDetailDto {
     public EmployeeDetailDto(Employee employee){
         this.id = employee.getId();
         this.name = employee.getName();
-        this.loginId = employee.getLogin_id();
+        this.loginId = employee.getLoginId();
         this.password = employee.getPassword();
-        this.phoneNumber = employee.getPhone_number();
+        this.phoneNumber = employee.getPhoneNumber();
         this.email = employee.getEmail();
         this.department = employee.getDepartment();
         this.role = employee.getRole();
-        this.createTime = employee.getCreated_date();
+        this.createTime = employee.getCreatedDate();
     }
 }

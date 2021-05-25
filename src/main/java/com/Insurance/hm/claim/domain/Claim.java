@@ -25,10 +25,15 @@ public class Claim extends BaseTime {
     @Column(name = "claim_id")
     private Long id;
 
-    private LocalDateTime accident_date;
-    private Long damage_cost;
-    private String hospital_statement;
-    private LocalDateTime receipt_date;
+    @Column(name = "accident_date")
+    private LocalDateTime accidentDate;
+    @Column(name = "damage_cost")
+    private Long damageCost;
+
+    @Column(name = "hospital_statement")
+    private String hospitalStatement;
+    @Column(name = "receipt_date")
+    private LocalDateTime receiptDate;
 
     @Enumerated(value = EnumType.STRING)
     private ClaimStatus status;
@@ -45,15 +50,16 @@ public class Claim extends BaseTime {
     private Employee employee;
 
     @OneToMany(mappedBy = "claim")
-    private List<ClaimPartner> claimpartner_list = new ArrayList<>();
+    @Column(name = "claimpartner_list")
+    private List<ClaimPartner> claimpartnerList = new ArrayList<>();
 
     @Builder
-    public Claim(LocalDateTime accident_date, Long damage_cost, String hospital_statement, LocalDateTime receipt_date,
+    public Claim(LocalDateTime accidentDate, Long damageCost, String hospitalStatement, LocalDateTime receiptDate,
                  ClaimStatus status, ClaimType type, Contract contract, Employee employee) {
-        this.accident_date = accident_date;
-        this.damage_cost = damage_cost;
-        this.hospital_statement = hospital_statement;
-        this.receipt_date = receipt_date;
+        this.accidentDate = accidentDate;
+        this.damageCost = damageCost;
+        this.hospitalStatement = hospitalStatement;
+        this.receiptDate = receiptDate;
         this.status = status;
         this.type = type;
         this.contract = contract;

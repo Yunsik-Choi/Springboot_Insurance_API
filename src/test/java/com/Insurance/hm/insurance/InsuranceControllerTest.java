@@ -106,8 +106,8 @@ class InsuranceControllerTest {
         createRequestDto.setTarget(getInsurance().getTarget());
         createRequestDto.setCategory(getInsurance().getCategory());
         createRequestDto.setDescription(getInsurance().getDescription());
-        createRequestDto.setCreateEmployeeId(getInsurance().getCreate_employee().getId());
-        createRequestDto.setManagementEmployeeId(getInsurance().getCreate_employee().getId());
+        createRequestDto.setCreateEmployeeId(getInsurance().getCreateEmployee().getId());
+        createRequestDto.setManagementEmployeeId(getInsurance().getManagementEmployee().getId());
 
         ResultActions result = mockMvc.perform(post("/api/insurance/create")
                 .content(objectMapper.writeValueAsString(createRequestDto))
@@ -183,8 +183,8 @@ class InsuranceControllerTest {
                 .description("HM보험사에서 내놓는 최초의 보험")
                 .category(InsuranceCategory.운전자)
                 .target(getInsuranceTarget())
-                .create_employee(getEmployee())
-                .management_employee(getEmployee())
+                .createEmployee(getEmployee())
+                .managementEmployee(getEmployee())
                 .build();
         return insurance;
     }
@@ -200,9 +200,9 @@ class InsuranceControllerTest {
     private Employee getEmployee() {
         return Employee.builder()
                 .name("최윤식")
-                .login_id("abcd")
+                .loginId("abcd")
                 .password("1234")
-                .phone_number("010-000-000")
+                .phoneNumber("010-000-000")
                 .email("abcd")
                 .department(Department.개발)
                 .role(Role.과장)

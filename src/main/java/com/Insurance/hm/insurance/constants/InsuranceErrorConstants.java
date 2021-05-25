@@ -5,7 +5,9 @@ import lombok.Getter;
 
 @Getter
 public enum InsuranceErrorConstants implements ErrorConstants {
-    Non_Match_Id(500,104 ,"해당 아이디와 일치하는 정보가 존재하지 않습니다." );
+    Non_Match_Id(500,201 ,"해당 아이디와 일치하는 Insurance가 존재하지 않습니다." ),
+    Non_Match_Create_Employee_Exception(500,202,"createInsuranceId와 일치하는 직원이 존재하지 않습니다."),
+    Non_Match_Management_Employee_Exception(500,203,"managementInsuranceId와 일치하는 직원이 존재하지 않습니다.");
 
     private int status;
     private int code;

@@ -23,7 +23,7 @@ public class Compensation extends BaseTime {
     private Long id;
 
     private Long cost;
-    private LocalDateTime date_time;
+    private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
     private CompensationStatus status;
@@ -42,9 +42,9 @@ public class Compensation extends BaseTime {
     private Employee employee;
 
     @Builder
-    public Compensation(Long cost, LocalDateTime date_time, CompensationStatus status, Claim claim, Contract contract, Employee employee) {
+    public Compensation(Long cost, LocalDateTime dateTime, CompensationStatus status, Claim claim, Contract contract, Employee employee) {
         this.cost = cost;
-        this.date_time = date_time;
+        this.dateTime = dateTime;
         this.status = status;
         this.claim = claim;
         this.contract = contract;

@@ -16,15 +16,15 @@ public class ClaimPartner extends BaseTime{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "claimpartner_id")
+    @Column(name = "claim_partner_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "claim_id")
     @NotNull
     private Claim claim;
     @ManyToOne
-    @JoinColumn(name = "partner")
+    @JoinColumn(name = "partner_id")
     @NotNull
     private Partner partner;
 
@@ -36,15 +36,15 @@ public class ClaimPartner extends BaseTime{
 
     public void changeClaim(Claim claim){
         this.claim = claim;
-        List<ClaimPartner> claimpartner_list = claim.getClaimpartner_list();
-        if(!claimpartner_list.contains(this))
-            claimpartner_list.add(this);
+        List<ClaimPartner> claimpartnerList = claim.getClaimpartnerList();
+        if(!claimpartnerList.contains(this))
+            claimpartnerList.add(this);
     }
 
     public void changePartner(Partner partner){
         this.partner = partner;
-        List<ClaimPartner> claimpartner_list = partner.getClaimpartner_list();
-        if(!claimpartner_list.contains(this))
-            claimpartner_list.add(this);
+        List<ClaimPartner> claimpartnerList = partner.getClaimpartnerList();
+        if(!claimpartnerList.contains(this))
+            claimpartnerList.add(this);
     }
 }

@@ -1,8 +1,11 @@
 package com.Insurance.hm.insurance.service;
 
-import com.Insurance.hm.employee.service.EmployeeService;
+import com.Insurance.hm.employee.domain.Employee;
+import com.Insurance.hm.employee.domain.EmployeeRepository;
 import com.Insurance.hm.global.constants.GlobalErrorConstants;
+import com.Insurance.hm.global.exception.BusinessException;
 import com.Insurance.hm.global.exception.business.NonMatchIdException;
+import com.Insurance.hm.insurance.constants.InsuranceErrorConstants;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.InsuranceRepository;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
@@ -16,36 +19,34 @@ import org.springframework.transaction.annotation.Transactional;
 public class InsuranceServiceImpl implements InsuranceService{
 
     private final InsuranceRepository insuranceRepository;
-    private final EmployeeService employeeService;
+    private final EmployeeRepository employeeRepository;
 
     @Override
     public Long create(InsuranceCreateRequestDto createRequestDto) {
-        Insurance createInsurance  = insuranceRepository.create(
-                    createRequestDto.toEntity(
-                            employeeService.findById(createRequestDto.getCreateEmployeeId()),
-                            employeeService.findById(createRequestDto.getManagementEmployeeId()))
-        );
+        Employee createEmployee = employeeRepository.findById(createRequestDto.getCreateEmployeeId())
+                .orElseThrow(() -> new NonMatchIdException(InsuranceErrorConstants.Non_Match_Create_Employee_Exception));
+        Employee managementEmployee = employeeRepository.findById(createRequestDto.getManagementEmployeeId())
+                .orElseThrow(() -> new NonMatchIdException(InsuranceErrorConstants.Non_Match_Management_Employee_Exception));
+        Insurance createInsurance  = insuranceRepository.save(
+                createRequestDto.toEntity(createEmployee,managementEmployee));
         return createInsurance.getId();
     }
 
     @Override
     public Insurance findById(Long id) {
-        Insurance findInsurance = insuranceRepository.findById(id);
-        findInsuranceByIdIsNull(findInsurance);
+        Insurance findInsurance = insuranceRepository.findById(id).orElseThrow(() -> findInsuranceByIdIsNull());
         return findInsurance;
     }
 
     @Override
     public Long deleteById(Long id) {
-        Insurance findInsurance = insuranceRepository.findById(id);
-        findInsuranceByIdIsNull(findInsurance);
+        Insurance findInsurance = insuranceRepository.findById(id).orElseThrow(() -> findInsuranceByIdIsNull());
         insuranceRepository.deleteById(id);
         return findInsurance.getId();
     }
 
-    private void findInsuranceByIdIsNull(Insurance findInsurance) {
-        if(findInsurance==null)
-            throw new NonMatchIdException(GlobalErrorConstants.Non_Match_Id);
+    private BusinessException findInsuranceByIdIsNull() {
+        return new NonMatchIdException(GlobalErrorConstants.Non_Match_Id.setClassNameMessage("Insurance"));
     }
 
 }

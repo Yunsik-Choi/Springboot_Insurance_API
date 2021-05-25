@@ -24,10 +24,14 @@ public class Contract extends BaseTime {
     @Column(name = "contract_id")
     private Long id;
 
-    private Long insurance_premium;
-    private Long accumulated_premium;
-    private Double premium_rate;
-    private Long reimbursement_cost;
+    @Column(name = "insurance_premium")
+    private Long insurancePremium;
+    @Column(name = "accumulated_premium")
+    private Long accumulatedPremium;
+    @Column(name = "premium_rate")
+    private Double premiumRate;
+    @Column(name = "reimbursement_cost")
+    private Long reimbursementCost;
 
     @Enumerated(value = EnumType.STRING)
     private ContractStatus status;
@@ -35,7 +39,8 @@ public class Contract extends BaseTime {
     private Channel channel;
 
     @Embedded
-    private ContractDate contract_date;
+    @Column(name = "contract_date")
+    private ContractDate contractDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
@@ -51,16 +56,16 @@ public class Contract extends BaseTime {
     private Employee employee;
 
     @Builder
-    public Contract(Long insurance_premium, Long accumulated_premium, Double premium_rate, Long reimbursement_cost,
-                    ContractStatus status, Channel channel, ContractDate contract_date, Client client,
+    public Contract(Long insurancePremium, Long accumulatedPremium, Double premiumRate, Long reimbursementCost,
+                    ContractStatus status, Channel channel, ContractDate contractDate, Client client,
                     Insurance insurance, Employee employee) {
-        this.insurance_premium = insurance_premium;
-        this.accumulated_premium = accumulated_premium;
-        this.premium_rate = premium_rate;
-        this.reimbursement_cost = reimbursement_cost;
+        this.insurancePremium = insurancePremium;
+        this.accumulatedPremium = accumulatedPremium;
+        this.premiumRate = premiumRate;
+        this.reimbursementCost = reimbursementCost;
         this.status = status;
         this.channel = channel;
-        this.contract_date = contract_date;
+        this.contractDate = contractDate;
         this.client = client;
         changeInsurance(insurance);
         changeClient(client);
@@ -69,14 +74,14 @@ public class Contract extends BaseTime {
 
     public void changeInsurance(Insurance insurance){
         this.insurance = insurance;
-        List<Contract> contract_list = insurance.getContract_list();
-        if(!contract_list.contains(this))
-            contract_list.add(this);
+        List<Contract> contractList = insurance.getContractList();
+        if(!contractList.contains(this))
+            contractList.add(this);
     }
     public void changeClient(Client client){
         this.client = client;
-        List<Contract> contract_list = client.getContract_list();
-        if(!contract_list.contains(this))
-            contract_list.add(this);
+        List<Contract> contractList = client.getContractList();
+        if(!contractList.contains(this))
+            contractList.add(this);
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Slf4j
@@ -46,7 +47,7 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "join")
-    public void joinEmployee(@RequestBody EmployeeJoinRequestDto joinEmployeeDto,
+    public void joinEmployee(@RequestBody @Valid EmployeeJoinRequestDto joinEmployeeDto,
                                     HttpServletResponse response) throws IOException {
         Long id = employeeService.join(joinEmployeeDto);
         response.sendRedirect(id.toString());
@@ -57,7 +58,7 @@ public class EmployeeController {
         Employee findEmployee
                 = employeeService.login(loginInfoDto);
         return ResponseDto.builder()
-                .message(findEmployee.getLogin_id()+" "+EmployeeResponseConstants.LOGIN.getMessage())
+                .message(findEmployee.getLoginId()+" "+EmployeeResponseConstants.LOGIN.getMessage())
                 .data(new EmployeeLoginResponseDto(findEmployee))
                 .build();
     }

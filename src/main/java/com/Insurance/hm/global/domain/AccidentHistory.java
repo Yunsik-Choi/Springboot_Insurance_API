@@ -11,17 +11,19 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AccidentHistory {
+public class AccidentHistory extends BaseTime{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "accident_history_id")
     private Long id;
 
-    private LocalDateTime accident_date;
-
-    private Double accident_rate;
-
-    private String accident_description;
+    @Column(name = "accident_date")
+    private LocalDateTime accidentDate;
+    @Column(name = "accident_rate")
+    private Double accidentRate;
+    @Column(name = "accident_description")
+    private String accidentDescription;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -29,17 +31,17 @@ public class AccidentHistory {
 
 
     @Builder
-    public AccidentHistory(LocalDateTime accident_date, Double accident_rate, String accident_description, Client client) {
-        this.accident_date = accident_date;
-        this.accident_rate = accident_rate;
-        this.accident_description = accident_description;
+    public AccidentHistory(LocalDateTime accidentDate, Double accidentRate, String accidentDescription, Client client) {
+        this.accidentDate = accidentDate;
+        this.accidentRate = accidentRate;
+        this.accidentDescription = accidentDescription;
         changeClient(client);
     }
 
 
     private void changeClient(Client client){
         this.client = client;
-        List<AccidentHistory> accident_history_list = client.getAccident_history_list();
+        List<AccidentHistory> accident_history_list = client.getAccidentHistoryList();
         if(!accident_history_list.contains(this))
             accident_history_list.add(this);
     }

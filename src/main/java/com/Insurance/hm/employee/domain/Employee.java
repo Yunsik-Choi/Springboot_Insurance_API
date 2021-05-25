@@ -19,10 +19,11 @@ public class Employee extends BaseTime {
     private Long id;
 
     private String name;
-    @Column(unique = true)
-    private String login_id;
+    @Column(name = "login_id",unique = true)
+    private String loginId;
     private String password;
-    private String phone_number;
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
     private String email;
 
     @Enumerated(value = EnumType.STRING)
@@ -31,11 +32,11 @@ public class Employee extends BaseTime {
     private Role role;
 
     @Builder
-    public Employee(String name, String login_id, String password, String phone_number, String email, Department department, Role role) {
+    public Employee(String name, String loginId, String password, String phoneNumber, String email, Department department, Role role) {
         this.name = name;
-        this.login_id = login_id;
+        this.loginId = loginId;
         this.password = password;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.department = department;
         this.role = role;

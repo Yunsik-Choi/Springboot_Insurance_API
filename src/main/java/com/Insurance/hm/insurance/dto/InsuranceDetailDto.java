@@ -32,11 +32,11 @@ public class InsuranceDetailDto {
         this.description = insurance.getDescription();
         this.category = insurance.getCategory();
         this.target = insurance.getTarget();
-        this.createTime = insurance.getCreated_date();
-        this.modifiedTime = insurance.getModified_date();
-        this.createEmployee = new InsuranceEmployeeDto(insurance.getCreate_employee());
-        this.managementEmployee = new InsuranceEmployeeDto(insurance.getManagement_employee());
-        this.contractList = insurance.getContract_list();
+        this.createTime = insurance.getCreatedDate();
+        this.modifiedTime = insurance.getModifiedDate();
+        this.createEmployee = new InsuranceEmployeeDto(insurance.getCreateEmployee());
+        this.managementEmployee = new InsuranceEmployeeDto(insurance.getManagementEmployee());
+        this.contractList = insurance.getContractList();
     }
 
 }

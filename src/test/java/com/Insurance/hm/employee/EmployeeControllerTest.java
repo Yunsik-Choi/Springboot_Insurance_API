@@ -108,7 +108,7 @@ class EmployeeControllerTest {
         //given
         Employee employee = getEmployee();
         EmployeeLoginRequestDto loginRequestDto = new EmployeeLoginRequestDto();
-        loginRequestDto.setLoginId(employee.getLogin_id());
+        loginRequestDto.setLoginId(employee.getLoginId());
         loginRequestDto.setPassword(employee.getPassword());
         //when
         when(employeeService.login(loginRequestDto)).thenReturn(employee);
@@ -168,9 +168,9 @@ class EmployeeControllerTest {
         //given
         EmployeeJoinRequestDto joinRequestDto = new EmployeeJoinRequestDto();
         joinRequestDto.setName(getEmployee().getName());
-        joinRequestDto.setLoginId(getEmployee().getLogin_id());
+        joinRequestDto.setLoginId(getEmployee().getLoginId());
         joinRequestDto.setPassword(getEmployee().getPassword());
-        joinRequestDto.setPhoneNumber(getEmployee().getPhone_number());
+        joinRequestDto.setPhoneNumber(getEmployee().getPhoneNumber());
         joinRequestDto.setEmail(getEmployee().getEmail());
         joinRequestDto.setDepartment(getEmployee().getDepartment());
         joinRequestDto.setRole(getEmployee().getRole());
@@ -204,9 +204,9 @@ class EmployeeControllerTest {
     private Employee getEmployee() {
         return Employee.builder()
                     .name("최윤식")
-                    .login_id("abcd")
+                    .loginId("abcd")
                     .password("1234")
-                    .phone_number("010-000-000")
+                    .phoneNumber("010-000-000")
                     .email("abcd")
                     .department(Department.개발)
                     .role(Role.과장)

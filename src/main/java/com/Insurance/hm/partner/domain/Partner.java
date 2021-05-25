@@ -23,7 +23,8 @@ public class Partner extends BaseTime {
 
     private String name;
     private String address;
-    private String contact_number;
+    @Column(name = "contact_number")
+    private String contactNumber;
 
     @Enumerated(value = EnumType.STRING)
     private PartnerCategory category;
@@ -33,13 +34,14 @@ public class Partner extends BaseTime {
     private Employee employee;
 
     @OneToMany(mappedBy = "partner")
-    private List<ClaimPartner> claimpartner_list = new ArrayList<>();
+    @Column(name = "claimpartner_list")
+    private List<ClaimPartner> claimpartnerList = new ArrayList<>();
 
     @Builder
-    public Partner(String name, String address, String contact_number, PartnerCategory category, Employee employee) {
+    public Partner(String name, String address, String contactNumber, PartnerCategory category, Employee employee) {
         this.name = name;
         this.address = address;
-        this.contact_number = contact_number;
+        this.contactNumber = contactNumber;
         this.category = category;
         this.employee = employee;
     }

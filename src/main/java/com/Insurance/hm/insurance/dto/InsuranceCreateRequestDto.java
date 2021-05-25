@@ -25,8 +25,8 @@ public class InsuranceCreateRequestDto {
                 .description(description)
                 .category(category)
                 .target(target)
-                .create_employee(createEmployee)
-                .management_employee(managementEmployee)
+                .createEmployee(createEmployee)
+                .managementEmployee(managementEmployee)
                 .build();
         return insurance;
     }

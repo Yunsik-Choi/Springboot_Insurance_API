@@ -23,4 +23,5 @@ public enum EmployeeErrorConstants implements ErrorConstants {
         this.codeName = this.toString();
         this.message = message;
     }
+    
 }

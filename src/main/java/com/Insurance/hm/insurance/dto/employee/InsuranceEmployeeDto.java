@@ -20,7 +20,7 @@ public class InsuranceEmployeeDto {
     public InsuranceEmployeeDto(Employee employee) {
         this.id = employee.getId();
         this.name = employee.getName();
-        this.phoneNumber = employee.getPhone_number();
+        this.phoneNumber = employee.getPhoneNumber();
         this.email = employee.getEmail();
         this.department = employee.getDepartment();
         this.role = employee.getRole();
