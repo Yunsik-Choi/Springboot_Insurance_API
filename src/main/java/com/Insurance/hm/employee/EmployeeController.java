@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -30,8 +29,7 @@ public class EmployeeController {
     public ResponseDto showDetailEmployeeById(@PathVariable Long id){
         Employee findEmployee = employeeService.findById(id);
         return ResponseDto.builder()
-                .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id
-                        +" "+GlobalConstants.FIND_BY_ID.getMessage())
+                .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id+GlobalConstants.FIND_BY_ID.getMessage())
                 .data(new EmployeeDetailDto(findEmployee))
                 .build();
     }
@@ -40,8 +38,7 @@ public class EmployeeController {
     public ResponseDto deleteEmployeeById(@PathVariable Long id){
         Long deleteId = employeeService.deleteById(id);
         return ResponseDto.builder()
-                .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id
-                        +" "+GlobalConstants.DELETE.getMessage())
+                .message(EmployeeResponseConstants.EMPLOYEE_NO.getMessage()+id+GlobalConstants.DELETE.getMessage())
                 .data(deleteId)
                 .build();
     }
@@ -58,7 +55,8 @@ public class EmployeeController {
         Employee findEmployee
                 = employeeService.login(loginInfoDto);
         return ResponseDto.builder()
-                .message(findEmployee.getLoginId()+" "+EmployeeResponseConstants.LOGIN.getMessage())
+                .message(EmployeeResponseConstants.EMPLOYEE_NO+findEmployee.getLoginId()
+                        +EmployeeResponseConstants.LOGIN.getMessage())
                 .data(new EmployeeLoginResponseDto(findEmployee))
                 .build();
     }

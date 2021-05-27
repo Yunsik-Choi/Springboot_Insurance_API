@@ -1,11 +1,6 @@
 package com.Insurance.hm.contract.domain;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-@RequiredArgsConstructor
-@Transactional
-public class ContractRepository {
+public interface ContractRepository extends JpaRepository<Contract, Long> {
 }

@@ -9,6 +9,7 @@ import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,8 +31,6 @@ public class Contract extends BaseTime {
     private Long accumulatedPremium;
     @Column(name = "premium_rate")
     private Double premiumRate;
-    @Column(name = "reimbursement_cost")
-    private Long reimbursementCost;
 
     @Enumerated(value = EnumType.STRING)
     private ContractStatus status;
@@ -56,13 +55,12 @@ public class Contract extends BaseTime {
     private Employee employee;
 
     @Builder
-    public Contract(Long insurancePremium, Long accumulatedPremium, Double premiumRate, Long reimbursementCost,
+    public Contract(Long insurancePremium, Long accumulatedPremium, Double premiumRate,
                     ContractStatus status, Channel channel, ContractDate contractDate, Client client,
                     Insurance insurance, Employee employee) {
         this.insurancePremium = insurancePremium;
         this.accumulatedPremium = accumulatedPremium;
         this.premiumRate = premiumRate;
-        this.reimbursementCost = reimbursementCost;
         this.status = status;
         this.channel = channel;
         this.contractDate = contractDate;
@@ -83,5 +81,9 @@ public class Contract extends BaseTime {
         List<Contract> contractList = client.getContractList();
         if(!contractList.contains(this))
             contractList.add(this);
+    }
+
+    public void changeStatus(ContractStatus changeStatus){
+        this.status = changeStatus;
     }
 }

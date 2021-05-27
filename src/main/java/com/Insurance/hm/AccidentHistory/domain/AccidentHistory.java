@@ -1,8 +1,10 @@
-package com.Insurance.hm.global.domain;
+package com.Insurance.hm.AccidentHistory.domain;
 
 import com.Insurance.hm.client.domain.Client;
+import com.Insurance.hm.global.domain.BaseTime;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,8 +12,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AccidentHistory extends BaseTime{
+public class AccidentHistory extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

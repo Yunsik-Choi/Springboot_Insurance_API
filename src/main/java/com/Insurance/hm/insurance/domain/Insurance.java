@@ -51,4 +51,5 @@ public class Insurance extends BaseTime {
         this.createEmployee = createEmployee;
         this.managementEmployee = managementEmployee;
     }
+
 }

@@ -1,17 +1,20 @@
 package com.Insurance.hm.insurance.dto;
 
 import com.Insurance.hm.contract.domain.Contract;
+import com.Insurance.hm.contract.dto.ContractInfoDto;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
-import com.Insurance.hm.insurance.dto.employee.InsuranceEmployeeDto;
+import com.Insurance.hm.employee.dto.EmployeeInfoDto;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Data
 public class InsuranceDetailDto {
 
     private Long id;
@@ -21,9 +24,9 @@ public class InsuranceDetailDto {
     private InsuranceTarget target;
     private LocalDateTime createTime;
     private LocalDateTime modifiedTime;
-    private InsuranceEmployeeDto createEmployee;
-    private InsuranceEmployeeDto managementEmployee;
-    private List<Contract> contractList;
+    private EmployeeInfoDto createEmployee;
+    private EmployeeInfoDto managementEmployee;
+    private List<ContractInfoDto> contractList;
 
 
     public InsuranceDetailDto(Insurance insurance){
@@ -34,9 +37,11 @@ public class InsuranceDetailDto {
         this.target = insurance.getTarget();
         this.createTime = insurance.getCreatedDate();
         this.modifiedTime = insurance.getModifiedDate();
-        this.createEmployee = new InsuranceEmployeeDto(insurance.getCreateEmployee());
-        this.managementEmployee = new InsuranceEmployeeDto(insurance.getManagementEmployee());
-        this.contractList = insurance.getContractList();
+        this.createEmployee = new EmployeeInfoDto(insurance.getCreateEmployee());
+        this.managementEmployee = new EmployeeInfoDto(insurance.getManagementEmployee());
+        List<ContractInfoDto> contractInfoDtoList = new ArrayList<>();
+        insurance.getContractList().stream().forEach(c -> contractInfoDtoList.add(new ContractInfoDto(c)));
+        this.contractList = contractInfoDtoList;
     }
 
 }

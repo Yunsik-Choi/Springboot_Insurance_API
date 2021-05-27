@@ -6,12 +6,14 @@ import com.Insurance.hm.client.domain.entity.Gender;
 import com.Insurance.hm.client.domain.entity.RRN;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BuildingContractor extends Client {
 

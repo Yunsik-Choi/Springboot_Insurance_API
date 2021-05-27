@@ -8,6 +8,7 @@ import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
 import com.Insurance.hm.insurance.service.InsuranceService;
+import com.Insurance.hm.util.GlobalTestObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -64,6 +65,8 @@ class InsuranceControllerTest {
     void 보험_아이디로_조회_API() throws Exception{
         //given
         Insurance insurance = getInsurance();
+        insurance.getContractList().add(GlobalTestObject.getContract());
+
         //when
         when(insuranceService.findById(1L)).thenReturn(insurance);
         ResultActions result = this.mockMvc.perform(get("/api/insurance/{id}",1L));
@@ -162,7 +165,7 @@ class InsuranceControllerTest {
                 fieldWithPath("data.managementEmployee.email").type(JsonFieldType.STRING).description("보험 관리하는 사람 이메일"),
                 fieldWithPath("data.managementEmployee.department").type(JsonFieldType.STRING).description("보험 관리하는 사람 부서"),
                 fieldWithPath("data.managementEmployee.role").type(JsonFieldType.STRING).description("보험 관리하는 사람"),
-                fieldWithPath("data.contractList").type(JsonFieldType.ARRAY).description("해당 보험 계약 리스트")};
+                subsectionWithPath("data.contractList").type(JsonFieldType.ARRAY).description("해당 보험 계약 리스트").optional()};
     }
 
     private InsuranceCreateRequestDto getInsuranceCreateDto() {

@@ -4,7 +4,7 @@ import com.Insurance.hm.client.domain.entity.Bank;
 import com.Insurance.hm.client.domain.entity.Gender;
 import com.Insurance.hm.client.domain.entity.RRN;
 import com.Insurance.hm.contract.domain.Contract;
-import com.Insurance.hm.global.domain.AccidentHistory;
+import com.Insurance.hm.AccidentHistory.domain.AccidentHistory;
 import com.Insurance.hm.global.domain.BaseTime;
 import lombok.*;
 
@@ -26,13 +26,13 @@ public class Client extends BaseTime {
 
     private String name;
     private int age;
-    @Column(name = "account_number")
-    private String accountNumber;
+    private String email;
+
     private String address;
     @Column(name = "phone_number")
     private String phoneNumber;
-    private String email;
-
+    @Column(name = "account_number")
+    private String accountNumber;
     @Enumerated(value = EnumType.STRING)
     private Bank bank;
     @Enumerated(value = EnumType.STRING)

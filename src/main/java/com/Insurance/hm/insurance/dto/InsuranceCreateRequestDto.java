@@ -4,10 +4,12 @@ import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+
+@Data
 public class InsuranceCreateRequestDto {
 
     private String name;

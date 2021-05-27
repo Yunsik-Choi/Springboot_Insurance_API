@@ -1,18 +1,13 @@
 package com.Insurance.hm.insurance;
 
-import com.Insurance.hm.employee.domain.Employee;
-import com.Insurance.hm.employee.domain.entity.Department;
-import com.Insurance.hm.employee.domain.entity.Role;
 import com.Insurance.hm.global.constants.GlobalConstants;
 import com.Insurance.hm.global.dto.ResponseDto;
 import com.Insurance.hm.insurance.constants.InsuranceResponseConstants;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
-import com.Insurance.hm.insurance.dto.InsuranceCreateResponseDto;
 import com.Insurance.hm.insurance.dto.InsuranceDetailDto;
 import com.Insurance.hm.insurance.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +23,8 @@ public class InsuranceController {
     @PostMapping("create")
     public void createInsurance(@RequestBody InsuranceCreateRequestDto requestDto,
                                                HttpServletResponse response) throws IOException {
-        response.sendRedirect("/api/insurance/"+insuranceService.create(requestDto));
+        Long id = insuranceService.create(requestDto);
+        response.sendRedirect(id.toString());
     }
 
     @GetMapping("{id}")
@@ -36,8 +32,7 @@ public class InsuranceController {
         Insurance findEmployee = insuranceService.findById(id);
         InsuranceDetailDto insuranceDetailDto = new InsuranceDetailDto(findEmployee);
         return ResponseDto.builder()
-                .message(InsuranceResponseConstants.INSURANCE_NO.getMessage()+id
-                        +" " +GlobalConstants.FIND_BY_ID.getMessage())
+                .message(InsuranceResponseConstants.INSURANCE_NO.getMessage()+id+GlobalConstants.FIND_BY_ID.getMessage())
                 .data(insuranceDetailDto)
                 .build();
     }
@@ -46,8 +41,7 @@ public class InsuranceController {
     public ResponseDto deleteInsuranceById(@PathVariable Long id){
         Long deleteId = insuranceService.deleteById(id);
         return ResponseDto.builder()
-                .message(InsuranceResponseConstants.INSURANCE_NO.getMessage()+deleteId
-                        +" "+ GlobalConstants.DELETE.getMessage())
+                .message(InsuranceResponseConstants.INSURANCE_NO.getMessage()+deleteId+GlobalConstants.DELETE.getMessage())
                 .data(deleteId)
                 .build();
     }
