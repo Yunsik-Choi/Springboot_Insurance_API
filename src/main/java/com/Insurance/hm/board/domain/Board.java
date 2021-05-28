@@ -31,7 +31,6 @@ public class Board extends BaseTime {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @Lob
     private String content;
 
 
