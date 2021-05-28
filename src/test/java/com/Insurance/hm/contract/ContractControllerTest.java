@@ -98,6 +98,10 @@ class ContractControllerTest {
                 .andDo(document("Contract 상태 변경",
                         ApiDocumentUtils.getDocumentRequest(),
                         ApiDocumentUtils.getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("contract 아이디"),
+                                fieldWithPath("status").type(JsonFieldType.STRING).description("contract 상태")
+                        ),
                         responseFields(
                                 GlobalTestFields.getFieldResponseContract()
                         )
