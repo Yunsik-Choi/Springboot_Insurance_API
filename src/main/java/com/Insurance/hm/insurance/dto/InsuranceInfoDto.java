@@ -4,6 +4,7 @@ import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.employee.dto.EmployeeInfoDto;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
+import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
 import lombok.Data;
 
@@ -17,11 +18,13 @@ public class InsuranceInfoDto {
     private String name;
     private String description;
     private InsuranceCategory category;
+    private InsuranceStatus status;
 
     public InsuranceInfoDto(Insurance insurance) {
         this.id = insurance.getId();
         this.name = insurance.getName();
         this.description = insurance.getDescription();
         this.category = insurance.getCategory();
+        this.status = insurance.getStatus();
     }
 }

@@ -5,6 +5,7 @@ import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.domain.entity.Role;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
+import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
 import com.Insurance.hm.insurance.service.InsuranceService;
@@ -148,6 +149,7 @@ class InsuranceControllerTest {
                 fieldWithPath("data.name").type(JsonFieldType.STRING).description("보험 이름"),
                 fieldWithPath("data.description").type(JsonFieldType.STRING).description("보험 설명"),
                 fieldWithPath("data.category").type(JsonFieldType.STRING).description("보험 종류"),
+                fieldWithPath("data.status").type(JsonFieldType.STRING).description("보험 상태"),
                 fieldWithPath("data.target.creditRating").type(JsonFieldType.NUMBER).description("최소 신용등급"),
                 fieldWithPath("data.target.startAge").type(JsonFieldType.NUMBER).description("가입 최소 나이"),
                 fieldWithPath("data.target.endAge").type(JsonFieldType.NUMBER).description("가입 최대 나이"),
@@ -185,6 +187,7 @@ class InsuranceControllerTest {
                 .name("HM 운전자 보험")
                 .description("HM보험사에서 내놓는 최초의 보험")
                 .category(InsuranceCategory.운전자)
+                .status(InsuranceStatus.대기)
                 .target(getInsuranceTarget())
                 .createEmployee(getEmployee())
                 .managementEmployee(getEmployee())

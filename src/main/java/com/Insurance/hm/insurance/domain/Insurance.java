@@ -4,6 +4,7 @@ import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
+import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
 import lombok.*;
 
@@ -26,6 +27,8 @@ public class Insurance extends BaseTime {
 
     @Enumerated(value = EnumType.STRING)
     private InsuranceCategory category;
+    @Enumerated(value = EnumType.STRING)
+    private InsuranceStatus status;
 
     @Embedded
     private InsuranceTarget target;
@@ -42,11 +45,12 @@ public class Insurance extends BaseTime {
     private List<Contract> contractList = new ArrayList<>();
 
     @Builder
-    public Insurance(String name, String description, InsuranceCategory category, InsuranceTarget target,
-                     Employee createEmployee, Employee managementEmployee) {
+    public Insurance(String name, String description, InsuranceCategory category, InsuranceStatus status,
+                     InsuranceTarget target, Employee createEmployee, Employee managementEmployee) {
         this.name = name;
         this.description = description;
         this.category = category;
+        this.status = status;
         this.target = target;
         this.createEmployee = createEmployee;
         this.managementEmployee = managementEmployee;

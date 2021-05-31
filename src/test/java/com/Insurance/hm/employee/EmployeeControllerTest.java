@@ -130,6 +130,7 @@ class EmployeeControllerTest {
                                 fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태"),
                                 fieldWithPath("result").type(JsonFieldType.STRING).description("응답 상태"),
                                 fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                fieldWithPath("data.id").type(JsonFieldType.NULL).description("직원 아이디"),
                                 fieldWithPath("data.name").type(JsonFieldType.STRING).description("직원 이름"),
                                 fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("직원 로그인 아이디"),
                                 fieldWithPath("data.phoneNumber").type(JsonFieldType.STRING).description("직원 전화번호"),

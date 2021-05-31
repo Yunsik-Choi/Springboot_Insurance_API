@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class EmployeeLoginResponseDto {
 
+    private Long id;
     private String loginId;
     private String name;
     private String phoneNumber;
@@ -17,6 +18,7 @@ public class EmployeeLoginResponseDto {
     private Role role;
 
     public EmployeeLoginResponseDto(Employee employee){
+        this.id = employee.getId();
         this.loginId = employee.getLoginId();
         this.name = employee.getName();
         this.phoneNumber = employee.getPhoneNumber();

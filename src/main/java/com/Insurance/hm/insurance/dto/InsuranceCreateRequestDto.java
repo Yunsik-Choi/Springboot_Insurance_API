@@ -3,6 +3,7 @@ package com.Insurance.hm.insurance.dto;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
+import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
 import lombok.Data;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class InsuranceCreateRequestDto {
                 .name(name)
                 .description(description)
                 .category(category)
+                .status(InsuranceStatus.대기)
                 .target(target)
                 .createEmployee(createEmployee)
                 .managementEmployee(managementEmployee)
