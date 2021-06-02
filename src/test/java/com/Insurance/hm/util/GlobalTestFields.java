@@ -1,13 +1,10 @@
 package com.Insurance.hm.util;
 
-import org.hibernate.query.spi.StreamDecorator;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 
@@ -206,6 +203,46 @@ public class GlobalTestFields {
                 subsectionWithPath("data.contract").type(JsonFieldType.OBJECT).description("사고 해당 계약 정보"),
                 subsectionWithPath("data.employee").type(JsonFieldType.OBJECT).description("사고 처리 직원 정보"),
                 subsectionWithPath("data.partnerList").type(JsonFieldType.ARRAY).description("사고 처리 파트너 리스트").optional()
+        };
+    }
+
+    public static FieldDescriptor[] getFieldResponsePartnerDetailDto() {
+        ArrayList<FieldDescriptor> arrayList = new ArrayList<>();
+        Arrays.stream(getFieldResponseDefault()).forEach(i -> arrayList.add(i));
+        Arrays.stream(getFieldPartnerDetailDto()).forEach(i -> arrayList.add(i));
+        FieldDescriptor[] fields = getFields(arrayList);
+        return fields;
+    }
+
+    public static FieldDescriptor[] getFieldPartnerDetailDto(){
+        return new FieldDescriptor[]{
+                fieldWithPath("data.id").type(JsonFieldType.NULL).description("파트너 아이디"),
+                fieldWithPath("data.name").type(JsonFieldType.STRING).description("파트너 이름"),
+                fieldWithPath("data.address").type(JsonFieldType.STRING).description("파트너 주소"),
+                fieldWithPath("data.contactNumber").type(JsonFieldType.STRING).description("파트너 전화번호"),
+                fieldWithPath("data.category").type(JsonFieldType.STRING).description("파트너 카테고리"),
+                subsectionWithPath("data.employee").type(JsonFieldType.OBJECT).description("파트너 담당 직원"),
+                subsectionWithPath("data.claimList").type(JsonFieldType.ARRAY).description("파트너 처리 사고")
+        };
+    }
+
+    public static FieldDescriptor[] getFieldResponseCompensationDetailDto() {
+        ArrayList<FieldDescriptor> arrayList = new ArrayList<>();
+        Arrays.stream(getFieldResponseDefault()).forEach(i -> arrayList.add(i));
+        Arrays.stream(getFieldCompensationDetailDto()).forEach(i -> arrayList.add(i));
+        FieldDescriptor[] fields = getFields(arrayList);
+        return fields;
+    }
+
+    public static FieldDescriptor[] getFieldCompensationDetailDto(){
+        return new FieldDescriptor[]{
+                fieldWithPath("data.id").type(JsonFieldType.NULL).description("보상 아이디"),
+                fieldWithPath("data.cost").type(JsonFieldType.NUMBER).description("보상 비용"),
+                fieldWithPath("data.dateTime").type(JsonFieldType.STRING).description("보상 일자"),
+                fieldWithPath("data.status").type(JsonFieldType.STRING).description("보상 상태"),
+                subsectionWithPath("data.claim").type(JsonFieldType.OBJECT).description("보상 사고"),
+                subsectionWithPath("data.contract").type(JsonFieldType.OBJECT).description("보상 계약"),
+                subsectionWithPath("data.employee").type(JsonFieldType.OBJECT).description("보상 직원")
         };
     }
 }

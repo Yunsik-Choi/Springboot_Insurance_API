@@ -1,6 +1,7 @@
 package com.Insurance.hm.claim.service;
 
 import com.Insurance.hm.claim.domain.Claim;
+import com.Insurance.hm.claim.dto.ClaimAddPartnerDto;
 import com.Insurance.hm.claim.dto.ClaimChangePartnerScoreDto;
 import com.Insurance.hm.claim.dto.ClaimChangeStatusRequestDto;
 import com.Insurance.hm.claim.dto.ClaimCreateRequestDto;
@@ -16,5 +17,7 @@ public interface ClaimService {
     Claim changeClaimStatus(Long id, ClaimChangeStatusRequestDto changeStatusRequestDto);
 
     Claim changeClaimPartnerScore(Long id, ClaimChangePartnerScoreDto changePartnerScoreDto);
+
+    Long addClaimPartner(Long id, ClaimAddPartnerDto claimAddPartnerDto);
 
 }

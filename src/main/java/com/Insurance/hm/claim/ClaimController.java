@@ -2,10 +2,7 @@ package com.Insurance.hm.claim;
 
 import com.Insurance.hm.claim.constants.ClaimResponseConstants;
 import com.Insurance.hm.claim.domain.Claim;
-import com.Insurance.hm.claim.dto.ClaimChangePartnerScoreDto;
-import com.Insurance.hm.claim.dto.ClaimChangeStatusRequestDto;
-import com.Insurance.hm.claim.dto.ClaimCreateRequestDto;
-import com.Insurance.hm.claim.dto.ClaimDetailDto;
+import com.Insurance.hm.claim.dto.*;
 import com.Insurance.hm.claim.service.ClaimService;
 import com.Insurance.hm.global.constants.GlobalConstants;
 import com.Insurance.hm.global.dto.ResponseDto;
@@ -68,6 +65,12 @@ public class ClaimController {
                 .build();
     }
 
+    @PostMapping("{id}/partner")
+    private void addClaimPartner(@PathVariable(value = "id") Long id, @RequestBody ClaimAddPartnerDto claimAddPartnerDto,
+                                 HttpServletResponse response) throws IOException {
+        Long findId = claimService.addClaimPartner(id, claimAddPartnerDto);
+        response.sendRedirect(findId.toString());
+    }
 
 
 

@@ -2,6 +2,7 @@ package com.Insurance.hm.claim;
 
 import com.Insurance.hm.claim.domain.Claim;
 import com.Insurance.hm.claim.domain.entity.ClaimStatus;
+import com.Insurance.hm.claim.dto.ClaimAddPartnerDto;
 import com.Insurance.hm.claim.dto.ClaimChangePartnerScoreDto;
 import com.Insurance.hm.claim.dto.ClaimChangeStatusRequestDto;
 import com.Insurance.hm.claim.service.ClaimService;
@@ -137,6 +138,23 @@ class ClaimControllerTest {
                 ),
                 responseFields(
                         GlobalTestFields.getFieldResponseClaimRequestDto()
+                )
+        ));
+    }
+
+    @Test
+    void 사고_파트너_추가() throws Exception{
+        ClaimAddPartnerDto claimAddPartnerDto = new ClaimAddPartnerDto();
+        claimAddPartnerDto.setPartnerId(1L);
+        when(claimService.addClaimPartner(1L,claimAddPartnerDto)).thenReturn(1L);
+        ResultActions result = mockMvc.perform(post("/api/claim/{id}/partner", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(claimAddPartnerDto))
+        );
+        result.andExpect(status().isFound()).andDo(document("claim 파트너 추가",
+                ApiDocumentUtils.getDocumentRequest(),
+                requestFields(
+                        fieldWithPath("partnerId").type(JsonFieldType.NUMBER).description("추가할 파트너 아이디")
                 )
         ));
     }

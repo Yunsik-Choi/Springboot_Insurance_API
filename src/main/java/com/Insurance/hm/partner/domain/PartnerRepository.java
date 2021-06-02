@@ -1,11 +1,6 @@
 package com.Insurance.hm.partner.domain;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-@RequiredArgsConstructor
-@Transactional
-public class PartnerRepository {
+public interface PartnerRepository extends JpaRepository<Partner, Long> {
 }

@@ -50,4 +50,12 @@ public class Compensation extends BaseTime {
         this.contract = contract;
         this.employee = employee;
     }
+
+    public void changeDateTime(LocalDateTime time) {
+        this.dateTime = time;
+    }
+
+    public void changeCost(Long cost) {
+        this.cost = cost;
+    }
 }

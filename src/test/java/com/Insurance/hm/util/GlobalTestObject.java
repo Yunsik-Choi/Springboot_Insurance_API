@@ -12,6 +12,8 @@ import com.Insurance.hm.client.domain.entity.Bank;
 import com.Insurance.hm.client.domain.entity.Gender;
 import com.Insurance.hm.client.domain.entity.RRN;
 import com.Insurance.hm.client.dto.ClientCreateRequestDto;
+import com.Insurance.hm.compensation.domain.Compensation;
+import com.Insurance.hm.compensation.domain.entity.CompensationStatus;
 import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.contract.domain.entity.Channel;
 import com.Insurance.hm.contract.domain.entity.ContractDate;
@@ -29,6 +31,7 @@ import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
 import com.Insurance.hm.partner.domain.Partner;
 import com.Insurance.hm.partner.domain.entity.PartnerCategory;
+import com.Insurance.hm.partner.dto.PartnerCreateRequestDto;
 
 import java.sql.Clob;
 import java.time.LocalDateTime;
@@ -230,7 +233,7 @@ public class GlobalTestObject {
         return claimPartner;
     }
 
-    private static Partner getPartner() {
+    public static Partner getPartner() {
         Partner partner = Partner.builder()
                 .address("주소")
                 .category(PartnerCategory.병원)
@@ -253,5 +256,27 @@ public class GlobalTestObject {
         createRequestDto.setDamageCost(claim.getDamageCost());
         createRequestDto.setEmployeeId(claim.getEmployee().getId());
         return createRequestDto;
+    }
+
+    public static PartnerCreateRequestDto getPartnerCreateRequestDto() {
+        PartnerCreateRequestDto createRequestDto = new PartnerCreateRequestDto();
+        createRequestDto.setName("협력업체 이름");
+        createRequestDto.setAddress("협력업체 주소");
+        createRequestDto.setCategory(PartnerCategory.병원);
+        createRequestDto.setContactNumber("010-0000-00000");
+        createRequestDto.setEmployeeId(1L);
+        return createRequestDto;
+    }
+
+    public static Compensation getCompensation() {
+        Compensation compensation = Compensation.builder()
+                .status(CompensationStatus.보상대기)
+                .employee(getEmployee())
+                .cost(100000L)
+                .contract(getContract())
+                .claim(getClaim())
+                .dateTime(LocalDateTime.now())
+                .build();
+        return compensation;
     }
 }
