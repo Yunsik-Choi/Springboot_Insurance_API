@@ -4,6 +4,9 @@ import com.Insurance.hm.AccidentHistory.domain.AccidentHistory;
 import com.Insurance.hm.AccidentHistory.dto.AccidentHistoryCreateRequestDto;
 import com.Insurance.hm.board.domain.Board;
 import com.Insurance.hm.board.dto.BoardCreateDto;
+import com.Insurance.hm.claim.domain.Claim;
+import com.Insurance.hm.claim.domain.entity.ClaimStatus;
+import com.Insurance.hm.claim.dto.ClaimCreateRequestDto;
 import com.Insurance.hm.client.domain.Client;
 import com.Insurance.hm.client.domain.entity.Bank;
 import com.Insurance.hm.client.domain.entity.Gender;
@@ -18,13 +21,18 @@ import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.domain.entity.Role;
 import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
+import com.Insurance.hm.global.domain.claimPatner.ClaimPartner;
 import com.Insurance.hm.global.util.ClobHandler;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
+import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
+import com.Insurance.hm.partner.domain.Partner;
+import com.Insurance.hm.partner.domain.entity.PartnerCategory;
 
 import java.sql.Clob;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class GlobalTestObject {
 
@@ -48,6 +56,7 @@ public class GlobalTestObject {
                 .target(getInsuranceTarget())
                 .createEmployee(getEmployee())
                 .managementEmployee(getEmployee())
+                .status(InsuranceStatus.결재대기)
                 .build();
         return insurance;
     }
@@ -178,5 +187,71 @@ public class GlobalTestObject {
                 .content("내용")
                 .build();
         return board;
+    }
+
+    public static Claim getClaim() {
+        Claim claim = Claim.builder()
+                .partnerScore(0.0)
+                .claimReason("사고 이유")
+                .claimDetail("사고 내용")
+                .claimRate(80.0)
+                .accidentDate(LocalDateTime.now())
+                .contract(getContract())
+                .damageCost(10000L)
+                .employee(getEmployee())
+                .receiptDate(LocalDateTime.now())
+                .status(ClaimStatus.접수완료)
+                .build();
+        claim.getClaimpartnerList().add(getClaimPartner());
+        return claim;
+    }
+
+    private static ClaimPartner getClaimPartner() {
+        ClaimPartner claimPartner = ClaimPartner.builder()
+                .claim(Claim.builder()
+                        .claimDetail("사고 내용")
+                        .partnerScore(0.0)
+                        .claimReason("사고 이유")
+                        .claimRate(80.0)
+                        .contract(getContract())
+                        .damageCost(10000L)
+                        .employee(getEmployee())
+                        .receiptDate(LocalDateTime.now())
+                        .status(ClaimStatus.접수완료)
+                        .build())
+                .partner(Partner.builder()
+                        .address("주소")
+                        .category(PartnerCategory.병원)
+                        .contactNumber("010-0000-0000")
+                        .employee(getEmployee())
+                        .name("협력업체 이름")
+                        .build())
+                .build();
+        return claimPartner;
+    }
+
+    private static Partner getPartner() {
+        Partner partner = Partner.builder()
+                .address("주소")
+                .category(PartnerCategory.병원)
+                .contactNumber("010-0000-0000")
+                .employee(getEmployee())
+                .name("협력업체 이름")
+                .build();
+        return partner;
+    }
+
+    public static ClaimCreateRequestDto getClaimCreateRequestDto(){
+        Claim claim = getClaim();
+
+        ClaimCreateRequestDto createRequestDto = new ClaimCreateRequestDto();
+        createRequestDto.setClaimReason(claim.getClaimReason());
+        createRequestDto.setAccidentDate(claim.getAccidentDate());
+        createRequestDto.setClaimDetail(claim.getClaimDetail());
+        createRequestDto.setClaimRate(claim.getClaimRate());
+        createRequestDto.setContractId(claim.getContract().getId());
+        createRequestDto.setDamageCost(claim.getDamageCost());
+        createRequestDto.setEmployeeId(claim.getEmployee().getId());
+        return createRequestDto;
     }
 }

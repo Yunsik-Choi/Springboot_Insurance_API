@@ -15,6 +15,10 @@ public class InsuranceCreateRequestDto {
 
     private String name;
     private String description;
+    private String coverage;
+    private String registerDocument;
+    private String accidentDocument;
+    private Double basePremiumRate;
     private InsuranceCategory category;
     private InsuranceTarget target;
     private Long createEmployeeId;
@@ -26,8 +30,12 @@ public class InsuranceCreateRequestDto {
         Insurance insurance = Insurance.builder()
                 .name(name)
                 .description(description)
+                .coverage(coverage)
+                .registerDocument(registerDocument)
+                .accidentDocument(accidentDocument)
+                .basePremiumRate(basePremiumRate)
                 .category(category)
-                .status(InsuranceStatus.대기)
+                .status(InsuranceStatus.결재대기)
                 .target(target)
                 .createEmployee(createEmployee)
                 .managementEmployee(managementEmployee)

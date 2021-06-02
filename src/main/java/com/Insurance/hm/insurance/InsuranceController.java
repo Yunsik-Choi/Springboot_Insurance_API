@@ -6,6 +6,7 @@ import com.Insurance.hm.insurance.constants.InsuranceResponseConstants;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
 import com.Insurance.hm.insurance.dto.InsuranceDetailDto;
+import com.Insurance.hm.insurance.dto.InsuranceChangeStatusRequestDto;
 import com.Insurance.hm.insurance.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,15 @@ public class InsuranceController {
                 .build();
     }
 
+    @PostMapping("{id}/status")
+    public ResponseDto changeInsuranceStatus(@PathVariable(value = "id") Long id,
+                                             @RequestBody InsuranceChangeStatusRequestDto changeRequestDto){
+        Insurance insurance = insuranceService.changeStatus(id, changeRequestDto);
+        return ResponseDto.builder()
+                .message(InsuranceResponseConstants.INSURANCE_NO.getMessage()+id
+                        +InsuranceResponseConstants.CHANGE_INSURANCE_STATUS.getMessage())
+                .data(new InsuranceDetailDto(insurance))
+                .build();
+    }
 
 }

@@ -1,5 +1,5 @@
 package com.Insurance.hm.insurance.domain.entity;
 
 public enum  InsuranceStatus {
-    결제완료,대기
+    결재완료,결재대기,결재거부
 }

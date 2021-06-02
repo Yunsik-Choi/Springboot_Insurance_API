@@ -8,6 +8,7 @@ import com.Insurance.hm.global.exception.business.NonMatchIdException;
 import com.Insurance.hm.insurance.constants.InsuranceErrorConstants;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.InsuranceRepository;
+import com.Insurance.hm.insurance.dto.InsuranceChangeStatusRequestDto;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,13 @@ public class InsuranceServiceImpl implements InsuranceService{
         Insurance findInsurance = insuranceRepository.findById(id).orElseThrow(() -> findInsuranceByIdIsNull());
         insuranceRepository.deleteById(id);
         return findInsurance.getId();
+    }
+
+    @Override
+    public Insurance changeStatus(Long id, InsuranceChangeStatusRequestDto changeStatusRequestDto) {
+        Insurance insurance = insuranceRepository.findById(id).orElseThrow(this::findInsuranceByIdIsNull);
+        insurance.changeStatus(changeStatusRequestDto.getStatus());
+        return insurance;
     }
 
     private BusinessException findInsuranceByIdIsNull() {

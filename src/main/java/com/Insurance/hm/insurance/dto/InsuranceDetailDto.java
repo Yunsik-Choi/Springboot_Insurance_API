@@ -21,6 +21,10 @@ public class InsuranceDetailDto {
     private Long id;
     private String name;
     private String description;
+    private String coverage;
+    private String registerDocument;
+    private String accidentDocument;
+    private Double basePremiumRate;
     private InsuranceCategory category;
     private InsuranceStatus status;
     private InsuranceTarget target;
@@ -35,6 +39,10 @@ public class InsuranceDetailDto {
         this.id = insurance.getId();
         this.name = insurance.getName();
         this.description = insurance.getDescription();
+        this.coverage = insurance.getCoverage();
+        this.registerDocument = insurance.getRegisterDocument();
+        this.accidentDocument = insurance.getAccidentDocument();
+        this.basePremiumRate = insurance.getBasePremiumRate();
         this.category = insurance.getCategory();
         this.status = insurance.getStatus();
         this.target = insurance.getTarget();

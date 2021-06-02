@@ -85,9 +85,8 @@ class ContractControllerTest {
     @Test
     public void 계약_상태_변경() throws Exception{
         ContractChangeStatusRequestDto changeStatusRequestDto = new ContractChangeStatusRequestDto();
-        changeStatusRequestDto.setId(1L);
         changeStatusRequestDto.setStatus(ContractStatus.계약중);
-        when(contractService.changeContractStatusById(changeStatusRequestDto)).thenReturn(GlobalTestObject.getContract());
+        when(contractService.changeContractStatusById(1L,changeStatusRequestDto)).thenReturn(GlobalTestObject.getContract());
         ResultActions result = mockMvc.perform(
                 post("/api/contract/{id}/status",1L)
                 .content(objectMapper.writeValueAsString(changeStatusRequestDto))
@@ -99,7 +98,6 @@ class ContractControllerTest {
                         ApiDocumentUtils.getDocumentRequest(),
                         ApiDocumentUtils.getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("contract 아이디"),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description("contract 상태")
                         ),
                         responseFields(

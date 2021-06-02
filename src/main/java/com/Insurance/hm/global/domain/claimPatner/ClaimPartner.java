@@ -1,6 +1,7 @@
-package com.Insurance.hm.global.domain;
+package com.Insurance.hm.global.domain.claimPatner;
 
 import com.Insurance.hm.claim.domain.Claim;
+import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.partner.domain.Partner;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ClaimPartner extends BaseTime{
+public class ClaimPartner extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

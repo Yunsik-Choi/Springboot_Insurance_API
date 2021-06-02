@@ -12,6 +12,6 @@ public interface ContractService {
 
     Long deleteById(Long id);
 
-    Contract changeContractStatusById(ContractChangeStatusRequestDto changeStatusRequestDto);
+    Contract changeContractStatusById(Long id, ContractChangeStatusRequestDto changeStatusRequestDto);
 
 }

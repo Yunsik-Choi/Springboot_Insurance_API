@@ -24,6 +24,10 @@ public class Insurance extends BaseTime {
 
     private String name;
     private String description;
+    private String coverage;
+    private String registerDocument;
+    private String accidentDocument;
+    private Double basePremiumRate;
 
     @Enumerated(value = EnumType.STRING)
     private InsuranceCategory category;
@@ -45,15 +49,23 @@ public class Insurance extends BaseTime {
     private List<Contract> contractList = new ArrayList<>();
 
     @Builder
-    public Insurance(String name, String description, InsuranceCategory category, InsuranceStatus status,
-                     InsuranceTarget target, Employee createEmployee, Employee managementEmployee) {
+    public Insurance(String name, String description, InsuranceCategory category, String coverage,
+                     String registerDocument, String accidentDocument, Double basePremiumRate,
+                     InsuranceStatus status, InsuranceTarget target, Employee createEmployee, Employee managementEmployee) {
         this.name = name;
         this.description = description;
         this.category = category;
+        this.coverage = coverage;
+        this.registerDocument = registerDocument;
+        this.accidentDocument = accidentDocument;
+        this.basePremiumRate = basePremiumRate;
         this.status = status;
         this.target = target;
         this.createEmployee = createEmployee;
         this.managementEmployee = managementEmployee;
     }
 
+    public void changeStatus(InsuranceStatus status) {
+        this.status = status;
+    }
 }

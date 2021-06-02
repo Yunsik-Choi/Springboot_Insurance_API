@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 public class ContractChangeStatusRequestDto {
 
-    private Long id;
     private ContractStatus status;
 
 }

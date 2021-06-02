@@ -7,8 +7,10 @@ import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
+import com.Insurance.hm.insurance.dto.InsuranceChangeStatusRequestDto;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
 import com.Insurance.hm.insurance.service.InsuranceService;
+import com.Insurance.hm.util.ApiDocumentUtils;
 import com.Insurance.hm.util.GlobalTestObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -103,15 +105,40 @@ class InsuranceControllerTest {
     }
 
     @Test
+    void 보험_상태_변경() throws Exception{
+        InsuranceChangeStatusRequestDto changeStatusRequestDto = new InsuranceChangeStatusRequestDto();
+        changeStatusRequestDto.setStatus(InsuranceStatus.결재완료);
+        when(insuranceService.changeStatus(1L,changeStatusRequestDto)).thenReturn(getInsurance());
+        ResultActions result = mockMvc.perform(post("/api/insurance/{id}/status",1L)
+                .content(objectMapper.writeValueAsString(changeStatusRequestDto))
+                .contentType(MediaType.APPLICATION_JSON));
+        result.andExpect(status().isOk()).andDo(document("insurance 상태 변경",
+                ApiDocumentUtils.getDocumentRequest(),
+                ApiDocumentUtils.getDocumentResponse(),
+                requestFields(
+                        fieldWithPath("status").description(JsonFieldType.STRING).description("보험 상태")
+                ),
+                responseFields(
+                        getResponseDetailInsuranceDto()
+                )
+                ));
+    }
+
+    @Test
     @Disabled
     void 보험_생성_API() throws Exception{
         InsuranceCreateRequestDto createRequestDto = new InsuranceCreateRequestDto();
-        createRequestDto.setName(getInsurance().getName());
-        createRequestDto.setTarget(getInsurance().getTarget());
-        createRequestDto.setCategory(getInsurance().getCategory());
-        createRequestDto.setDescription(getInsurance().getDescription());
-        createRequestDto.setCreateEmployeeId(getInsurance().getCreateEmployee().getId());
-        createRequestDto.setManagementEmployeeId(getInsurance().getManagementEmployee().getId());
+        Insurance insurance = getInsurance();
+        createRequestDto.setName(insurance.getName());
+        createRequestDto.setTarget(insurance.getTarget());
+        createRequestDto.setCoverage(insurance.getCoverage());
+        createRequestDto.setRegisterDocument(insurance.getRegisterDocument());
+        createRequestDto.setAccidentDocument(insurance.getAccidentDocument());
+        createRequestDto.setBasePremiumRate(insurance.getBasePremiumRate());
+        createRequestDto.setCategory(insurance.getCategory());
+        createRequestDto.setDescription(insurance.getDescription());
+        createRequestDto.setCreateEmployeeId(insurance.getCreateEmployee().getId());
+        createRequestDto.setManagementEmployeeId(insurance.getManagementEmployee().getId());
 
         ResultActions result = mockMvc.perform(post("/api/insurance/create")
                 .content(objectMapper.writeValueAsString(createRequestDto))
@@ -124,6 +151,10 @@ class InsuranceControllerTest {
                         requestFields(
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("보험 이름"),
                                 fieldWithPath("description").type(JsonFieldType.STRING).description("보험 설명"),
+                                fieldWithPath("coverage").type(JsonFieldType.STRING).description("보험 보장 범위"),
+                                fieldWithPath("registerDocument").type(JsonFieldType.STRING).description("보험 가입시 제출 서류"),
+                                fieldWithPath("accidentDocument").type(JsonFieldType.STRING).description("보험 사고시 제출 서류"),
+                                fieldWithPath("basePremiumRate").type(JsonFieldType.NUMBER).description("보험 기본 요율"),
                                 fieldWithPath("category").type(JsonFieldType.STRING).description("보험 종류"),
                                 fieldWithPath("target.creditRating").type(JsonFieldType.NUMBER).description("보험 가입 최소 신용등급"),
                                 fieldWithPath("target.startAge").type(JsonFieldType.NUMBER).description("보험 가입 최소 나이"),
@@ -148,6 +179,10 @@ class InsuranceControllerTest {
                 fieldWithPath("data.id").type(JsonFieldType.NULL).description("보험 아이디"),
                 fieldWithPath("data.name").type(JsonFieldType.STRING).description("보험 이름"),
                 fieldWithPath("data.description").type(JsonFieldType.STRING).description("보험 설명"),
+                fieldWithPath("data.coverage").type(JsonFieldType.STRING).description("보험 보장 범위"),
+                fieldWithPath("data.registerDocument").type(JsonFieldType.STRING).description("보험 가입시 제출 서류"),
+                fieldWithPath("data.accidentDocument").type(JsonFieldType.STRING).description("보험 사고시 제출 서류"),
+                fieldWithPath("data.basePremiumRate").type(JsonFieldType.NUMBER).description("보험 기본 요율"),
                 fieldWithPath("data.category").type(JsonFieldType.STRING).description("보험 종류"),
                 fieldWithPath("data.status").type(JsonFieldType.STRING).description("보험 상태"),
                 fieldWithPath("data.target.creditRating").type(JsonFieldType.NUMBER).description("최소 신용등급"),
@@ -184,10 +219,14 @@ class InsuranceControllerTest {
 
     private Insurance getInsurance() {
         Insurance insurance = Insurance.builder()
-                .name("HM 운전자 보험")
-                .description("HM보험사에서 내놓는 최초의 보험")
+                .name("HM 보험")
+                .description("보험 설명")
+                .coverage("보장 범위")
+                .registerDocument("가입시 제출 서류")
+                .accidentDocument("사고시 제출 서류")
+                .basePremiumRate(1.0)
                 .category(InsuranceCategory.운전자)
-                .status(InsuranceStatus.대기)
+                .status(InsuranceStatus.결재대기)
                 .target(getInsuranceTarget())
                 .createEmployee(getEmployee())
                 .managementEmployee(getEmployee())
@@ -205,7 +244,7 @@ class InsuranceControllerTest {
 
     private Employee getEmployee() {
         return Employee.builder()
-                .name("최윤식")
+                .name("이름")
                 .loginId("abcd")
                 .password("1234")
                 .phoneNumber("010-000-000")

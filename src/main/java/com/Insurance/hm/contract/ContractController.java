@@ -40,8 +40,9 @@ public class ContractController {
     }
 
     @PostMapping("{id}/status")
-    public ResponseDto changeContractStatus(@RequestBody ContractChangeStatusRequestDto changeStatusRequestDto){
-        Contract findContract = contractService.changeContractStatusById(changeStatusRequestDto);
+    public ResponseDto changeContractStatus(@PathVariable(value = "id") Long id,
+                                            @RequestBody ContractChangeStatusRequestDto changeStatusRequestDto){
+        Contract findContract = contractService.changeContractStatusById(id,changeStatusRequestDto);
         return ResponseDto.builder()
                 .data(new ContractDetailDto(findContract))
                 .message(ContractResponseConstants.CONTRACT_NO.getMessage()+findContract.getId()

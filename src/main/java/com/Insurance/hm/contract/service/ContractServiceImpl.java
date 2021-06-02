@@ -58,8 +58,8 @@ public class ContractServiceImpl implements ContractService{
     }
 
     @Override
-    public Contract changeContractStatusById(ContractChangeStatusRequestDto changeStatusRequestDto) {
-        Contract findContract = contractRepository.findById(changeStatusRequestDto.getId())
+    public Contract changeContractStatusById(Long id, ContractChangeStatusRequestDto changeStatusRequestDto) {
+        Contract findContract = contractRepository.findById(id)
                                 .orElseThrow(() -> findContractByIdIsNull());
         findContract.changeStatus(changeStatusRequestDto.getStatus());
         return findContract;
