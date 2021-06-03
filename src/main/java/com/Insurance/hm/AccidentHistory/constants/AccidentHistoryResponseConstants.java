@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum AccidentHistoryResponseConstants {
 
 
-    ACCIDENT_HISTORY_NO("Accident History NO.");
+    ACCIDENT_HISTORY_NO("Accident History NO."),
+    FIND_ALL("AccidentHistory 전체 조회");
 
 
     private String message;

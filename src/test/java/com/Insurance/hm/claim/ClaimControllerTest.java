@@ -20,17 +20,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
@@ -99,21 +96,17 @@ class ClaimControllerTest {
         Claim claim = GlobalTestObject.getClaim();
         ClaimChangeStatusRequestDto requestDto = new ClaimChangeStatusRequestDto();
         requestDto.setStatus(ClaimStatus.보상심사중);
-        when(claimService.changeClaimStatus(1L,requestDto)).thenReturn(claim);
+        when(claimService.changeClaimStatus(1L,requestDto)).thenReturn(1L);
         ResultActions result = mockMvc.perform(
                 post("/api/claim/{id}/status",1L)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto))
         );
 
-        result.andExpect(status().isOk()).andDo(document("claim 상태 변경",
+        result.andExpect(status().isFound()).andDo(document("claim 상태 변경",
                 ApiDocumentUtils.getDocumentRequest(),
-                ApiDocumentUtils.getDocumentResponse(),
                 requestFields(
                         fieldWithPath("status").type(JsonFieldType.STRING).description("사고 처리 상태")
-                ),
-                responseFields(
-                        GlobalTestFields.getFieldResponseClaimRequestDto()
                 )
         ));
     }
@@ -122,7 +115,7 @@ class ClaimControllerTest {
     void 사고_파트너_별점변경() throws Exception {
         Claim claim = GlobalTestObject.getClaim();
         ClaimChangePartnerScoreDto changePartnerScoreDto = new ClaimChangePartnerScoreDto();
-        changePartnerScoreDto.setPartnerScore(1.1);
+        changePartnerScoreDto.setScore(1.1);
         when(claimService.changeClaimPartnerScore(1L,changePartnerScoreDto)).thenReturn(claim);
         ResultActions result = mockMvc.perform(
                 post("/api/claim/{id}/score",1L)

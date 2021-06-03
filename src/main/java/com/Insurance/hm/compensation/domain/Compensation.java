@@ -32,6 +32,7 @@ public class Compensation extends BaseTime {
     @JoinColumn(name = "claim_id")
     @NotNull
     private Claim claim;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
     @NotNull
@@ -46,9 +47,14 @@ public class Compensation extends BaseTime {
         this.cost = cost;
         this.dateTime = dateTime;
         this.status = status;
-        this.claim = claim;
+        changeClaim(claim);
         this.contract = contract;
         this.employee = employee;
+    }
+
+    private void changeClaim(Claim claim) {
+        claim.changeCompensation(this);
+        this.claim = claim;
     }
 
     public void changeDateTime(LocalDateTime time) {
@@ -57,5 +63,9 @@ public class Compensation extends BaseTime {
 
     public void changeCost(Long cost) {
         this.cost = cost;
+    }
+
+    public void changeStatus(CompensationStatus status) {
+        this.status = status;
     }
 }

@@ -13,13 +13,23 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/insurance")
+@RequestMapping("api/insurance")
 public class InsuranceController {
 
     private final InsuranceService insuranceService;
+
+    @GetMapping
+    public ResponseDto showAll(){
+        List<Insurance> all = insuranceService.findAll();
+        return ResponseDto.builder()
+                .message(InsuranceResponseConstants.FIND_ALL.getMessage())
+                .data(all)
+                .build();
+    }
 
     @PostMapping("create")
     public void createInsurance(@RequestBody InsuranceCreateRequestDto requestDto,

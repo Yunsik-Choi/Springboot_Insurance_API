@@ -16,16 +16,25 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
-@Slf4j
 @RestController
-@RequestMapping(value = "api/employee/")
+@RequestMapping(value = "api/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @GetMapping(value = "{id}")
+    @GetMapping
+    public ResponseDto showAll(){
+        List<Employee> all = employeeService.findAll();
+        return ResponseDto.builder()
+                .message(EmployeeResponseConstants.FIND_ALL.getMessage())
+                .data(all)
+                .build();
+    }
+
+    @GetMapping("{id}")
     public ResponseDto showDetailEmployeeById(@PathVariable Long id){
         Employee findEmployee = employeeService.findById(id);
         return ResponseDto.builder()
@@ -34,7 +43,7 @@ public class EmployeeController {
                 .build();
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping("{id}")
     public ResponseDto deleteEmployeeById(@PathVariable Long id){
         Long deleteId = employeeService.deleteById(id);
         return ResponseDto.builder()
@@ -43,14 +52,14 @@ public class EmployeeController {
                 .build();
     }
 
-    @PostMapping(value = "join")
+    @PostMapping("join")
     public void joinEmployee(@RequestBody @Valid EmployeeJoinRequestDto joinEmployeeDto,
                                     HttpServletResponse response) throws IOException {
         Long id = employeeService.join(joinEmployeeDto);
         response.sendRedirect(id.toString());
     }
 
-    @PostMapping(value = "login")
+    @PostMapping("login")
     public ResponseDto loginEmployee(@RequestBody EmployeeLoginRequestDto loginInfoDto){
         Employee findEmployee
                 = employeeService.login(loginInfoDto);

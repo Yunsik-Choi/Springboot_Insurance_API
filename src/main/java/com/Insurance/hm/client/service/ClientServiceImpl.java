@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -34,6 +36,12 @@ public class ClientServiceImpl implements ClientService{
         Client client = clientRepository.findById(id).orElseThrow(() -> getNonMatchClientById());
         clientRepository.delete(client);
         return id;
+    }
+
+    @Override
+    public List<Client> findAll() {
+        List<Client> all = clientRepository.findAll();
+        return all;
     }
 
     private NonMatchIdException getNonMatchClientById() {

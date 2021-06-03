@@ -14,23 +14,33 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/partner")
+@RequestMapping("api/partner")
 public class PartnerController {
 
     private final PartnerService partnerService;
 
+    @GetMapping
+    public ResponseDto showAll(){
+        List<Partner> all = partnerService.findAll();
+        return ResponseDto.builder()
+                .message(PartnerResponseConstants.FIND_ALL.getMessage())
+                .data(all)
+                .build();
+    }
+
     @PostMapping("create")
-    private void createPartner(@RequestBody PartnerCreateRequestDto createRequestDto,
+    public void createPartner(@RequestBody PartnerCreateRequestDto createRequestDto,
                                HttpServletResponse response) throws IOException {
         Long id = partnerService.create(createRequestDto);
         response.sendRedirect(id.toString());
     }
 
     @GetMapping("{id}")
-    private ResponseDto findById(@PathVariable(value = "id") Long id){
+    public ResponseDto findById(@PathVariable(value = "id") Long id){
         Partner findPartner = partnerService.findById(id);
         return ResponseDto.builder()
                 .message(PartnerResponseConstants.PARTNER_NO.getMessage()+id+ GlobalConstants.FIND_BY_ID.getMessage())
@@ -39,7 +49,7 @@ public class PartnerController {
     }
 
     @DeleteMapping("{id}")
-    private ResponseDto deleteById(@PathVariable(value = "id") Long id){
+    public ResponseDto deleteById(@PathVariable(value = "id") Long id){
         Long deleteById = partnerService.deleteById(id);
         return ResponseDto.builder()
                 .message(PartnerResponseConstants.PARTNER_NO.getMessage()+id+GlobalConstants.DELETE)

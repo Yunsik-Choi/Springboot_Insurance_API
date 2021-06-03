@@ -11,14 +11,25 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/compensation")
+@RequestMapping("api/compensation")
 public class CompensationController {
 
     private final CompensationService compensationService;
+
+    @GetMapping
+    public ResponseDto showAll(){
+        List<Compensation> all = compensationService.findAll();
+        return ResponseDto.builder()
+                .message(CompensationResponseConstants.FIND_ALL.getMessage())
+                .data(all)
+                .build();
+    }
 
     @GetMapping("{id}")
     public ResponseDto findCompensationById(@PathVariable(value = "id") Long id){
@@ -31,12 +42,10 @@ public class CompensationController {
 
     @PostMapping("{id}/status")
     public void changeCompensationStatus(@PathVariable(value = "id") Long id,
-                                         @RequestBody CompensationChangeStatusRequestDto changeStatusRequestDto,
+                                         @RequestBody @Valid CompensationChangeStatusRequestDto changeStatusRequestDto,
                                          HttpServletResponse response) throws IOException {
         Long compensationId = compensationService.changeStatus(id, changeStatusRequestDto);
-        response.sendRedirect(compensationId.toString());
+        response.sendRedirect("/api/compensation/"+id.toString());
     }
-
-
 
 }

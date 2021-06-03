@@ -4,6 +4,8 @@ import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.dto.InsuranceChangeStatusRequestDto;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
 
+import java.util.List;
+
 public interface InsuranceService {
 
     Long create(InsuranceCreateRequestDto insurance);
@@ -14,4 +16,5 @@ public interface InsuranceService {
 
     Insurance changeStatus(Long id, InsuranceChangeStatusRequestDto changeStatusRequestDto);
 
+    List<Insurance> findAll();
 }

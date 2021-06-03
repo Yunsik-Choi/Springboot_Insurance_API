@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -44,6 +46,12 @@ public class AccidentHistoryServiceImpl implements AccidentHistoryService{
                 .orElseThrow(() -> getNonMatchAccidentHistoryById());
         accidentHistoryRepository.deleteById(id);
         return id;
+    }
+
+    @Override
+    public List<AccidentHistory> findAll() {
+        List<AccidentHistory> all = accidentHistoryRepository.findAll();
+        return all;
     }
 
 

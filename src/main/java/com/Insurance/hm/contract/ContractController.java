@@ -13,15 +13,25 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/contract")
+@RequestMapping("api/contract")
 public class ContractController {
 
     private final ContractService contractService;
 
+
+    @GetMapping
+    public ResponseDto showAll(){
+        List<Contract> all = contractService.findAll();
+        return ResponseDto.builder()
+                .message(ContractResponseConstants.FIND_ALL.getMessage())
+                .data(all)
+                .build();
+    }
 
     @PostMapping("sign")
     public void signContract(@RequestBody ContractSignRequestDto contractSignRequestDto,

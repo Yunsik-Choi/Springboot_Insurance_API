@@ -200,6 +200,7 @@ public class GlobalTestFields {
                 fieldWithPath("data.partnerScore").type(JsonFieldType.NUMBER).description("사고 처리한 파트너 평가 점수"),
                 fieldWithPath("data.receiptDate").type(JsonFieldType.NULL).description("사고 등록 일자"),
                 fieldWithPath("data.status").type(JsonFieldType.STRING).description("사고 처리 진행 상태"),
+                subsectionWithPath("data.compensation").type(JsonFieldType.VARIES).description("사고 보상"),
                 subsectionWithPath("data.contract").type(JsonFieldType.OBJECT).description("사고 해당 계약 정보"),
                 subsectionWithPath("data.employee").type(JsonFieldType.OBJECT).description("사고 처리 직원 정보"),
                 subsectionWithPath("data.partnerList").type(JsonFieldType.ARRAY).description("사고 처리 파트너 리스트").optional()

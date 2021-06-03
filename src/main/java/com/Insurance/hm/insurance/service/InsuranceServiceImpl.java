@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -51,6 +53,12 @@ public class InsuranceServiceImpl implements InsuranceService{
         Insurance insurance = insuranceRepository.findById(id).orElseThrow(this::findInsuranceByIdIsNull);
         insurance.changeStatus(changeStatusRequestDto.getStatus());
         return insurance;
+    }
+
+    @Override
+    public List<Insurance> findAll() {
+        List<Insurance> all = insuranceRepository.findAll();
+        return all;
     }
 
     private BusinessException findInsuranceByIdIsNull() {

@@ -29,7 +29,6 @@ public class ClaimPartner extends BaseTime {
     @NotNull
     private Partner partner;
 
-    @Builder
     public ClaimPartner(Claim claim, Partner partner) {
         changeClaim(claim);
         changePartner(partner);

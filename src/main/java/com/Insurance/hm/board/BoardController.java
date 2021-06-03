@@ -14,13 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/board")
+@RequestMapping("api/board")
 public class BoardController {
 
     private final BoardService boardService;
+
+    @GetMapping
+    public ResponseDto showAll(){
+        List<Board> all = boardService.findAll();
+        return ResponseDto.builder()
+                .message(BoardResponseConstants.FIND_ALL.getMessage())
+                .data(all)
+                .build();
+    }
 
     @PostMapping("write")
     public void writeBoard(@RequestBody BoardCreateDto boardCreateDto, HttpServletResponse response) throws IOException {

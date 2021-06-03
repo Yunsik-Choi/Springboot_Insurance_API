@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -50,6 +52,12 @@ public class BoardServiceImpl implements BoardService {
         Board board = boardRepository.findById(id).orElseThrow(this::getNonMatchBoardId);
         boardRepository.delete(board);
         return id;
+    }
+
+    @Override
+    public List<Board> findAll() {
+        List<Board> all = boardRepository.findAll();
+        return all;
     }
 
     private NonMatchIdException getNonMatchBoardId() {

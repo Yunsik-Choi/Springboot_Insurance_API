@@ -210,8 +210,8 @@ public class GlobalTestObject {
     }
 
     private static ClaimPartner getClaimPartner() {
-        ClaimPartner claimPartner = ClaimPartner.builder()
-                .claim(Claim.builder()
+        ClaimPartner claimPartner = new ClaimPartner(
+                Claim.builder()
                         .claimDetail("사고 내용")
                         .partnerScore(0.0)
                         .claimReason("사고 이유")
@@ -221,15 +221,14 @@ public class GlobalTestObject {
                         .employee(getEmployee())
                         .receiptDate(LocalDateTime.now())
                         .status(ClaimStatus.접수완료)
-                        .build())
-                .partner(Partner.builder()
+                        .build(),
+                Partner.builder()
                         .address("주소")
                         .category(PartnerCategory.병원)
                         .contactNumber("010-0000-0000")
                         .employee(getEmployee())
                         .name("협력업체 이름")
-                        .build())
-                .build();
+                        .build());
         return claimPartner;
     }
 

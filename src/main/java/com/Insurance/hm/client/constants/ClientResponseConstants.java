@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public enum  ClientResponseConstants {
 
-    CLIENT_NO("Client No.");
+    CLIENT_NO("Client No."),
+    FIND_ALL("Client 전체 조회");
 
     private String message;
 

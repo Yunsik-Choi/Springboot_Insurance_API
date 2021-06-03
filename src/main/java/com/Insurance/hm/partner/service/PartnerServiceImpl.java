@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -40,6 +42,12 @@ public class PartnerServiceImpl implements PartnerService{
         Partner partner = partnerRepository.findById(id).orElseThrow(this::getNonMatchPartner);
         partnerRepository.delete(partner);
         return id;
+    }
+
+    @Override
+    public List<Partner> findAll() {
+        List<Partner> all = partnerRepository.findAll();
+        return all;
     }
 
     private NonMatchIdException getNonMatchPartner() {

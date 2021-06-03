@@ -4,6 +4,8 @@ import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.contract.dto.ContractChangeStatusRequestDto;
 import com.Insurance.hm.contract.dto.ContractSignRequestDto;
 
+import java.util.List;
+
 public interface ContractService {
 
     Long sign(ContractSignRequestDto contractSignRequestDto);
@@ -14,4 +16,5 @@ public interface ContractService {
 
     Contract changeContractStatusById(Long id, ContractChangeStatusRequestDto changeStatusRequestDto);
 
+    List<Contract> findAll();
 }

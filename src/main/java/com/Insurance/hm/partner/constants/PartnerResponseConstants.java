@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public enum PartnerResponseConstants {
 
-    PARTNER_NO("Partner NO.");
+    PARTNER_NO("Partner NO."),
+    FIND_ALL("Partner 전체 조회");
 
     private String message;
 

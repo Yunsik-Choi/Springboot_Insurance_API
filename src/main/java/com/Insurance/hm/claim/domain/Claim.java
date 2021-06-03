@@ -1,6 +1,7 @@
 package com.Insurance.hm.claim.domain;
 
 import com.Insurance.hm.claim.domain.entity.ClaimStatus;
+import com.Insurance.hm.compensation.domain.Compensation;
 import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.global.domain.claimPatner.ClaimPartner;
@@ -56,6 +57,8 @@ public class Claim extends BaseTime {
     @JoinColumn(name = "employee_id")
     @NotNull
     private Employee employee;
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "claim")
+    private Compensation compensation;
 
     @OneToMany(mappedBy = "claim")
     @Column(name = "claimpartner_list")
@@ -84,4 +87,7 @@ public class Claim extends BaseTime {
         this.partnerScore = partnerScore;
     }
 
+    public void changeCompensation(Compensation compensation) {
+        this.compensation = compensation;
+    }
 }

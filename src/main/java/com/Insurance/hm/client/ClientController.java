@@ -14,13 +14,23 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/client")
+@RequestMapping("api/client")
 public class ClientController {
 
     private final ClientService clientService;
+
+    @GetMapping
+    public ResponseDto showAll(){
+        List<Client> all = clientService.findAll();
+        return ResponseDto.builder()
+                .message(ClientResponseConstants.FIND_ALL.getMessage())
+                .data(all)
+                .build();
+    }
 
     @PostMapping("create")
     public void createClient(@RequestBody ClientCreateRequestDto clientCreateRequestDto,
