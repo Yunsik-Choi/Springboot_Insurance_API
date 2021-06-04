@@ -76,7 +76,7 @@ class InsuranceControllerTest {
 
         //then
         result.andExpect(status().isOk())
-            .andDo(document("Insurance 아이디로 조회",
+            .andDo(document("Insurance-findById",
                     getDocumentResponse(),
                     responseFields(
                             getResponseDetailInsuranceDto()
@@ -92,7 +92,7 @@ class InsuranceControllerTest {
         ResultActions result = mockMvc.perform(delete("/api/insurance/{id}", 1L));
 
         //then
-        result.andExpect(status().isOk()).andDo(document("Insurance 삭제",
+        result.andExpect(status().isOk()).andDo(document("Insurance-delete",
                 getDocumentResponse(),
                 responseFields(
                         fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태"),
@@ -112,7 +112,7 @@ class InsuranceControllerTest {
         ResultActions result = mockMvc.perform(post("/api/insurance/{id}/status",1L)
                 .content(objectMapper.writeValueAsString(changeStatusRequestDto))
                 .contentType(MediaType.APPLICATION_JSON));
-        result.andExpect(status().isOk()).andDo(document("insurance 상태 변경",
+        result.andExpect(status().isOk()).andDo(document("insurance-status",
                 ApiDocumentUtils.getDocumentRequest(),
                 ApiDocumentUtils.getDocumentResponse(),
                 requestFields(
@@ -125,7 +125,6 @@ class InsuranceControllerTest {
     }
 
     @Test
-    @Disabled
     void 보험_생성_API() throws Exception{
         InsuranceCreateRequestDto createRequestDto = new InsuranceCreateRequestDto();
         Insurance insurance = getInsurance();
@@ -144,10 +143,9 @@ class InsuranceControllerTest {
                 .content(objectMapper.writeValueAsString(createRequestDto))
                 .contentType(MediaType.APPLICATION_JSON)
         );
-        result.andExpect(status().isOk())
-                .andDo(document("Insurance 생성",
+        result.andExpect(status().isFound())
+                .andDo(document("Insurance-create",
                         getDocumentRequest(),
-                        getDocumentResponse(),
                         requestFields(
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("보험 이름"),
                                 fieldWithPath("description").type(JsonFieldType.STRING).description("보험 설명"),
@@ -161,9 +159,6 @@ class InsuranceControllerTest {
                                 fieldWithPath("target.endAge").type(JsonFieldType.NUMBER).description("보험 가입 최대 나이"),
                                 fieldWithPath("createEmployeeId").type(JsonFieldType.NULL).description("보험 생성한 직원 아이디"),
                                 fieldWithPath("managementEmployeeId").type(JsonFieldType.NULL).description("보험 관리하는 직원 아이디")
-                        ),
-                        responseFields(
-                                getResponseDetailInsuranceDto()
                         )
                         ));
     }
@@ -190,18 +185,8 @@ class InsuranceControllerTest {
                 fieldWithPath("data.target.endAge").type(JsonFieldType.NUMBER).description("가입 최대 나이"),
                 fieldWithPath("data.createTime").type(JsonFieldType.NULL).description("보험 생성 시간"),
                 fieldWithPath("data.modifiedTime").type(JsonFieldType.NULL).description("보험 수정 시간"),
-                fieldWithPath("data.createEmployee.id").type(JsonFieldType.NULL).description("보험 만든 사람 아이디"),
-                fieldWithPath("data.createEmployee.name").type(JsonFieldType.STRING).description("보험 만든 사람 이름"),
-                fieldWithPath("data.createEmployee.phoneNumber").type(JsonFieldType.STRING).description("보험 만든 사람 전화번호"),
-                fieldWithPath("data.createEmployee.email").type(JsonFieldType.STRING).description("보험 만든 사람 이메일"),
-                fieldWithPath("data.createEmployee.department").type(JsonFieldType.STRING).description("보험 만든 사람 부서"),
-                fieldWithPath("data.createEmployee.role").type(JsonFieldType.STRING).description("보험 만든 사람 직급"),
-                fieldWithPath("data.managementEmployee.id").type(JsonFieldType.NULL).description("보험 관리하는 사람 아이디"),
-                fieldWithPath("data.managementEmployee.name").type(JsonFieldType.STRING).description("보험 관리하는 사람 이름"),
-                fieldWithPath("data.managementEmployee.phoneNumber").type(JsonFieldType.STRING).description("보험 관리하는 사람 전화번호"),
-                fieldWithPath("data.managementEmployee.email").type(JsonFieldType.STRING).description("보험 관리하는 사람 이메일"),
-                fieldWithPath("data.managementEmployee.department").type(JsonFieldType.STRING).description("보험 관리하는 사람 부서"),
-                fieldWithPath("data.managementEmployee.role").type(JsonFieldType.STRING).description("보험 관리하는 사람"),
+                subsectionWithPath("data.createEmployee").type(JsonFieldType.OBJECT).description("보험 생성한 직원"),
+                subsectionWithPath("data.managementEmployee").type(JsonFieldType.OBJECT).description("보험 관리하는 직원"),
                 subsectionWithPath("data.contractList").type(JsonFieldType.ARRAY).description("해당 보험 계약 리스트").optional()};
     }
 

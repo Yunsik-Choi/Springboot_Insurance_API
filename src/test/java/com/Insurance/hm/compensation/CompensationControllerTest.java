@@ -64,7 +64,7 @@ class CompensationControllerTest {
         when(compensationService.findById(1L)).thenReturn(GlobalTestObject.getCompensation());
 
         ResultActions result = mockMvc.perform(get("/api/compensation/{id}", 1L));
-        result.andExpect(status().isOk()).andDo(document("compensation 아이디로 조회",
+        result.andExpect(status().isOk()).andDo(document("compensation-findById",
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(
                         GlobalTestFields.getFieldResponseCompensationDetailDto()
@@ -83,7 +83,7 @@ class CompensationControllerTest {
                 .content(objectMapper.writeValueAsString(changeStatusRequestDto))
         );
 
-        result.andExpect(status().isFound()).andDo(document("compensation 상태 변경",
+        result.andExpect(status().isFound()).andDo(document("compensation-status",
                 ApiDocumentUtils.getDocumentRequest(),
                 requestFields(
                     fieldWithPath("status").type(JsonFieldType.STRING).description("보상 상태"),

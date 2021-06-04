@@ -69,7 +69,7 @@ class ClientControllerTest {
         ResultActions result = mockMvc.perform(get("/api/client/{id}",1L));
 
         result.andExpect(status().isOk())
-                .andDo(document("client 아이디로 조회",
+                .andDo(document("client-findById",
                     ApiDocumentUtils.getDocumentRequest(),
                     ApiDocumentUtils.getDocumentResponse(),
                     responseFields(
@@ -86,7 +86,7 @@ class ClientControllerTest {
         ResultActions result = mockMvc.perform(delete("/api/client/{id}", 1L));
         //then
         result.andExpect(status().isOk())
-                .andDo(document("Client 아이디로 삭제",
+                .andDo(document("client-delete",
                         getDocumentResponse(),
                         responseFields(
                                 GlobalTestFields.getFieldResponseDelete("삭제된 Client 아이디")
@@ -96,7 +96,6 @@ class ClientControllerTest {
     }
 
     @Test
-    @Disabled
     public void Client_생성() throws Exception{
         //given
         ClientCreateRequestDto clientCreateRequestDto = GlobalTestObject.getClientCreateRequestDto();
@@ -107,15 +106,11 @@ class ClientControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(clientCreateRequestDto)));
 
-        result.andExpect(status().isOk())
-                .andDo(document("client 생성",
+        result.andExpect(status().isFound())
+                .andDo(document("client-create",
                     ApiDocumentUtils.getDocumentRequest(),
-                    ApiDocumentUtils.getDocumentResponse(),
                     requestFields(
                             GlobalTestFields.getFieldRequestClientSignRequestDto()
-                    ),
-                    responseFields(
-                            GlobalTestFields.getFieldResponseClientDetailDto()
                     )
                 ));
 

@@ -9,14 +9,40 @@ group = 'com.Insurance'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '8'
 
+ext{
+	snippetsDir = file('build/generated-snippets')
+}
+
 asciidoctor{
+	inputs.dir snippetsDir
 	dependsOn test
 }
+
+asciidoctor.doFirst {
+	println "=====start asciidoctor"
+	//asciidoctor 실행전 기존에 생성된 API 문서 삭제
+	delete file('src/main/resources/static/docs')
+}
+asciidoctor.doLast {
+	println "=====finish asciidoctor"
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+	from file("build/asciidoc/html5")
+	// resources/static/docs 로 복사하여 서버가 돌아가고 있을때 /docs/index.html 로 접속하면 볼수 있음
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocument
+}
+
 
 bootJar{
 	dependsOn asciidoctor
 	from("${asciidoctor.outputDir}/html5"){
-		into 'static/docs'
+		into "BOOT-INF/classes/static/docs"
 	}
 }
 
@@ -32,7 +58,6 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -40,6 +65,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile("org.mariadb.jdbc:mariadb-java-client")
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }

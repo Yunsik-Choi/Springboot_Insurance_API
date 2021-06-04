@@ -64,7 +64,7 @@ class PartnerControllerTest {
         ResultActions result = mockMvc.perform(get("/api/partner/{id}",1L)
         );
         
-        result.andExpect(status().isOk()).andDo(document("partner 아이디로 조회",
+        result.andExpect(status().isOk()).andDo(document("partner-findById",
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(
                         GlobalTestFields.getFieldResponsePartnerDetailDto()
@@ -76,14 +76,13 @@ class PartnerControllerTest {
     void 파트너_아이디로_삭제() throws Exception{
         when(partnerService.deleteById(1L)).thenReturn(1L);
         ResultActions result = mockMvc.perform(delete("/api/partner/{id}",1L));
-        result.andExpect(status().isOk()).andDo(document("partner 아이디로 삭제",
+        result.andExpect(status().isOk()).andDo(document("partner-delete",
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(
                         GlobalTestFields.getFieldResponseDelete("삭제된 파트너 아이디")
         )));
     }
     @Test
-    @Disabled
     void 파트너_생성() throws Exception{
         when(partnerService.findById(1L)).thenReturn(GlobalTestObject.getPartner());
         ResultActions result = mockMvc.perform(post("/api/partner/create")
@@ -91,18 +90,14 @@ class PartnerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
-        result.andExpect(status().isOk()).andDo(document("partner 생성",
+        result.andExpect(status().isFound()).andDo(document("partner-create",
                 ApiDocumentUtils.getDocumentRequest(),
-                ApiDocumentUtils.getDocumentResponse(),
                 requestFields(
                         fieldWithPath("name").type(JsonFieldType.STRING).description("파트너 이름"),
                         fieldWithPath("address").type(JsonFieldType.STRING).description("파트너 주소"),
                         fieldWithPath("contactNumber").type(JsonFieldType.STRING).description("파트너 전화번호"),
                         fieldWithPath("category").type(JsonFieldType.STRING).description("파트너 카테고리"),
                         fieldWithPath("employeeId").type(JsonFieldType.NUMBER).description("파트너 담당 직원 아이디")
-                ),
-                responseFields(
-                        GlobalTestFields.getFieldResponsePartnerDetailDto()
                 )
         ));
     }

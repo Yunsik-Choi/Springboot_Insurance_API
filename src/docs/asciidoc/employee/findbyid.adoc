@@ -1,0 +1,62 @@
+= Employee Find By ID API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/employee/{id}`
+
+| 운영서버
+| `hminsu.net/api/employee/{id}`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*GET*
+
+== Response Parameters
+include::{snippets}/employee-findById/response-fields.adoc[]
+== Response JSON
+{ +
+"status" : 200, +
+"result" : "SUCCESS", +
+"message" : "Employee NO.1 아이디로 찾기 성공", +
+"data" : { +
+"id" : 1, +
+"name" : "직원이름", +
+"loginId" : "abcd", +
+"password" : "1234", +
+"phoneNumber" : "010-000-000", +
+"email" : "abcd", +
+"department" : "개발", +
+"role" : "과장", +
+"createTime" : "2021-06-04T21:25:31.7289682" +
+} +
+}

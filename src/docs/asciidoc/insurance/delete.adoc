@@ -1,0 +1,52 @@
+= Insurance Delete API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/insurance/{id}`
+
+| 운영서버
+| `hminsu.net/api/insurance/{id}`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*DELETE*
+
+== Response Parameters
+include::{snippets}/insurance-delete/response-fields.adoc[]
+== Response JSON
+{ +
+"status" : 200, +
+"result" : "SUCCESS", +
+"message" : "Insurance NO.1 삭제 성공", +
+"data" : 1 +
+}

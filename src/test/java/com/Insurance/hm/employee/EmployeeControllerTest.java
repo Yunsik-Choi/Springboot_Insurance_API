@@ -79,7 +79,7 @@ class EmployeeControllerTest {
 
         //then
         result.andExpect(status().isOk())
-                .andDo(document("Employee 아이디로 조회",
+                .andDo(document("employee-findById",
                         getDocumentResponse(),
                         responseFields(
                                 getResponseDetailEmployee()
@@ -119,7 +119,7 @@ class EmployeeControllerTest {
 
         //then
         result.andExpect(status().isOk())
-                .andDo(document("Employee 로그인",
+                .andDo(document("employee-login",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
@@ -150,7 +150,7 @@ class EmployeeControllerTest {
         ResultActions result = mockMvc.perform(delete("/api/employee/{id}", 1L));
         //then
         result.andExpect(status().isOk())
-                .andDo(document("Employee 삭제",
+                .andDo(document("employee-delete",
                         getDocumentResponse(),
                         responseFields(
                                 getResponseFieldDeleteEmployee()
@@ -167,7 +167,6 @@ class EmployeeControllerTest {
     }
 
     @Test
-    @Disabled
     void 직원_가입_API() throws Exception {
         //given
         EmployeeJoinRequestDto joinRequestDto = new EmployeeJoinRequestDto();
@@ -186,9 +185,8 @@ class EmployeeControllerTest {
         );
 
         //then
-        result.andExpect(status().isOk()).andDo(document("Employee 가입",
+        result.andExpect(status().isFound()).andDo(document("employee-join",
                 getDocumentRequest(),
-                getDocumentResponse(),
                 requestFields(
                         fieldWithPath("name").type(JsonFieldType.STRING).description("직원 이름"),
                         fieldWithPath("loginId").type(JsonFieldType.STRING).description("직원 로그인 아이디"),
@@ -197,9 +195,6 @@ class EmployeeControllerTest {
                         fieldWithPath("email").type(JsonFieldType.STRING).description("직원 이메일"),
                         fieldWithPath("department").type(JsonFieldType.STRING).description("직원 부서"),
                         fieldWithPath("role").type(JsonFieldType.STRING).description("직원 직급")
-                ),
-                responseFields(
-                        getResponseDetailEmployee()
                 )
                 ));
     }

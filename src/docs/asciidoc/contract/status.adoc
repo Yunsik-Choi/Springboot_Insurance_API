@@ -1,0 +1,99 @@
+= Contract Change Status Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/contract/{id}/status`
+
+| 운영서버
+| `hminsu.net/api/contract/{id}/status`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*POST*
+
+== Request Parameters
+include::{snippets}/contract-status/request-fields.adoc[]
+== Request JSON
+{
+"status" : "계약중"
+}
+
+== Response Parameters
+include::{snippets}/contract-status/response-fields.adoc[]
+== Response JSON
+{ +
+"status" : 200, +
+"result" : "SUCCESS", +
+"message" : "Contract No.null 계약 상태 변경 성공", +
+"data" : { +
+"id" : 1, +
+"insurancePremium" : 1, +
+"accumulatedPremium" : 1, +
+"premiumRate" : 0.2, +
+"status" : "계약신청", +
+"channel" : "온라인", +
+"contractDate" : { +
+"registerDate" : "2021-06-04T22:22:54.4266869", +
+"startDate" : "2021-06-04T22:22:54.4266869", +
+"endDate" : "2021-06-04T22:22:54.4266869" +
+}, +
+"client" : { +
+"id" : 1, +
+"name" : "이름", +
+"age" : 20, +
+"rrn" : { +
+"rrnFront" : 210527, +
+"rrnBack" : 11111111 +
+}, +
+"gender" : "MALE", +
+"address" : "대한민국", +
+"phoneNumber" : "010-0000-000", +
+"email" : "naver.com" +
+}, +
+"insurance" : { +
+"id" : 1, +
+"name" : "HM 운전자 보험", +
+"description" : "HM보험사에서 내놓는 최초의 보험", +
+"category" : "운전자", +
+"status" : "결재대기" +
+}, +
+"employee" : { +
+"id" : 1, +
+"name" : "최윤식", +
+"phoneNumber" : "010-000-000", +
+"email" : "abcd", +
+"department" : "개발", +
+"role" : "과장" +
+} +
+} +
+}

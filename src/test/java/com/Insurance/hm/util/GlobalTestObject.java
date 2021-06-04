@@ -24,7 +24,6 @@ import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.domain.entity.Role;
 import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.global.domain.claimPatner.ClaimPartner;
-import com.Insurance.hm.global.util.ClobHandler;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;

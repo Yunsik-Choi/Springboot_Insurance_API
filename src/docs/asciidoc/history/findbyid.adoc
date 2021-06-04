@@ -1,0 +1,63 @@
+= AccidentHistory Find By ID API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/history/{id}`
+
+| 운영서버
+| `hminsu.net/api/history/{id}`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*GET*
+
+== Response Parameters
+include::{snippets}/AccidentHistory-findById/response-fields.adoc[]
+== Response JSON
+{ +
+"status" : 200, +
+"result" : "SUCCESS", +
+"message" : "Accident History NO.1 아이디로 찾기 성공", +
+"data" : { +
+"id" : 1, +
+"accidentDate" : "2021-06-04T21:31:24.5247388", +
+"accidentRate" : 50.0, +
+"accidentDescription" : "사고 요약", +
+"client" : { +
+"id" : 1, +
+"name" : "이름", +
+"age" : 20, +
+"gender" : "MALE" +
+} +
+} +
+}

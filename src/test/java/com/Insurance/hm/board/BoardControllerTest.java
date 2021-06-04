@@ -65,7 +65,7 @@ class BoardControllerTest {
         BoardCreateDto boardCreateDto = GlobalTestObject.getBoardCreateDto();
         when(boardService.findById(1L)).thenReturn(GlobalTestObject.getBoard());
         ResultActions result = mockMvc.perform(get("/api/board/{id}",1L));
-        result.andExpect(status().isOk()).andDo(document("board 아이디로 찾기",
+        result.andExpect(status().isOk()).andDo(document("Board-findById",
                 ApiDocumentUtils.getDocumentRequest(),
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(GlobalTestFields.getFieldResponseBoardDetailDto())
@@ -73,7 +73,6 @@ class BoardControllerTest {
     }
 
     @Test
-    @Disabled
     void 게시물_업데이트() throws Exception{
         BoardCreateDto boardCreateDto = GlobalTestObject.getBoardCreateDto();
         when(boardService.findById(1L)).thenReturn(GlobalTestObject.getBoard());
@@ -81,16 +80,13 @@ class BoardControllerTest {
                 .content(objectMapper.writeValueAsString(boardCreateDto))
                 .contentType(MediaType.APPLICATION_JSON)
                 );
-        result.andExpect(status().isOk()).andDo(document("board 업데이트",
+        result.andExpect(status().isFound()).andDo(document("Board-update",
                 ApiDocumentUtils.getDocumentRequest(),
-                ApiDocumentUtils.getDocumentResponse(),
-                requestFields(GlobalTestFields.getFieldRequestBoardCreateDto()),
-                responseFields(GlobalTestFields.getFieldResponseBoardDetailDto())
+                requestFields(GlobalTestFields.getFieldRequestBoardCreateDto())
         ));
     }
 
     @Test
-    @Disabled
     void 게시물_쓰기() throws Exception{
         BoardCreateDto boardCreateDto = GlobalTestObject.getBoardCreateDto();
         when(boardService.findById(1L)).thenReturn(GlobalTestObject.getBoard());
@@ -98,11 +94,9 @@ class BoardControllerTest {
         ResultActions result = mockMvc.perform(post("/api/board/write")
                 .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(boardCreateDto)));
 
-        result.andExpect(status().isOk()).andDo(document("board 쓰기",
+        result.andExpect(status().isFound()).andDo(document("Board-write",
                 ApiDocumentUtils.getDocumentRequest(),
-                ApiDocumentUtils.getDocumentResponse(),
-                requestFields(GlobalTestFields.getFieldRequestBoardCreateDto()),
-                responseFields(GlobalTestFields.getFieldResponseBoardDetailDto())
+                requestFields(GlobalTestFields.getFieldRequestBoardCreateDto())
         ));
     }
 
@@ -115,7 +109,7 @@ class BoardControllerTest {
         ResultActions result = mockMvc.perform(delete("/api/board/{id}", 1L));
 
         //then
-        result.andExpect(status().isOk()).andDo(document("board 삭제",
+        result.andExpect(status().isOk()).andDo(document("Board-delete",
                 getDocumentResponse(),
                 responseFields(
                         fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태"),

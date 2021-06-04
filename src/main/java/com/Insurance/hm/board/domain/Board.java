@@ -3,17 +3,12 @@ package com.Insurance.hm.board.domain;
 import com.Insurance.hm.board.dto.BoardCreateDto;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.global.domain.BaseTime;
-import com.Insurance.hm.global.util.ClobHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.sql.Clob;
-import java.sql.SQLException;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

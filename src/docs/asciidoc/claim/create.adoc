@@ -1,0 +1,55 @@
+= Claim Create API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/claim/create`
+
+| 운영서버
+| `hminsu.net/api/claim/create`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*POST*
+
+== Request Parameters
+include::{snippets}/claim-create/request-fields.adoc[]
+== Request JSON
+{ +
+"accidentDate" : "2021-06-04T21:52:41.9254963", +
+"damageCost" : 10000, +
+"claimReason" : "사고 이유", +
+"claimDetail" : "사고 내용", +
+"claimRate" : 80.0, +
+"contractId" : 1, +
+"employeeId" : 1 +
+}

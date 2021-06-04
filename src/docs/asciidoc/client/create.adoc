@@ -1,0 +1,60 @@
+= Client Create API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/client/create`
+
+| 운영서버
+| `hminsu.net/api/client/create`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*POST*
+
+== Request Parameters
+include::{snippets}/client-create/request-fields.adoc[]
+== Request JSON
+{ +
+  "name" : "이름", +
+  "age" : 20, +
+  "email" : "naver.com", +
+  "address" : "대한민국", +
+  "phoneNumber" : "010-0000-000", +
+  "accountNumber" : "12341234", +
+  "bank" : "IBK기업", +
+  "gender" : "MALE", +
+  "rrn" : { +
+    "rrnFront" : 210527, +
+    "rrnBack" : 11111111 +
+  } +
+}

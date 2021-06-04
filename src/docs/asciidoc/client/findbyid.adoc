@@ -1,0 +1,82 @@
+= Client Find By Id API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/client/{id}`
+
+| 운영서버
+| `hminsu.net/api/client/{id}`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*POST*
+
+== Response Parameters
+include::{snippets}/client-findById/response-fields.adoc[]
+== Response JSON
+{ +
+"status" : 200, +
+"result" : "SUCCESS", +
+"message" : "Client No.1 아이디로 찾기 성공", +
+"data" : { +
+"id" : 1, +
+"name" : "이름", +
+"age" : 20, +
+"address" : "대한민국", +
+"phoneNumber" : "010-0000-000", +
+"email" : "naver.com", +
+"accountNumber" : "12341234", +
+"bank" : "IBK기업", +
+"gender" : "MALE", +
+"rrn" : { +
+"rrnFront" : 210527, +
+"rrnBack" : 11111111 +
+}, +
+"contractList" : [ { +
+"id" : 1, +
+"insurancePremium" : 1, +
+"status" : "계약신청", +
+"channel" : "온라인", +
+"clientId" : 1, +
+"insuranceId" : 1, +
+"employeeId" : 1 +
+} ], +
+"accidentHistoryList" : [ { +
+"id" : 1, +
+"accidentDate" : "2021-06-04T22:09:28.335883", +
+"accidentRate" : 50.0, +
+"accidentDescription" : "사고 요약", +
+"clientId" : 1 +
+} ] +
+} +
+}

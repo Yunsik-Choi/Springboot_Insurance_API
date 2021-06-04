@@ -67,7 +67,7 @@ class ClaimControllerTest {
                 get("/api/claim/{id}",1L)
         );
 
-        result.andExpect(status().isOk()).andDo(document("claim 아이디로 조회",
+        result.andExpect(status().isOk()).andDo(document("claim-findById",
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(
                         GlobalTestFields.getFieldResponseClaimRequestDto()
@@ -83,7 +83,7 @@ class ClaimControllerTest {
                 delete("/api/claim/{id}",1L)
         );
 
-        result.andExpect(status().isOk()).andDo(document("claim 아이디로 삭제",
+        result.andExpect(status().isOk()).andDo(document("claim-delete",
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(
                         GlobalTestFields.getFieldResponseDelete("삭제된 claim 아이디")
@@ -103,7 +103,7 @@ class ClaimControllerTest {
                 .content(objectMapper.writeValueAsString(requestDto))
         );
 
-        result.andExpect(status().isFound()).andDo(document("claim 상태 변경",
+        result.andExpect(status().isFound()).andDo(document("claim-status",
                 ApiDocumentUtils.getDocumentRequest(),
                 requestFields(
                         fieldWithPath("status").type(JsonFieldType.STRING).description("사고 처리 상태")
@@ -123,11 +123,11 @@ class ClaimControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
-        result.andExpect(status().isOk()).andDo(document("claim 파트너 점수 변경",
+        result.andExpect(status().isOk()).andDo(document("claim-score",
                 ApiDocumentUtils.getDocumentRequest(),
                 ApiDocumentUtils.getDocumentResponse(),
                 requestFields(
-                        fieldWithPath("partnerScore").type(JsonFieldType.NUMBER).description("바꿀 점수")
+                        fieldWithPath("score").type(JsonFieldType.NUMBER).description("바꿀 점수")
                 ),
                 responseFields(
                         GlobalTestFields.getFieldResponseClaimRequestDto()
@@ -144,7 +144,7 @@ class ClaimControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(claimAddPartnerDto))
         );
-        result.andExpect(status().isFound()).andDo(document("claim 파트너 추가",
+        result.andExpect(status().isFound()).andDo(document("claim-partner",
                 ApiDocumentUtils.getDocumentRequest(),
                 requestFields(
                         fieldWithPath("partnerId").type(JsonFieldType.NUMBER).description("추가할 파트너 아이디")
@@ -155,7 +155,6 @@ class ClaimControllerTest {
 
 
     @Test
-    @Disabled
     void 사고_생성() throws Exception {
         Claim claim = GlobalTestObject.getClaim();
         when(claimService.findById(1L)).thenReturn(claim);
@@ -165,14 +164,10 @@ class ClaimControllerTest {
                         .content(objectMapper.writeValueAsString(GlobalTestObject.getClaimCreateRequestDto()))
         );
 
-        result.andExpect(status().isOk()).andDo(document("claim 생성",
+        result.andExpect(status().isFound()).andDo(document("claim-create",
                 ApiDocumentUtils.getDocumentRequest(),
-                ApiDocumentUtils.getDocumentResponse(),
                 requestFields(
                         GlobalTestFields.getFieldRequestClaimRequestDto()
-                ),
-                responseFields(
-                        GlobalTestFields.getFieldResponseClaimRequestDto()
                 )
                 ));
     }

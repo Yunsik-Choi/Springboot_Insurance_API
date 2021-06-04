@@ -72,7 +72,7 @@ class ContractControllerTest {
         );
 
         result.andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(document("Contract 아이디로 조회",
+                .andDo(document("Contract-findById",
                         ApiDocumentUtils.getDocumentRequest(),
                         ApiDocumentUtils.getDocumentResponse(),
                         responseFields(
@@ -94,7 +94,7 @@ class ContractControllerTest {
         );
 
         result.andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(document("Contract 상태 변경",
+                .andDo(document("Contract-status",
                         ApiDocumentUtils.getDocumentRequest(),
                         ApiDocumentUtils.getDocumentResponse(),
                         requestFields(
@@ -115,7 +115,7 @@ class ContractControllerTest {
         );
 
         result.andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(document("Contract 삭제",
+                .andDo(document("Contract-delete",
                         ApiDocumentUtils.getDocumentRequest(),
                         ApiDocumentUtils.getDocumentResponse(),
                         responseFields(
@@ -126,7 +126,6 @@ class ContractControllerTest {
     }
 
     @Test
-    @Disabled
     public void 계약_생성_테스트() throws Exception{
         ContractSignRequestDto contractSignRequestDto = GlobalTestObject.getContractSignRequestDto();
 
@@ -137,10 +136,9 @@ class ContractControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
-        result.andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(document("Contract 생성",
+        result.andExpect(MockMvcResultMatchers.status().isFound())
+                .andDo(document("Contract-sign",
                         ApiDocumentUtils.getDocumentRequest(),
-                        ApiDocumentUtils.getDocumentResponse(),
                         requestFields(
                                 fieldWithPath("insurancePremium").type(JsonFieldType.NUMBER).description("보험료"),
                                 fieldWithPath("accumulatedPremium").type(JsonFieldType.NUMBER).description("총 납입 보험료"),
@@ -153,9 +151,6 @@ class ContractControllerTest {
                                 fieldWithPath("clientId").type(JsonFieldType.NUMBER).description("계약 고객 아이디"),
                                 fieldWithPath("insuranceId").type(JsonFieldType.NUMBER).description("계약 상품 아이디"),
                                 fieldWithPath("employeeId").type(JsonFieldType.NUMBER).description("계약 직원 아이디")
-                        ),
-                        responseFields(
-                                GlobalTestFields.getFieldResponseContract()
                         )
                 ));
 

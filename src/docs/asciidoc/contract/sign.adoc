@@ -1,0 +1,61 @@
+= Contract Sign API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080/api/contract/sign`
+
+| 운영서버
+| `hminsu.net/api/contract/sign`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== HTTP Method
+*POST*
+
+== Request Parameters
+include::{snippets}/contract-sign/request-fields.adoc[]
+== Request JSON
+{ +
+"insurancePremium" : 1, +
+"accumulatedPremium" : 1, +
+"premiumRate" : 0.2, +
+"status" : "계약신청", +
+"channel" : "온라인", +
+"contractDate" : { +
+"registerDate" : "2021-06-04T22:22:54.3678446", +
+"startDate" : "2021-06-04T22:22:54.3678446", +
+"endDate" : "2021-06-04T22:22:54.3678446" +
+}, +
+"clientId" : 1, +
+"insuranceId" : 1, +
+"employeeId" : 1 +
+}

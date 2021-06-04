@@ -1,0 +1,100 @@
+= HM API Document
+hminsu.net
+:snippets: ../../../../build/generated-snippets
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+[[introduction]]
+== 소개
+
+HM 보험 API
+
+[[common]]
+== 공통 사항
+
+API에 관계없이 아래 사항을 지켜주셔야 합니다.
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발서버
+| `localhost:8080`
+
+| 운영서버
+| `hminsu.net`
+|===
+
+=== 공통 Response Body
+
+|===
+| field | 설명
+
+| `status`
+| http status
+
+| `result`
+| 응답 상태
+
+| `message`
+| 예외사항 내용 등 응답 메세지
+
+| `data`
+| 실제 반환될 데이터
+|===
+
+== board
+link:board/write.html[게시글 쓰기] +
+link:board/findbyid.html[게시글 아이디로 조회] +
+link:board/update.html[게시글 업데이트] +
+link:board/delete.html[게시글 지우기] +
+
+== claim
+link:claim/create.html[사고 생성] +
+link:claim/findbyid.html[사고 아이디로 조회] +
+link:claim/status.html[사고 상태 업데이트] +
+link:claim/partner.html[사고 협력업체 추가] +
+link:claim/score.html[사고 협력업체 점수 평가] +
+link:claim/delete.html[사고 지우기] +
+
+== client
+link:client/create.html[고객 생성] +
+link:client/findbyid.html[고객 아이디로 찾기] +
+link:client/delete.html[고객 지우기] +
+
+== compensation
+link:compensation/findbyid.html[보상 아이디로 조회] +
+link:compensation/status.html[보상 상태 업데이트] +
+
+== contract
+link:contract/sign.html[계약 생성] +
+link:contract/findbyid.html[계약 아이디로 찾기] +
+link:contract/status.html[계약 상태 업데이트] +
+link:contract/delete.html[계약 지우기] +
+
+== employee
+link:employee/join.html[직원 생성] +
+link:employee/login.html[직원 로그인] +
+link:employee/findbyid.html[직원 아이디로 찾기] +
+link:employee/delete.html[직원 지우기] +
+
+== history
+link:history/create.html[사고이력 생성] +
+link:history/findbyid.html[사고이력 아이디로 찾기] +
+link:history/delete.html[사고이력 지우기] +
+
+== insurance
+link:insurance/create.html[보험 생성] +
+link:insurance/findbyid.html[보험 아이디로 찾기] +
+link:insurance/status.html[보험 상태 업데이트] +
+link:insurance/delete.html[보험 지우기] +
+
+== partner
+link:partner/create.html[협력업체 생성] +
+link:partner/findbyid.html[협력업체 아이디로 찾기] +
+link:partner/delete.html[협력업체 지우기] +

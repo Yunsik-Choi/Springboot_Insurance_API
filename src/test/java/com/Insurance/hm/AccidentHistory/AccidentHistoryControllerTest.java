@@ -54,7 +54,6 @@ class AccidentHistoryControllerTest {
     }
 
     @Test
-    @Disabled
     public void 사고이력_생성() throws Exception{
         //given
         AccidentHistoryCreateRequestDto requestDto = GlobalTestObject.getAccidentHistoryCreateRequestDto();
@@ -68,14 +67,10 @@ class AccidentHistoryControllerTest {
         );
 
         //then
-        result.andExpect(status().isOk()).andDo(document("AccidentHistory 생성",
+        result.andExpect(status().isFound()).andDo(document("AccidentHistory-create",
                 ApiDocumentUtils.getDocumentRequest(),
-                ApiDocumentUtils.getDocumentResponse(),
                 requestFields(
                         GlobalTestFields.getFieldRequestAccidentHistoryCreateDto()
-                ),
-                responseFields(
-                        GlobalTestFields.getFieldResponseAccidentHistoryDetailDto()
                 )
         ));
 
@@ -92,7 +87,7 @@ class AccidentHistoryControllerTest {
         );
 
         //then
-        result.andExpect(status().isOk()).andDo(document("AccidentHistory 아이디로 조회",
+        result.andExpect(status().isOk()).andDo(document("AccidentHistory-findById",
                 ApiDocumentUtils.getDocumentRequest(),
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(
@@ -112,7 +107,7 @@ class AccidentHistoryControllerTest {
         );
 
         //then
-        result.andExpect(status().isOk()).andDo(document("AccidentHistory 아이디로 삭제",
+        result.andExpect(status().isOk()).andDo(document("AccidentHistory-delete",
                 ApiDocumentUtils.getDocumentRequest(),
                 ApiDocumentUtils.getDocumentResponse(),
                 responseFields(
