@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,9 +26,11 @@ public class AccidentHistoryController {
     @GetMapping
     public ResponseDto showAll(){
         List<AccidentHistory> all = accidentHistoryService.findAll();
+        List<AccidentHistoryDetailDto> responseAll =
+                all.stream().map(i -> new AccidentHistoryDetailDto(i)).collect(Collectors.toList());
         return ResponseDto.builder()
                 .message(AccidentHistoryResponseConstants.FIND_ALL.getMessage())
-                .data(all)
+                .data(responseAll)
                 .build();
     }
 

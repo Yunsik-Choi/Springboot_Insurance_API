@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,9 +28,10 @@ public class ClaimController{
     @GetMapping
     public ResponseDto showAll(){
         List<Claim> all = claimService.findAll();
+        List<ClaimDetailDto> responseAll = all.stream().map(i -> new ClaimDetailDto(i)).collect(Collectors.toList());
         return ResponseDto.builder()
                 .message(ClaimResponseConstants.FIND_ALL.getMessage())
-                .data(all)
+                .data(responseAll)
                 .build();
     }
 

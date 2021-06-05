@@ -1,5 +1,7 @@
 package com.Insurance.hm.insurance.service;
 
+import com.Insurance.hm.contract.domain.Contract;
+import com.Insurance.hm.contract.domain.entity.Channel;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.EmployeeRepository;
 import com.Insurance.hm.global.constants.GlobalErrorConstants;
@@ -30,8 +32,7 @@ public class InsuranceServiceImpl implements InsuranceService{
                 .orElseThrow(() -> new NonMatchIdException(InsuranceErrorConstants.Non_Match_Create_Employee_Exception));
         Employee managementEmployee = employeeRepository.findById(createRequestDto.getManagementEmployeeId())
                 .orElseThrow(() -> new NonMatchIdException(InsuranceErrorConstants.Non_Match_Management_Employee_Exception));
-        Insurance createInsurance  = insuranceRepository.save(
-                createRequestDto.toEntity(createEmployee,managementEmployee));
+        Insurance createInsurance  = insuranceRepository.save(createRequestDto.toEntity(createEmployee,managementEmployee));
         return createInsurance.getId();
     }
 

@@ -7,10 +7,14 @@ import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.AccidentHistory.domain.AccidentHistory;
 import com.Insurance.hm.global.domain.BaseTime;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -44,10 +48,10 @@ public class Client extends BaseTime {
 
     @Column(name = "contranct_list")
     @OneToMany(mappedBy = "client")
-    private List<Contract> contractList = new ArrayList<>();
+    private Set<Contract> contractList = new HashSet<>();
     @Column(name = "accident_histroy_list")
     @OneToMany(mappedBy = "client")
-    private List<AccidentHistory> accidentHistoryList = new ArrayList<>();
+    private Set<AccidentHistory> accidentHistoryList = new HashSet<>();
 
     @Builder
     public Client(String name, int age, String accountNumber, String address, String phoneNumber, String email, Bank bank,

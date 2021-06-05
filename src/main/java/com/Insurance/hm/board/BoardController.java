@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +27,10 @@ public class BoardController {
     @GetMapping
     public ResponseDto showAll(){
         List<Board> all = boardService.findAll();
+        List<BoardDetailDto> responseAll = all.stream().map(i -> new BoardDetailDto(i)).collect(Collectors.toList());
         return ResponseDto.builder()
                 .message(BoardResponseConstants.FIND_ALL.getMessage())
-                .data(all)
+                .data(responseAll)
                 .build();
     }
 

@@ -13,7 +13,17 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
+
+@NamedEntityGraph(
+        name = "contract-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("client"),
+                @NamedAttributeNode("insurance"),
+                @NamedAttributeNode("employee")
+        }
+)
 @Entity
 @Getter
 @AllArgsConstructor
@@ -78,7 +88,7 @@ public class Contract extends BaseTime {
     }
     public void changeClient(Client client){
         this.client = client;
-        List<Contract> contractList = client.getContractList();
+        Set<Contract> contractList = client.getContractList();
         if(!contractList.contains(this))
             contractList.add(this);
     }

@@ -10,7 +10,9 @@ import com.Insurance.hm.AccidentHistory.domain.AccidentHistory;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class ClientDetailDto {
@@ -40,6 +42,7 @@ public class ClientDetailDto {
         this.bank = client.getBank();
         this.gender = client.getGender();
         this.rrn = client.getRrn();
+        client.getContractList();
         client.getContractList().stream().forEach(contract -> contractList.add(new ContractInfoDto(contract)));
         client.getAccidentHistoryList().stream()
                 .forEach(accidentHistory -> accidentHistoryList.add(new AccidentHistoryInfoDto(accidentHistory)));

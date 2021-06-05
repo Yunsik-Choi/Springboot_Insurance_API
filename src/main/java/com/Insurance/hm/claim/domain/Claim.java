@@ -17,6 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+
+@NamedEntityGraph(
+        name = "claim-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("contract"),
+                @NamedAttributeNode("employee"),
+                @NamedAttributeNode("compensation"),
+                @NamedAttributeNode("claimpartnerList")
+        }
+)
 @Entity
 @Getter
 @AllArgsConstructor

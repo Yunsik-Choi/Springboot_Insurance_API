@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,9 +26,10 @@ public class CompensationController {
     @GetMapping
     public ResponseDto showAll(){
         List<Compensation> all = compensationService.findAll();
+        List<CompensationDetailDto> responseAll = all.stream().map(i -> new CompensationDetailDto(i)).collect(Collectors.toList());
         return ResponseDto.builder()
                 .message(CompensationResponseConstants.FIND_ALL.getMessage())
-                .data(all)
+                .data(responseAll)
                 .build();
     }
 

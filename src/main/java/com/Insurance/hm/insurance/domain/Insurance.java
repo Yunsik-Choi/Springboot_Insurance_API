@@ -12,6 +12,15 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@NamedEntityGraph(
+        name = "insurance-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("createEmployee"),
+                @NamedAttributeNode("managementEmployee"),
+                @NamedAttributeNode("contractList"),
+        }
+)
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -44,8 +45,8 @@ public class AccidentHistory extends BaseTime {
 
     private void changeClient(Client client){
         this.client = client;
-        List<AccidentHistory> accident_history_list = client.getAccidentHistoryList();
-        if(!accident_history_list.contains(this))
-            accident_history_list.add(this);
+        Set<AccidentHistory> accidentHistoryList = client.getAccidentHistoryList();
+        if(!accidentHistoryList.contains(this))
+            accidentHistoryList.add(this);
     }
 }

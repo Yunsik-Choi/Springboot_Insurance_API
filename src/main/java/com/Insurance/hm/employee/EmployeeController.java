@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "api/employee")
@@ -28,9 +29,10 @@ public class EmployeeController {
     @GetMapping
     public ResponseDto showAll(){
         List<Employee> all = employeeService.findAll();
+        List<EmployeeDetailDto> responseAll = all.stream().map(i -> new EmployeeDetailDto(i)).collect(Collectors.toList());
         return ResponseDto.builder()
                 .message(EmployeeResponseConstants.FIND_ALL.getMessage())
-                .data(all)
+                .data(responseAll)
                 .build();
     }
 

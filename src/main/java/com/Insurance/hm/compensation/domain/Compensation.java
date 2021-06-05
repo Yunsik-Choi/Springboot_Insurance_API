@@ -11,6 +11,14 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@NamedEntityGraph(
+        name = "compensation-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("claim"),
+                @NamedAttributeNode("contract"),
+                @NamedAttributeNode("employee")
+        }
+)
 @Entity
 @Getter
 @AllArgsConstructor

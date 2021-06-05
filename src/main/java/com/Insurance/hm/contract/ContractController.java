@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -27,9 +28,10 @@ public class ContractController {
     @GetMapping
     public ResponseDto showAll(){
         List<Contract> all = contractService.findAll();
+        List<ContractDetailDto> responseAll = all.stream().map(i -> new ContractDetailDto(i)).collect(Collectors.toList());
         return ResponseDto.builder()
                 .message(ContractResponseConstants.FIND_ALL.getMessage())
-                .data(all)
+                .data(responseAll)
                 .build();
     }
 
