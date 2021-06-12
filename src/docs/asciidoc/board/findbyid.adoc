@@ -53,8 +53,9 @@ include::{snippets}/Board-findById/response-fields.adoc[]
 "title" : "제목", +
 "author" : "최윤식", +
 "department" : "개발", +
-"createdDate" : 2021-06-04T21:25:31.7289682, +
-"modifiedDate" : 2021-06-04T21:25:31.7289682, +
+"fileIdList" : [ 1,2 ], +
+"createdDate" : "2021-06-13T02:22:30.8199176", +
+"modifiedDate" : "2021-06-13T02:22:30.8199176", +
 "content" : "내용" +
 } +
 }

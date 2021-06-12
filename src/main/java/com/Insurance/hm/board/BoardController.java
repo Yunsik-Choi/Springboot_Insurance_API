@@ -1,9 +1,11 @@
 package com.Insurance.hm.board;
 
+import com.Insurance.hm.board.constants.BoardErrorConstants;
 import com.Insurance.hm.board.constants.BoardResponseConstants;
 import com.Insurance.hm.board.domain.Board;
 import com.Insurance.hm.board.dto.BoardCreateDto;
 import com.Insurance.hm.board.dto.BoardDetailDto;
+import com.Insurance.hm.board.exception.OverFileSizeFileIndexError;
 import com.Insurance.hm.board.service.BoardService;
 import com.Insurance.hm.global.constants.GlobalConstants;
 import com.Insurance.hm.global.domain.file.FileService;
@@ -116,10 +118,44 @@ public class BoardController {
     }
 
     @PostMapping("{id}")
-    public void updateById(@PathVariable Long id, @RequestBody BoardCreateDto boardCreateDto,
-                           HttpServletResponse response) throws IOException {
-        boardService.update(id,boardCreateDto);
-        response.sendRedirect(id.toString());
+    public void updateBoard(@PathVariable Long id,MultipartHttpServletRequest request,
+                            BoardCreateDto boardCreateDto, HttpServletResponse response) throws IOException {
+        try{
+            List<com.Insurance.hm.global.domain.file.File> newFileList = new ArrayList<>();
+            Path path = Paths.get("");
+            String projectUrl = path.toAbsolutePath().toString();
+            String url = projectUrl + "/src/main/resources/static/file";
+            String savePath = url + "/" + boardCreateDto.getEmployeeId().toString();
+            if (!new File(savePath).exists()) {
+                try {
+                    new File(savePath).mkdir();
+                } catch (Exception e) {
+                    e.getStackTrace();
+                }
+            }
+            for(MultipartFile file : request.getFiles("file")) {
+                String originFilename = file.getOriginalFilename();
+                String filename = new MD5Generator(originFilename).toString();
+                String filePath = savePath + "/" + filename;
+                file.transferTo(new File(filePath));
+                SaveFileRequestDto saveFileRequestDto = SaveFileRequestDto.builder()
+                        .originFilename(originFilename)
+                        .filename(filename)
+                        .filePath(filePath)
+                        .build();
+                Long fileId = fileService.saveFile(saveFileRequestDto);
+                com.Insurance.hm.global.domain.file.File findFile = fileService.getFile(fileId);
+                newFileList.add(findFile);
+            }
+            boardService.findById(id).clearFileList();
+            List<com.Insurance.hm.global.domain.file.File> fileList = boardService.findById(id).getFileList();
+            fileList.stream().forEach(i -> fileService.deleteFile(i.getId()));
+            boardCreateDto.setFileList(newFileList);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        Long updateId = boardService.update(id, boardCreateDto);
+        response.sendRedirect(updateId.toString());
     }
 
     @GetMapping("{id}/download/{fileIndex}")
@@ -127,6 +163,8 @@ public class BoardController {
                                                  @PathVariable(value = "fileIndex") int fileIndex) throws IOException{
         Board findBoard = boardService.findById(id);
         System.out.println(findBoard.getFileList().size());
+        if(fileIndex>=findBoard.getFileList().size())
+            throw new OverFileSizeFileIndexError(BoardErrorConstants.OVER_FILE_INDEX);
         com.Insurance.hm.global.domain.file.File file = findBoard.getFileList().get(fileIndex);
         Path path = Paths.get(file.getFilePath());
         Resource resource = new InputStreamResource(Files.newInputStream(path),"UTF-8");

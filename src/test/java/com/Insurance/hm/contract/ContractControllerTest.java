@@ -139,10 +139,8 @@ class ContractControllerTest {
                 .andDo(document("Contract-sign",
                         ApiDocumentUtils.getDocumentRequest(),
                         requestFields(
-                                fieldWithPath("insurancePremium").type(JsonFieldType.NUMBER).description("보험료"),
-                                fieldWithPath("accumulatedPremium").type(JsonFieldType.NUMBER).description("총 납입 보험료"),
-                                fieldWithPath("premiumRate").type(JsonFieldType.NUMBER).description("보험 요율"),
-                                fieldWithPath("information.information").type(JsonFieldType.STRING).description("부가정보"),
+                                fieldWithPath("information.information").type(JsonFieldType.STRING).description("부가정보 스트링"),
+                                fieldWithPath("information.level").type(JsonFieldType.STRING).description("부가정보 등급 ex) 건물등급, 여행지등급"),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description("계약 상태"),
                                 fieldWithPath("channel").type(JsonFieldType.STRING).description("계약 채널"),
                                 fieldWithPath("contractDate.registerDate").type(JsonFieldType.STRING).description("계약 등록 일자"),

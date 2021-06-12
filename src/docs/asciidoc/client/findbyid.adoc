@@ -53,6 +53,7 @@ include::{snippets}/client-findById/response-fields.adoc[]
 "name" : "이름", +
 "age" : 20, +
 "address" : "대한민국", +
+"creditRating" : 1, +
 "phoneNumber" : "010-0000-000", +
 "email" : "naver.com", +
 "accountNumber" : "12341234", +
@@ -66,12 +67,16 @@ include::{snippets}/client-findById/response-fields.adoc[]
 "contractList" : [ { +
 "id" : 1, +
 "insurancePremium" : 1, +
+"information" : { +
+"information" : "부가정보", +
+"level" : "A" +
+}, +
 "status" : "계약신청", +
 "channel" : "온라인", +
 "contractDate" : { +
-"registerDate" : "2021-06-05T17:57:01.0958347", +
-"startDate" : "2021-06-05T17:57:01.0958347", +
-"endDate" : "2021-06-05T17:57:01.0958347" +
+"registerDate" : "2021-06-13T03:02:04.1971458", +
+"startDate" : "2021-06-13T03:02:04.1971458", +
+"endDate" : "2021-06-13T03:02:04.1971458" +
 }, +
 "clientId" : 1, +
 "insuranceId" : 1, +
@@ -79,7 +84,7 @@ include::{snippets}/client-findById/response-fields.adoc[]
 } ], +
 "accidentHistoryList" : [ { +
 "id" : 1, +
-"accidentDate" : "2021-06-05T17:57:01.0988459", +
+"accidentDate" : "2021-06-13T03:02:04.1991409", +
 "accidentRate" : 50.0, +
 "accidentDescription" : "사고 요약", +
 "clientId" : 1 +

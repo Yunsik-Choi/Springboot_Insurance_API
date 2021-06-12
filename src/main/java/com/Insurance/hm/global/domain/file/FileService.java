@@ -27,6 +27,9 @@ public class FileService {
 
     private NonMatchIdException getNonMatchFile() {
         return new NonMatchIdException(GlobalErrorConstants.Non_Match_Id.setClassNameMessage("file"));
+    }
 
+    public void deleteFile(Long id){
+        fileRepository.deleteById(id);
     }
 }

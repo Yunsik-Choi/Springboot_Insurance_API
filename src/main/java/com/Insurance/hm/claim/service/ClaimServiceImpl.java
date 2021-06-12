@@ -9,6 +9,7 @@ import com.Insurance.hm.claim.dto.ClaimChangePartnerScoreDto;
 import com.Insurance.hm.claim.dto.ClaimChangeStatusRequestDto;
 import com.Insurance.hm.claim.dto.ClaimCreateRequestDto;
 import com.Insurance.hm.claim.exception.*;
+import com.Insurance.hm.client.domain.Client;
 import com.Insurance.hm.compensation.domain.Compensation;
 import com.Insurance.hm.compensation.domain.CompensationRepository;
 import com.Insurance.hm.compensation.domain.entity.CompensationStatus;
@@ -21,6 +22,8 @@ import com.Insurance.hm.global.constants.GlobalErrorConstants;
 import com.Insurance.hm.global.domain.claimPatner.ClaimPartner;
 import com.Insurance.hm.global.domain.claimPatner.ClaimPartnerRepository;
 import com.Insurance.hm.global.exception.business.NonMatchIdException;
+import com.Insurance.hm.insurance.domain.Insurance;
+import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import com.Insurance.hm.partner.domain.Partner;
 import com.Insurance.hm.partner.domain.PartnerRepository;
 import lombok.RequiredArgsConstructor;
@@ -118,6 +121,7 @@ public class ClaimServiceImpl implements ClaimService {
         if(claim.getStatus().equals(ClaimStatus.접수완료)){
             if(status.equals(ClaimStatus.보상심사중)) {
                 Compensation compensation = Compensation.builder()
+                        .cost(autoExamineCompensationConst(claim))
                         .claim(claim)
                         .contract(claim.getContract())
                         .employee(claim.getEmployee())
@@ -136,4 +140,21 @@ public class ClaimServiceImpl implements ClaimService {
         else
             throw new AlreadyEvaluatedException(ClaimErrorResponse.ALREADY_EVALUATED);
     }
+
+    private Long autoExamineCompensationConst(Claim claim) {
+        Contract contract = claim.getContract();
+        Insurance insurance = contract.getInsurance();
+        double maxPrice = 0;
+        if(insurance.getCategory().equals(InsuranceCategory.여행))
+            maxPrice = insurance.getBasePrice()*1000;
+        else if(insurance.getCategory().equals(InsuranceCategory.자동차)||insurance.getCategory().equals(InsuranceCategory.운전자))
+            maxPrice = insurance.getBasePrice()*1000*contract.getAdditionalInformation().getLevel().getCar();
+        else if(insurance.getCategory().equals(InsuranceCategory.화재))
+            maxPrice = insurance.getBasePrice()*1000*contract.getAdditionalInformation().getLevel().getFire();
+        Double compensationCost = (claim.getDamageCost()/(100-claim.getClaimRate())) + (contract.getInsurancePremium()*10);
+        if(maxPrice<compensationCost)
+            compensationCost = maxPrice;
+        return compensationCost.longValue();
+    }
+
 }

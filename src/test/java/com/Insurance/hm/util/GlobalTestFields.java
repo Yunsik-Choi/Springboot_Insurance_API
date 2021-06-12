@@ -1,6 +1,7 @@
 package com.Insurance.hm.util;
 
 import com.Insurance.hm.contract.domain.entity.AdditionalInformation;
+import com.Insurance.hm.contract.domain.entity.ObjectLevel;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
@@ -37,6 +38,7 @@ public class GlobalTestFields {
                 fieldWithPath("data.client.age").type(JsonFieldType.NUMBER).description("고객 나이"),
                 fieldWithPath("data.client.address").type(JsonFieldType.STRING).description("고객 주소"),
                 fieldWithPath("data.client.phoneNumber").type(JsonFieldType.STRING).description("고객 전화번호"),
+                fieldWithPath("data.client.creditRating").type(JsonFieldType.NUMBER).description("고객 신용 등급"),
                 fieldWithPath("data.client.email").type(JsonFieldType.STRING).description("고객 이메일"),
                 fieldWithPath("data.client.gender").type(JsonFieldType.STRING).description("고객 성별"),
                 fieldWithPath("data.client.job").type(JsonFieldType.STRING).description("고객 직업"),
@@ -87,6 +89,7 @@ public class GlobalTestFields {
                 fieldWithPath("age").type(JsonFieldType.NUMBER).description("고객 나이"),
                 fieldWithPath("email").type(JsonFieldType.STRING).description("고객 이메일"),
                 fieldWithPath("address").type(JsonFieldType.STRING).description("고객 주소"),
+                fieldWithPath("creditRating").type(JsonFieldType.NUMBER).description("고객 신용 등급"),
                 fieldWithPath("phoneNumber").type(JsonFieldType.STRING).description("고객 전화번호"),
                 fieldWithPath("accountNumber").type(JsonFieldType.STRING).description("고객 계좌번호"),
                 fieldWithPath("bank").type(JsonFieldType.STRING).description("고객 은행"),
@@ -111,6 +114,7 @@ public class GlobalTestFields {
                 fieldWithPath("data.bank").type(JsonFieldType.STRING).description("고객 은행"),
                 fieldWithPath("data.gender").type(JsonFieldType.STRING).description("고객 성별"),
                 fieldWithPath("data.job").type(JsonFieldType.STRING).description("고객 직업"),
+                fieldWithPath("data.creditRating").type(JsonFieldType.NUMBER).description("고객 신용등급"),
                 fieldWithPath("data.rrn.rrnFront").type(JsonFieldType.NUMBER).description("고객 주민번호 앞자리"),
                 fieldWithPath("data.rrn.rrnBack").type(JsonFieldType.NUMBER).description("고객 주민번호 뒷자리"),
                 subsectionWithPath("data.contractList").type(JsonFieldType.ARRAY).description("고객 계약 리스트"),
@@ -158,7 +162,9 @@ public class GlobalTestFields {
                 fieldWithPath("data.department").type(JsonFieldType.STRING).description("사고이력 요약"),
                 fieldWithPath("data.createdDate").type(JsonFieldType.NULL).description("사고이력 고객 아이디"),
                 fieldWithPath("data.modifiedDate").type(JsonFieldType.NULL).description("사고이력 고객 이름"),
-                fieldWithPath("data.content").type(JsonFieldType.STRING).description("사고이력 고객 나이"),};
+                fieldWithPath("data.content").type(JsonFieldType.STRING).description("사고이력 고객 나이"),
+                subsectionWithPath("data.fileIdList").type(JsonFieldType.ARRAY).description("파일 아이디 리스트")
+        };
         Arrays.stream(fields).forEach(i -> list.add(i));
         FieldDescriptor[] result = getFields(list);
         return result;
@@ -168,7 +174,9 @@ public class GlobalTestFields {
         return new FieldDescriptor[] {
                 fieldWithPath("title").type(JsonFieldType.STRING).description("제목"),
                 fieldWithPath("employeeId").type(JsonFieldType.NULL).description("작성자 아이디"),
-                fieldWithPath("content").type(JsonFieldType.STRING).description("내용")};
+                fieldWithPath("content").type(JsonFieldType.STRING).description("내용"),
+                subsectionWithPath("fileList").type(JsonFieldType.ARRAY).description("파일 아이디 리스트").optional()
+        };
     }
 
     public static FieldDescriptor[] getFieldRequestClaimRequestDto() {
@@ -252,6 +260,7 @@ public class GlobalTestFields {
     public static AdditionalInformation getInformation() {
         AdditionalInformation information = new AdditionalInformation();
         information.setInformation("부가정보");
+        information.setLevel(ObjectLevel.A);
         return information;
     }
 }

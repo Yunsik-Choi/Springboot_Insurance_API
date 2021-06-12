@@ -49,9 +49,7 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 |===
 
 == board
-link:board/write.html[게시글 쓰기] +
 link:board/findbyid.html[게시글 아이디로 조회] +
-link:board/update.html[게시글 업데이트] +
 link:board/delete.html[게시글 지우기] +
 
 == claim

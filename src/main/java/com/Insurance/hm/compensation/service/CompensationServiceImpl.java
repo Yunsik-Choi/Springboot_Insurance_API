@@ -7,7 +7,6 @@ import com.Insurance.hm.compensation.domain.Compensation;
 import com.Insurance.hm.compensation.domain.CompensationRepository;
 import com.Insurance.hm.compensation.domain.entity.CompensationStatus;
 import com.Insurance.hm.compensation.dto.CompensationChangeStatusRequestDto;
-import com.Insurance.hm.compensation.exception.IncorrectCostException;
 import com.Insurance.hm.global.exception.business.NonMatchIdException;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import lombok.RequiredArgsConstructor;
@@ -46,11 +45,8 @@ public class CompensationServiceImpl implements CompensationService{
     @Override
     public Long changeStatus(Long id, CompensationChangeStatusRequestDto requestDto) {
         Compensation compensation = compensationRepository.findById(id).orElseThrow(this::getNonMatchCompensation);
-        if (requestDto.getCost()<=0)
-            throw new IncorrectCostException(CompensationErrorConstants.INCORRECT_COMPENSATION_COST);
         if (requestDto.getStatus().equals(CompensationStatus.보상완료)){
             compensation.changeDateTime(LocalDateTime.now());
-            compensation.changeCost(requestDto.getCost());
             compensation.getClaim().changeStatus(ClaimStatus.처리완료);
             compensation.changeStatus(CompensationStatus.보상완료);
         }

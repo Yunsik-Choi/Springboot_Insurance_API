@@ -50,7 +50,7 @@ include::{snippets}/AccidentHistory-findById/response-fields.adoc[]
 "message" : "Accident History NO.1 아이디로 찾기 성공", +
 "data" : { +
 "id" : 1, +
-"accidentDate" : "2021-06-04T21:31:24.5247388", +
+"accidentDate" : "2021-06-13T02:22:30.8199176", +
 "accidentRate" : 50.0, +
 "accidentDescription" : "사고 요약", +
 "client" : { +

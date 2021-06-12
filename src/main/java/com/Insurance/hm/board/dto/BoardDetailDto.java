@@ -31,7 +31,8 @@ public class BoardDetailDto{
         this.title = board.getTitle();
         this.author = board.getEmployee().getName();
         this.department = board.getEmployee().getDepartment();
-        board.getFileList().stream().forEach(i -> fileIdList.add(i.getId()));
+        if(board.getFileList()!=null)
+            board.getFileList().stream().forEach(i -> fileIdList.add(i.getId()));
         this.createdDate = board.getCreatedDate();
         this.modifiedDate = board.getModifiedDate();
         this.content = board.getContent();

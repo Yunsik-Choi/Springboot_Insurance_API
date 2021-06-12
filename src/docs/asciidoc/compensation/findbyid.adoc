@@ -51,19 +51,28 @@ include::{snippets}/compensation-findById/response-fields.adoc[]
 "data" : { +
 "id" : 1, +
 "cost" : 100000, +
-"dateTime" : "2021-06-04T22:15:15.304782", +
+"dateTime" : "2021-06-13T03:02:05.3680152", +
 "status" : "보상대기", +
 "claim" : { +
 "id" : 1, +
-"accidentDate" : "2021-06-04T22:15:15.3007926", +
+"accidentDate" : "2021-06-13T03:02:05.3660195", +
 "status" : "접수완료", +
 "partnerScore" : 0.0 +
 }, +
 "contract" : { +
 "id" : 1, +
 "insurancePremium" : 1, +
+"information" : { +
+"information" : "부가정보", +
+"level" : "A" +
+}, +
 "status" : "계약신청", +
 "channel" : "온라인", +
+"contractDate" : { +
+"registerDate" : "2021-06-13T03:02:05.3650242", +
+"startDate" : "2021-06-13T03:02:05.3650242", +
+"endDate" : "2021-06-13T03:02:05.3650242" +
+}, +
 "clientId" : 1, +
 "insuranceId" : 1, +
 "employeeId" : 1 +

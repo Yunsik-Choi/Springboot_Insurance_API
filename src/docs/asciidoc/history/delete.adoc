@@ -48,5 +48,5 @@ include::{snippets}/AccidentHistory-delete/response-fields.adoc[]
 "status" : 200, +
 "result" : "SUCCESS", +
 "message" : "Accident History NO.1 삭제 성공", +
-"data" : 0 +
+"data" : 1 +
 }

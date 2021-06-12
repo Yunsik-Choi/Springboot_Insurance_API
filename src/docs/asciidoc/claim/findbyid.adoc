@@ -50,19 +50,28 @@ include::{snippets}/claim-findById/response-fields.adoc[]
 "message" : "Claim NO.1 아이디로 찾기 성공", +
 "data" : { +
 "id" : 1, +
-"accidentDate" : "2021-06-04T21:52:42.0172502", +
+"accidentDate" : "2021-06-13T03:02:06.461093", +
 "damageCost" : 10000, +
 "claimReason" : "사고 이유", +
 "claimDetail" : "사고 내용", +
 "claimRate" : 80.0, +
 "partnerScore" : 0.0, +
-"receiptDate" : 2021-06-04T21:25:31.7289682, +
+"receiptDate" : "2021-06-13T02:22:30.8199176", +
 "status" : "접수완료", +
 "contract" : { +
 "id" : 1, +
 "insurancePremium" : 1, +
+"information" : { +
+"information" : "부가정보", +
+"level" : "A" +
+}, +
 "status" : "계약신청", +
 "channel" : "온라인", +
+"contractDate" : { +
+"registerDate" : "2021-06-13T03:02:06.461093", +
+"startDate" : "2021-06-13T03:02:06.461093", +
+"endDate" : "2021-06-13T03:02:06.461093" +
+}, +
 "clientId" : 1, +
 "insuranceId" : 1, +
 "employeeId" : 1 +
@@ -75,7 +84,10 @@ include::{snippets}/claim-findById/response-fields.adoc[]
 "department" : "개발", +
 "role" : "과장" +
 }, +
-"compensation" : 1, +
+"compensation" : {
+    "id":1, +
+    "status":"보상대기" +
+}, +
 "partnerList" : [ { +
 "id" : 1, +
 "name" : "협력업체 이름", +

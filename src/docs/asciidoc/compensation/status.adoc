@@ -46,5 +46,4 @@ include::{snippets}/compensation-status/request-fields.adoc[]
 == Request JSON
 { +
 "status" : "보상완료", +
-"cost" : 1000000 +
 }

@@ -49,6 +49,7 @@ include::{snippets}/client-create/request-fields.adoc[]
   "age" : 20, +
   "email" : "naver.com", +
   "address" : "대한민국", +
+  "creditRating" : 1, +
   "phoneNumber" : "010-0000-000", +
   "accountNumber" : "12341234", +
   "bank" : "IBK기업", +

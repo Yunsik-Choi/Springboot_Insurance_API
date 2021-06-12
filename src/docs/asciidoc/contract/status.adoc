@@ -61,14 +61,15 @@ include::{snippets}/contract-status/response-fields.adoc[]
 "accumulatedPremium" : 1, +
 "premiumRate" : 0.2, +
 "information" : { +
-"information" : "부가정보" +
+"information" : "부가정보", +
+"level" : "A" +
 }, +
 "status" : "계약신청", +
 "channel" : "온라인", +
 "contractDate" : { +
-"registerDate" : "2021-06-09T03:52:20.3767749", +
-"startDate" : "2021-06-09T03:52:20.3767749", +
-"endDate" : "2021-06-09T03:52:20.3767749" +
+"registerDate" : "2021-06-13T03:02:13.0843772", +
+"startDate" : "2021-06-13T03:02:13.0843772", +
+"endDate" : "2021-06-13T03:02:13.0843772" +
 }, +
 "client" : { +
 "id" : 1, +
@@ -81,6 +82,7 @@ include::{snippets}/contract-status/response-fields.adoc[]
 }, +
 "gender" : "MALE", +
 "address" : "대한민국", +
+"creditRating" : 1, +
 "phoneNumber" : "010-0000-000", +
 "email" : "naver.com" +
 }, +
@@ -92,7 +94,7 @@ include::{snippets}/contract-status/response-fields.adoc[]
 "status" : "결재대기" +
 }, +
 "employee" : { +
-"id" : 1,
+"id" : 1, +
 "name" : "최윤식", +
 "phoneNumber" : "010-000-000", +
 "email" : "abcd", +

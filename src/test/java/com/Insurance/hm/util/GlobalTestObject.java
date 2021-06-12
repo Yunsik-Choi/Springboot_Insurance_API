@@ -118,10 +118,7 @@ public class GlobalTestObject {
 
     public static ContractSignRequestDto getContractSignRequestDto() {
         ContractSignRequestDto contractSignRequestDto = new ContractSignRequestDto();
-        contractSignRequestDto.setInsurancePremium(GlobalTestObject.getContract().getInsurancePremium());
-        contractSignRequestDto.setAccumulatedPremium(GlobalTestObject.getContract().getAccumulatedPremium());
         contractSignRequestDto.setInformation(GlobalTestObject.getContract().getAdditionalInformation());
-        contractSignRequestDto.setPremiumRate(GlobalTestObject.getContract().getPremiumRate());
         contractSignRequestDto.setStatus(GlobalTestObject.getContract().getStatus());
         contractSignRequestDto.setChannel(GlobalTestObject.getContract().getChannel());
         contractSignRequestDto.setContractDate(GlobalTestObject.getContract().getContractDate());

@@ -50,4 +50,8 @@ public class Board extends BaseTime {
         this.content = boardCreateDto.getContent();
         this.fileList = boardCreateDto.getFileList();
     }
+
+    public void clearFileList(){
+        this.fileList.clear();
+    }
 }

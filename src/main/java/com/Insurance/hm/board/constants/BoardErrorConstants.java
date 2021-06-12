@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 public enum  BoardErrorConstants implements ErrorConstants {
 
-    NON_MATCH_AUTHOR(500,601,"employeeId와 일치하는 직원이 존재하지 않습니다.");
+    NON_MATCH_AUTHOR(500,601,"employeeId와 일치하는 직원이 존재하지 않습니다."),
+    OVER_FILE_INDEX(400,602,"파일 index가 파일 사이즈를 초과하였습니다.");
 
 
     private int status;

@@ -45,8 +45,8 @@ hminsu.net
 include::{snippets}/AccidentHistory-create/request-fields.adoc[]
 == Request JSON
 { +
-"accidentDate" : "2021-06-04T21:25:31.7289682", +
-"accidentRate" : 50.0, +
-"accidentDescription" : "사고 요약", +
-"clientId" : 1 +
+  "accidentDate" : "2021-06-13T02:22:30.7790273", +
+  "accidentRate" : 50.0, +
+  "accidentDescription" : "사고 요약", +
+  "clientId" : 1 +
 }

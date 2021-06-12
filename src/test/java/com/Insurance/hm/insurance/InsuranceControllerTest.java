@@ -131,9 +131,9 @@ class InsuranceControllerTest {
         createRequestDto.setName(insurance.getName());
         createRequestDto.setTarget(insurance.getTarget());
         createRequestDto.setCoverage(insurance.getCoverage());
+        createRequestDto.setBasePrice(insurance.getBasePrice());
         createRequestDto.setRegisterDocument(insurance.getRegisterDocument());
         createRequestDto.setAccidentDocument(insurance.getAccidentDocument());
-        createRequestDto.setBasePremiumRate(insurance.getBasePremiumRate());
         createRequestDto.setCategory(insurance.getCategory());
         createRequestDto.setDescription(insurance.getDescription());
         createRequestDto.setCreateEmployeeId(insurance.getCreateEmployee().getId());
@@ -152,7 +152,7 @@ class InsuranceControllerTest {
                                 fieldWithPath("coverage").type(JsonFieldType.STRING).description("보험 보장 범위"),
                                 fieldWithPath("registerDocument").type(JsonFieldType.STRING).description("보험 가입시 제출 서류"),
                                 fieldWithPath("accidentDocument").type(JsonFieldType.STRING).description("보험 사고시 제출 서류"),
-                                fieldWithPath("basePremiumRate").type(JsonFieldType.NUMBER).description("보험 기본 요율"),
+                                fieldWithPath("basePrice").type(JsonFieldType.NUMBER).description("보험 기본 가격"),
                                 fieldWithPath("category").type(JsonFieldType.STRING).description("보험 종류"),
                                 fieldWithPath("target.creditRating").type(JsonFieldType.NUMBER).description("보험 가입 최소 신용등급"),
                                 fieldWithPath("target.startAge").type(JsonFieldType.NUMBER).description("보험 가입 최소 나이"),
@@ -177,7 +177,7 @@ class InsuranceControllerTest {
                 fieldWithPath("data.coverage").type(JsonFieldType.STRING).description("보험 보장 범위"),
                 fieldWithPath("data.registerDocument").type(JsonFieldType.STRING).description("보험 가입시 제출 서류"),
                 fieldWithPath("data.accidentDocument").type(JsonFieldType.STRING).description("보험 사고시 제출 서류"),
-                fieldWithPath("data.basePremiumRate").type(JsonFieldType.NUMBER).description("보험 기본 요율"),
+                fieldWithPath("data.basePrice").type(JsonFieldType.NUMBER).description("보험 기본 가격"),
                 fieldWithPath("data.category").type(JsonFieldType.STRING).description("보험 종류"),
                 fieldWithPath("data.status").type(JsonFieldType.STRING).description("보험 상태"),
                 fieldWithPath("data.target.creditRating").type(JsonFieldType.NUMBER).description("최소 신용등급"),
@@ -209,7 +209,7 @@ class InsuranceControllerTest {
                 .coverage("보장 범위")
                 .registerDocument("가입시 제출 서류")
                 .accidentDocument("사고시 제출 서류")
-                .basePremiumRate(1.0)
+                .basePrice(100000L)
                 .category(InsuranceCategory.운전자)
                 .status(InsuranceStatus.결재대기)
                 .target(getInsuranceTarget())

@@ -75,7 +75,6 @@ class CompensationControllerTest {
     @Test
     void 보상_상태_변경() throws Exception{
         CompensationChangeStatusRequestDto changeStatusRequestDto = new CompensationChangeStatusRequestDto();
-        changeStatusRequestDto.setCost(1000000L);
         changeStatusRequestDto.setStatus(CompensationStatus.보상완료);
         when(compensationService.changeStatus(1L,changeStatusRequestDto)).thenReturn(1L);
         ResultActions result = mockMvc.perform(post("/api/compensation/{id}/status", 1L)
@@ -86,8 +85,7 @@ class CompensationControllerTest {
         result.andExpect(status().isFound()).andDo(document("compensation-status",
                 ApiDocumentUtils.getDocumentRequest(),
                 requestFields(
-                    fieldWithPath("status").type(JsonFieldType.STRING).description("보상 상태"),
-                    fieldWithPath("cost").type(JsonFieldType.NUMBER).description("보상 비용")
+                    fieldWithPath("status").type(JsonFieldType.STRING).description("보상 상태")
                 )
         ));
     }

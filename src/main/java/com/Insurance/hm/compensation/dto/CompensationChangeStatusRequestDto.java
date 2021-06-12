@@ -10,8 +10,4 @@ public class CompensationChangeStatusRequestDto {
 
     private CompensationStatus status;
 
-    private Long cost;
-
-
-
 }
