@@ -14,4 +14,5 @@ public interface ClientService {
     Long deleteById(Long id);
 
     List<Client> findAll();
+
 }

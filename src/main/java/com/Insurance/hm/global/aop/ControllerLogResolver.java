@@ -1,5 +1,6 @@
 package com.Insurance.hm.global.aop;
 
+import com.Insurance.hm.global.dto.ResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -23,8 +24,10 @@ public class ControllerLogResolver {
     @AfterReturning(pointcut = "execution(* com.Insurance.hm.*.*Controller.*(..))", returning = "returnValue")
     public void writeSuccessLog(JoinPoint joinPoint, Object returnValue){
         log.info("SUCCESS: {}",joinPoint.getSignature().toShortString());
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        log.info("RETURN : {}",signature.getReturnType());
+        if(returnValue!=null&&returnValue.getClass().equals(ResponseDto.class)) {
+            ResponseDto responseDto = (ResponseDto) returnValue;
+            log.info("RESPONSE: {}",responseDto.getData().toString());
+        }
     }
 
 }

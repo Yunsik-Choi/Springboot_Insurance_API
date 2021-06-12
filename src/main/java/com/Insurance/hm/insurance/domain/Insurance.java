@@ -36,7 +36,7 @@ public class Insurance extends BaseTime {
     private String coverage;
     private String registerDocument;
     private String accidentDocument;
-    private Double basePremiumRate;
+    private Long basePrice;
 
     @Enumerated(value = EnumType.STRING)
     private InsuranceCategory category;
@@ -59,7 +59,7 @@ public class Insurance extends BaseTime {
 
     @Builder
     public Insurance(String name, String description, InsuranceCategory category, String coverage,
-                     String registerDocument, String accidentDocument, Double basePremiumRate,
+                     String registerDocument, String accidentDocument, Long basePrice,
                      InsuranceStatus status, InsuranceTarget target, Employee createEmployee, Employee managementEmployee) {
         this.name = name;
         this.description = description;
@@ -67,7 +67,7 @@ public class Insurance extends BaseTime {
         this.coverage = coverage;
         this.registerDocument = registerDocument;
         this.accidentDocument = accidentDocument;
-        this.basePremiumRate = basePremiumRate;
+        this.basePrice = basePrice;
         this.status = status;
         this.target = target;
         this.createEmployee = createEmployee;

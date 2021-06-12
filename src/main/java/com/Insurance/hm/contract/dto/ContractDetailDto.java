@@ -3,9 +3,7 @@ package com.Insurance.hm.contract.dto;
 import com.Insurance.hm.client.domain.Client;
 import com.Insurance.hm.client.dto.ClientInfoDto;
 import com.Insurance.hm.contract.domain.Contract;
-import com.Insurance.hm.contract.domain.entity.Channel;
-import com.Insurance.hm.contract.domain.entity.ContractDate;
-import com.Insurance.hm.contract.domain.entity.ContractStatus;
+import com.Insurance.hm.contract.domain.entity.*;
 import com.Insurance.hm.employee.dto.EmployeeInfoDto;
 import com.Insurance.hm.insurance.dto.InsuranceInfoDto;
 import lombok.Data;
@@ -17,6 +15,7 @@ public class ContractDetailDto {
     private Long insurancePremium;
     private Long accumulatedPremium;
     private Double premiumRate;
+    private AdditionalInformation information;
 
     private ContractStatus status;
     private Channel channel;
@@ -31,6 +30,7 @@ public class ContractDetailDto {
         this.insurancePremium = contract.getInsurancePremium();
         this.accumulatedPremium = contract.getAccumulatedPremium();
         this.premiumRate = contract.getPremiumRate();
+        this.information = contract.getAdditionalInformation();
         this.status = contract.getStatus();
         this.channel = contract.getChannel();
         this.contractDate = contract.getContractDate();

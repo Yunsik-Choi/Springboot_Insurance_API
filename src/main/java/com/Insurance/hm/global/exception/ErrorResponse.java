@@ -15,4 +15,10 @@ public class ErrorResponse {
         this.code = code;
     }
 
+    public ErrorResponse(Exception e, ErrorConstants code) {
+        this.status = code.getStatus();
+        this.code = code;
+        this.trace = e.getClass().toString();
+    }
+
 }

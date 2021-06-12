@@ -3,6 +3,7 @@ package com.Insurance.hm.client.dto;
 import com.Insurance.hm.client.domain.Client;
 import com.Insurance.hm.client.domain.entity.Bank;
 import com.Insurance.hm.client.domain.entity.Gender;
+import com.Insurance.hm.client.domain.entity.Job;
 import com.Insurance.hm.client.domain.entity.RRN;
 import lombok.Data;
 
@@ -12,10 +13,12 @@ public class ClientCreateRequestDto {
     private int age;
     private String email;
     private String address;
+    private int creditRating;
     private String phoneNumber;
     private String accountNumber;
     private Bank bank;
     private Gender gender;
+    private Job job;
     private RRN rrn;
 
     public Client toEntity(){
@@ -24,10 +27,12 @@ public class ClientCreateRequestDto {
                 .age(age)
                 .email(email)
                 .address(address)
+                .creditRating(creditRating)
                 .phoneNumber(phoneNumber)
                 .accountNumber(accountNumber)
                 .bank(bank)
                 .gender(gender)
+                .job(job)
                 .rrn(rrn)
                 .build();
         return client;

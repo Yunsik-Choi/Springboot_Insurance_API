@@ -53,17 +53,21 @@ include::{snippets}/contract-findById/response-fields.adoc[]
 "insurancePremium" : 1, +
 "accumulatedPremium" : 1, +
 "premiumRate" : 0.2, +
+"information" : { +
+"information" : "부가정보" +
+}, +
 "status" : "계약신청", +
 "channel" : "온라인", +
 "contractDate" : { +
-"registerDate" : "2021-06-04T22:22:54.0765882", +
-"startDate" : "2021-06-04T22:22:54.0765882", +
-"endDate" : "2021-06-04T22:22:54.0765882" +
+"registerDate" : "2021-06-09T03:52:20.3767749", +
+"startDate" : "2021-06-09T03:52:20.3767749", +
+"endDate" : "2021-06-09T03:52:20.3767749" +
 }, +
 "client" : { +
 "id" : 1, +
 "name" : "이름", +
 "age" : 20, +
+"job" : "서비스직", +
 "rrn" : { +
 "rrnFront" : 210527, +
 "rrnBack" : 11111111 +
@@ -81,7 +85,7 @@ include::{snippets}/contract-findById/response-fields.adoc[]
 "status" : "결재대기" +
 }, +
 "employee" : { +
-"id" : 1, +
+"id" : 1,
 "name" : "최윤식", +
 "phoneNumber" : "010-000-000", +
 "email" : "abcd", +

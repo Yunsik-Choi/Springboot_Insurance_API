@@ -1,15 +1,12 @@
 package com.Insurance.hm.contract.domain;
 
 import com.Insurance.hm.client.domain.Client;
-import com.Insurance.hm.contract.domain.entity.Channel;
-import com.Insurance.hm.contract.domain.entity.ContractDate;
-import com.Insurance.hm.contract.domain.entity.ContractStatus;
+import com.Insurance.hm.contract.domain.entity.*;
 import com.Insurance.hm.global.domain.BaseTime;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.sun.istack.NotNull;
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
@@ -41,6 +38,8 @@ public class Contract extends BaseTime {
     private Long accumulatedPremium;
     @Column(name = "premium_rate")
     private Double premiumRate;
+    @Column(name = "additional_Information")
+    private AdditionalInformation additionalInformation;
 
     @Enumerated(value = EnumType.STRING)
     private ContractStatus status;
@@ -65,12 +64,13 @@ public class Contract extends BaseTime {
     private Employee employee;
 
     @Builder
-    public Contract(Long insurancePremium, Long accumulatedPremium, Double premiumRate,
+    public Contract(Long insurancePremium, Long accumulatedPremium, Double premiumRate, AdditionalInformation information,
                     ContractStatus status, Channel channel, ContractDate contractDate, Client client,
                     Insurance insurance, Employee employee) {
         this.insurancePremium = insurancePremium;
         this.accumulatedPremium = accumulatedPremium;
         this.premiumRate = premiumRate;
+        this.additionalInformation = information;
         this.status = status;
         this.channel = channel;
         this.contractDate = contractDate;
@@ -91,6 +91,14 @@ public class Contract extends BaseTime {
         Set<Contract> contractList = client.getContractList();
         if(!contractList.contains(this))
             contractList.add(this);
+    }
+
+    public void changePremiumRate(Double rate){
+        this.premiumRate = rate;
+    }
+
+    public void changeInsurancePremium(Long insurancePremium){
+        this.insurancePremium = insurancePremium;
     }
 
     public void changeStatus(ContractStatus changeStatus){

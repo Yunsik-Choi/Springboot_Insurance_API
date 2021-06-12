@@ -11,5 +11,7 @@ public interface CompensationService {
 
     Compensation findById(Long id);
 
+    Long autoExamine(Long id);
+
     List<Compensation> findAll();
 }

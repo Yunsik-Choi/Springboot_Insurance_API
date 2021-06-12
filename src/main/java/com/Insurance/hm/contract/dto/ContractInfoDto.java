@@ -1,9 +1,7 @@
 package com.Insurance.hm.contract.dto;
 
 import com.Insurance.hm.contract.domain.Contract;
-import com.Insurance.hm.contract.domain.entity.Channel;
-import com.Insurance.hm.contract.domain.entity.ContractDate;
-import com.Insurance.hm.contract.domain.entity.ContractStatus;
+import com.Insurance.hm.contract.domain.entity.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,6 +11,7 @@ public class ContractInfoDto {
 
     private Long id;
     private Long insurancePremium;
+    private AdditionalInformation information;
     private ContractStatus status;
     private Channel channel;
     private ContractDate contractDate;
@@ -23,6 +22,7 @@ public class ContractInfoDto {
     public ContractInfoDto(Contract contract) {
         this.id = contract.getId();
         this.insurancePremium = contract.getInsurancePremium();
+        this.information = contract.getAdditionalInformation();
         this.status = contract.getStatus();
         this.channel = contract.getChannel();
         this.contractDate = contract.getContractDate();

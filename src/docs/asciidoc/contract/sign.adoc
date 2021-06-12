@@ -48,12 +48,15 @@ include::{snippets}/contract-sign/request-fields.adoc[]
 "insurancePremium" : 1, +
 "accumulatedPremium" : 1, +
 "premiumRate" : 0.2, +
+"information" : { +
+"information" : "부가정보" +
+}, +
 "status" : "계약신청", +
 "channel" : "온라인", +
 "contractDate" : { +
-"registerDate" : "2021-06-04T22:22:54.3678446", +
-"startDate" : "2021-06-04T22:22:54.3678446", +
-"endDate" : "2021-06-04T22:22:54.3678446" +
+"registerDate" : "2021-06-09T03:52:20.7928875", +
+"startDate" : "2021-06-09T03:52:20.7928875", +
+"endDate" : "2021-06-09T03:52:20.7928875" +
 }, +
 "clientId" : 1, +
 "insuranceId" : 1, +

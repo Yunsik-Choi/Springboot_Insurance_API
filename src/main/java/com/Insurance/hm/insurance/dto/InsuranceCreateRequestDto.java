@@ -18,7 +18,7 @@ public class InsuranceCreateRequestDto {
     private String coverage;
     private String registerDocument;
     private String accidentDocument;
-    private Double basePremiumRate;
+    private Long basePrice;
     private InsuranceCategory category;
     private InsuranceTarget target;
     private Long createEmployeeId;
@@ -33,7 +33,7 @@ public class InsuranceCreateRequestDto {
                 .coverage(coverage)
                 .registerDocument(registerDocument)
                 .accidentDocument(accidentDocument)
-                .basePremiumRate(basePremiumRate)
+                .basePrice(basePrice)
                 .category(category)
                 .status(InsuranceStatus.결재대기)
                 .target(target)

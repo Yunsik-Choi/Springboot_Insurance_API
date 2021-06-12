@@ -1,8 +1,6 @@
 package com.Insurance.hm.client.domain;
 
-import com.Insurance.hm.client.domain.entity.Bank;
-import com.Insurance.hm.client.domain.entity.Gender;
-import com.Insurance.hm.client.domain.entity.RRN;
+import com.Insurance.hm.client.domain.entity.*;
 import com.Insurance.hm.contract.domain.Contract;
 import com.Insurance.hm.AccidentHistory.domain.AccidentHistory;
 import com.Insurance.hm.global.domain.BaseTime;
@@ -31,8 +29,9 @@ public class Client extends BaseTime {
     private String name;
     private int age;
     private String email;
-
     private String address;
+    @Column(name = "credit_rating")
+    private int creditRating;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "account_number")
@@ -41,7 +40,8 @@ public class Client extends BaseTime {
     private Bank bank;
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
-
+    @Enumerated(value = EnumType.STRING)
+    private Job job;
 
     @Embedded
     private RRN rrn;
@@ -54,29 +54,18 @@ public class Client extends BaseTime {
     private Set<AccidentHistory> accidentHistoryList = new HashSet<>();
 
     @Builder
-    public Client(String name, int age, String accountNumber, String address, String phoneNumber, String email, Bank bank,
-                  Gender gender, RRN rrn) {
+    public Client(String name, int age, String accountNumber, String address, int creditRating, String phoneNumber,
+                  String email, Bank bank, Gender gender, Job job, RRN rrn) {
         this.name = name;
         this.age = age;
         this.accountNumber = accountNumber;
         this.address = address;
+        this.creditRating = creditRating;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.bank = bank;
         this.gender = gender;
-        this.rrn = rrn;
-    }
-
-    protected void addClientInfo(String name, int age, String account_number, String address, String phone_number, String email,
-                                 Bank bank, Gender gender, RRN rrn) {
-        this.name = name;
-        this.age = age;
-        this.accountNumber = account_number;
-        this.address = address;
-        this.phoneNumber = phone_number;
-        this.email = email;
-        this.bank = bank;
-        this.gender = gender;
+        this.job = job;
         this.rrn = rrn;
     }
 }

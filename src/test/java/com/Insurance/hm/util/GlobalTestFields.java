@@ -1,5 +1,6 @@
 package com.Insurance.hm.util;
 
+import com.Insurance.hm.contract.domain.entity.AdditionalInformation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
@@ -38,6 +39,7 @@ public class GlobalTestFields {
                 fieldWithPath("data.client.phoneNumber").type(JsonFieldType.STRING).description("고객 전화번호"),
                 fieldWithPath("data.client.email").type(JsonFieldType.STRING).description("고객 이메일"),
                 fieldWithPath("data.client.gender").type(JsonFieldType.STRING).description("고객 성별"),
+                fieldWithPath("data.client.job").type(JsonFieldType.STRING).description("고객 직업"),
                 fieldWithPath("data.client.rrn.rrnFront").type(JsonFieldType.NUMBER).description("고객 주민번호 앞자리"),
                 fieldWithPath("data.client.rrn.rrnBack").type(JsonFieldType.NUMBER).description("고객 주민번호 뒷자리")};
     }
@@ -60,6 +62,7 @@ public class GlobalTestFields {
                 fieldWithPath("data.insurancePremium").type(JsonFieldType.NUMBER).description("계약 보험료"),
                 fieldWithPath("data.accumulatedPremium").type(JsonFieldType.NUMBER).description("계약 총 납입 보험료"),
                 fieldWithPath("data.premiumRate").type(JsonFieldType.NUMBER).description("계약 보험 요율"),
+                subsectionWithPath("data.information").type(JsonFieldType.OBJECT).description("부가정보"),
                 fieldWithPath("data.status").type(JsonFieldType.STRING).description("계약 상태"),
                 fieldWithPath("data.channel").type(JsonFieldType.STRING).description("계약 채널"),
                 fieldWithPath("data.contractDate.registerDate").type(JsonFieldType.STRING).description("계약 등록일"),
@@ -88,6 +91,7 @@ public class GlobalTestFields {
                 fieldWithPath("accountNumber").type(JsonFieldType.STRING).description("고객 계좌번호"),
                 fieldWithPath("bank").type(JsonFieldType.STRING).description("고객 은행"),
                 fieldWithPath("gender").type(JsonFieldType.STRING).description("고객 성별"),
+                fieldWithPath("job").type(JsonFieldType.STRING).description("고객 직업"),
                 fieldWithPath("rrn.rrnFront").type(JsonFieldType.NUMBER).description("고객 주민번호 앞자리"),
                 fieldWithPath("rrn.rrnBack").type(JsonFieldType.NUMBER).description("고객 주민번호 뒷자리")};
     }
@@ -106,6 +110,7 @@ public class GlobalTestFields {
                 fieldWithPath("data.accountNumber").type(JsonFieldType.STRING).description("고객 계좌번호"),
                 fieldWithPath("data.bank").type(JsonFieldType.STRING).description("고객 은행"),
                 fieldWithPath("data.gender").type(JsonFieldType.STRING).description("고객 성별"),
+                fieldWithPath("data.job").type(JsonFieldType.STRING).description("고객 직업"),
                 fieldWithPath("data.rrn.rrnFront").type(JsonFieldType.NUMBER).description("고객 주민번호 앞자리"),
                 fieldWithPath("data.rrn.rrnBack").type(JsonFieldType.NUMBER).description("고객 주민번호 뒷자리"),
                 subsectionWithPath("data.contractList").type(JsonFieldType.ARRAY).description("고객 계약 리스트"),
@@ -137,10 +142,7 @@ public class GlobalTestFields {
                 fieldWithPath("data.accidentDate").type(JsonFieldType.STRING).description("사고이력 일자"),
                 fieldWithPath("data.accidentRate").type(JsonFieldType.NUMBER).description("사고이력 사고비율"),
                 fieldWithPath("data.accidentDescription").type(JsonFieldType.STRING).description("사고이력 요약"),
-                fieldWithPath("data.client.id").type(JsonFieldType.NULL).description("사고이력 고객 아이디"),
-                fieldWithPath("data.client.name").type(JsonFieldType.STRING).description("사고이력 고객 이름"),
-                fieldWithPath("data.client.age").type(JsonFieldType.NUMBER).description("사고이력 고객 나이"),
-                fieldWithPath("data.client.gender").type(JsonFieldType.STRING).description("사고이력 고객 성별")};
+                subsectionWithPath("data.client").type(JsonFieldType.OBJECT).description("사고 고객 정보")};
         Arrays.stream(fields).forEach(i -> list.add(i));
         FieldDescriptor[] result = getFields(list);
         return result;
@@ -245,5 +247,11 @@ public class GlobalTestFields {
                 subsectionWithPath("data.contract").type(JsonFieldType.OBJECT).description("보상 계약"),
                 subsectionWithPath("data.employee").type(JsonFieldType.OBJECT).description("보상 직원")
         };
+    }
+
+    public static AdditionalInformation getInformation() {
+        AdditionalInformation information = new AdditionalInformation();
+        information.setInformation("부가정보");
+        return information;
     }
 }

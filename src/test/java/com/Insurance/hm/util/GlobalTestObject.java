@@ -8,9 +8,7 @@ import com.Insurance.hm.claim.domain.Claim;
 import com.Insurance.hm.claim.domain.entity.ClaimStatus;
 import com.Insurance.hm.claim.dto.ClaimCreateRequestDto;
 import com.Insurance.hm.client.domain.Client;
-import com.Insurance.hm.client.domain.entity.Bank;
-import com.Insurance.hm.client.domain.entity.Gender;
-import com.Insurance.hm.client.domain.entity.RRN;
+import com.Insurance.hm.client.domain.entity.*;
 import com.Insurance.hm.client.dto.ClientCreateRequestDto;
 import com.Insurance.hm.compensation.domain.Compensation;
 import com.Insurance.hm.compensation.domain.entity.CompensationStatus;
@@ -88,6 +86,7 @@ public class GlobalTestObject {
                 .gender(Gender.MALE)
                 .name("이름")
                 .phoneNumber("010-0000-000")
+                .job(Job.서비스직)
                 .rrn(getRrn())
                 .build();
         return client;
@@ -105,6 +104,7 @@ public class GlobalTestObject {
         Contract contract = Contract.builder()
                 .employee(GlobalTestObject.getEmployee())
                 .insurance(GlobalTestObject.getInsurance())
+                .information(GlobalTestFields.getInformation())
                 .client(GlobalTestObject.getClient())
                 .contractDate(GlobalTestObject.getContractDate())
                 .channel(Channel.온라인)
@@ -120,6 +120,7 @@ public class GlobalTestObject {
         ContractSignRequestDto contractSignRequestDto = new ContractSignRequestDto();
         contractSignRequestDto.setInsurancePremium(GlobalTestObject.getContract().getInsurancePremium());
         contractSignRequestDto.setAccumulatedPremium(GlobalTestObject.getContract().getAccumulatedPremium());
+        contractSignRequestDto.setInformation(GlobalTestObject.getContract().getAdditionalInformation());
         contractSignRequestDto.setPremiumRate(GlobalTestObject.getContract().getPremiumRate());
         contractSignRequestDto.setStatus(GlobalTestObject.getContract().getStatus());
         contractSignRequestDto.setChannel(GlobalTestObject.getContract().getChannel());
@@ -153,6 +154,7 @@ public class GlobalTestObject {
         createRequestDto.setName(getClient().getName());
         createRequestDto.setPhoneNumber(getClient().getPhoneNumber());
         createRequestDto.setRrn(getClient().getRrn());
+        createRequestDto.setJob(getClient().getJob());
         return createRequestDto;
     }
 

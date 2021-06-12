@@ -24,7 +24,7 @@ public class InsuranceDetailDto {
     private String coverage;
     private String registerDocument;
     private String accidentDocument;
-    private Double basePremiumRate;
+    private Long basePrice;
     private InsuranceCategory category;
     private InsuranceStatus status;
     private InsuranceTarget target;
@@ -42,7 +42,7 @@ public class InsuranceDetailDto {
         this.coverage = insurance.getCoverage();
         this.registerDocument = insurance.getRegisterDocument();
         this.accidentDocument = insurance.getAccidentDocument();
-        this.basePremiumRate = insurance.getBasePremiumRate();
+        this.basePrice = insurance.getBasePrice();
         this.category = insurance.getCategory();
         this.status = insurance.getStatus();
         this.target = insurance.getTarget();

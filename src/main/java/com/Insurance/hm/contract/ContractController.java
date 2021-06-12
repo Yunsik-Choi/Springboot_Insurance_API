@@ -11,6 +11,7 @@ import com.Insurance.hm.global.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -60,6 +61,12 @@ public class ContractController {
                 .message(ContractResponseConstants.CONTRACT_NO.getMessage()+findContract.getId()
                         +ContractResponseConstants.CHANGE_CONTRACT_STATUS.getMessage())
                 .build();
+    }
+
+    @PostMapping("{id}/examine")
+    public void autoExaminePremiumRate(@PathVariable(value = "id") Long id, HttpServletResponse response) throws IOException {
+        Long findId = contractService.autoExamineRate(id);
+        response.sendRedirect(findId.toString());
     }
 
     @DeleteMapping("{id}")

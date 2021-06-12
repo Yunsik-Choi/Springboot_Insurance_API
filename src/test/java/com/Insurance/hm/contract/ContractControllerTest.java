@@ -73,7 +73,6 @@ class ContractControllerTest {
 
         result.andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(document("Contract-findById",
-                        ApiDocumentUtils.getDocumentRequest(),
                         ApiDocumentUtils.getDocumentResponse(),
                         responseFields(
                                 GlobalTestFields.getFieldResponseContract()
@@ -143,6 +142,7 @@ class ContractControllerTest {
                                 fieldWithPath("insurancePremium").type(JsonFieldType.NUMBER).description("보험료"),
                                 fieldWithPath("accumulatedPremium").type(JsonFieldType.NUMBER).description("총 납입 보험료"),
                                 fieldWithPath("premiumRate").type(JsonFieldType.NUMBER).description("보험 요율"),
+                                fieldWithPath("information.information").type(JsonFieldType.STRING).description("부가정보"),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description("계약 상태"),
                                 fieldWithPath("channel").type(JsonFieldType.STRING).description("계약 채널"),
                                 fieldWithPath("contractDate.registerDate").type(JsonFieldType.STRING).description("계약 등록 일자"),

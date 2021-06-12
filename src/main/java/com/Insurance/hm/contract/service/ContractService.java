@@ -16,5 +16,7 @@ public interface ContractService {
 
     Contract changeContractStatusById(Long id, ContractChangeStatusRequestDto changeStatusRequestDto);
 
+    Long autoExamineRate(Long id);
+
     List<Contract> findAll();
 }

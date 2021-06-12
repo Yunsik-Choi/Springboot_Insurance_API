@@ -15,4 +15,5 @@ public interface ClaimRepository extends JpaRepository<Claim, Long> {
     @Override
     @EntityGraph(value = "claim-entity-graph", type = EntityGraph.EntityGraphType.LOAD)
     List<Claim> findAll();
+
 }

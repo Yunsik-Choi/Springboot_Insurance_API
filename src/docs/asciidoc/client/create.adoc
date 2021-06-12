@@ -53,6 +53,7 @@ include::{snippets}/client-create/request-fields.adoc[]
   "accountNumber" : "12341234", +
   "bank" : "IBK기업", +
   "gender" : "MALE", +
+  "job" : "서비스직", +
   "rrn" : { +
     "rrnFront" : 210527, +
     "rrnBack" : 11111111 +

@@ -44,6 +44,7 @@ public class ClientServiceImpl implements ClientService{
         return all;
     }
 
+
     private NonMatchIdException getNonMatchClientById() {
         return new NonMatchIdException(GlobalErrorConstants.Non_Match_Id.setClassNameMessage("Client"));
     }
