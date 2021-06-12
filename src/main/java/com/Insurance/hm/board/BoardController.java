@@ -66,7 +66,7 @@ public class BoardController {
             List<com.Insurance.hm.global.domain.file.File> newFileList = new ArrayList<>();
             Path path = Paths.get("");
             String projectUrl = path.toAbsolutePath().toString();
-            String url = projectUrl + "/src/main/resources/static/file";
+            String url = projectUrl +"/file";
             String savePath = url + "/" + boardCreateDto.getEmployeeId().toString();
             if (!new File(savePath).exists()) {
                 try {
@@ -124,7 +124,7 @@ public class BoardController {
             List<com.Insurance.hm.global.domain.file.File> newFileList = new ArrayList<>();
             Path path = Paths.get("");
             String projectUrl = path.toAbsolutePath().toString();
-            String url = projectUrl + "/src/main/resources/static/file";
+            String url = projectUrl +"/file";
             String savePath = url + "/" + boardCreateDto.getEmployeeId().toString();
             if (!new File(savePath).exists()) {
                 try {
