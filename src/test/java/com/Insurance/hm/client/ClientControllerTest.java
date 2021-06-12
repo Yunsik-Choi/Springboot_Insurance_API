@@ -70,7 +70,6 @@ class ClientControllerTest {
 
         result.andExpect(status().isOk())
                 .andDo(document("client-findById",
-                    ApiDocumentUtils.getDocumentRequest(),
                     ApiDocumentUtils.getDocumentResponse(),
                     responseFields(
                             GlobalTestFields.getFieldResponseClientDetailDto()
@@ -113,7 +112,10 @@ class ClientControllerTest {
                             GlobalTestFields.getFieldRequestClientSignRequestDto()
                     )
                 ));
+    }
 
+    @Test
+    void 고객_부가정보_추가(){
 
     }
 

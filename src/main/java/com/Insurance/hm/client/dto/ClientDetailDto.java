@@ -2,12 +2,11 @@ package com.Insurance.hm.client.dto;
 
 import com.Insurance.hm.AccidentHistory.dto.AccidentHistoryInfoDto;
 import com.Insurance.hm.client.domain.Client;
-import com.Insurance.hm.client.domain.entity.Bank;
-import com.Insurance.hm.client.domain.entity.Gender;
-import com.Insurance.hm.client.domain.entity.RRN;
+import com.Insurance.hm.client.domain.entity.*;
 import com.Insurance.hm.contract.dto.ContractInfoDto;
 import com.Insurance.hm.AccidentHistory.domain.AccidentHistory;
 import lombok.Data;
+import net.bytebuddy.implementation.bytecode.Addition;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,7 +26,9 @@ public class ClientDetailDto {
     private String accountNumber;
     private Bank bank;
     private Gender gender;
+    private Job job;
     private RRN rrn;
+
     private List<ContractInfoDto> contractList = new ArrayList<>();
     private List<AccidentHistoryInfoDto> accidentHistoryList = new ArrayList<>();
 
@@ -41,8 +42,9 @@ public class ClientDetailDto {
         this.accountNumber = client.getAccountNumber();
         this.bank = client.getBank();
         this.gender = client.getGender();
+        this.job = client.getJob();
         this.rrn = client.getRrn();
-        client.getContractList();
+
         client.getContractList().stream().forEach(contract -> contractList.add(new ContractInfoDto(contract)));
         client.getAccidentHistoryList().stream()
                 .forEach(accidentHistory -> accidentHistoryList.add(new AccidentHistoryInfoDto(accidentHistory)));

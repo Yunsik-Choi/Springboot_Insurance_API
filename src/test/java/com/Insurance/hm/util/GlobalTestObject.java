@@ -8,9 +8,7 @@ import com.Insurance.hm.claim.domain.Claim;
 import com.Insurance.hm.claim.domain.entity.ClaimStatus;
 import com.Insurance.hm.claim.dto.ClaimCreateRequestDto;
 import com.Insurance.hm.client.domain.Client;
-import com.Insurance.hm.client.domain.entity.Bank;
-import com.Insurance.hm.client.domain.entity.Gender;
-import com.Insurance.hm.client.domain.entity.RRN;
+import com.Insurance.hm.client.domain.entity.*;
 import com.Insurance.hm.client.dto.ClientCreateRequestDto;
 import com.Insurance.hm.compensation.domain.Compensation;
 import com.Insurance.hm.compensation.domain.entity.CompensationStatus;
@@ -88,6 +86,7 @@ public class GlobalTestObject {
                 .gender(Gender.MALE)
                 .name("이름")
                 .phoneNumber("010-0000-000")
+                .job(Job.서비스직)
                 .rrn(getRrn())
                 .build();
         return client;
@@ -153,6 +152,7 @@ public class GlobalTestObject {
         createRequestDto.setName(getClient().getName());
         createRequestDto.setPhoneNumber(getClient().getPhoneNumber());
         createRequestDto.setRrn(getClient().getRrn());
+        createRequestDto.setJob(getClient().getJob());
         return createRequestDto;
     }
 

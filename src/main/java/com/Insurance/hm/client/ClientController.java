@@ -7,9 +7,7 @@ import com.Insurance.hm.client.dto.ClientDetailDto;
 import com.Insurance.hm.client.service.ClientService;
 import com.Insurance.hm.global.constants.GlobalConstants;
 import com.Insurance.hm.global.dto.ResponseDto;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +56,5 @@ public class ClientController {
                 .data(deleteId)
                 .build();
     }
-
 
 }
