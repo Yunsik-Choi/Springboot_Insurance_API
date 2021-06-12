@@ -33,8 +33,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board findById(Long id) {
-        Board board = boardRepository.findById(id).
-                orElseThrow(this::getNonMatchBoardId);
+        Board board = boardRepository.findById(id).orElseThrow(this::getNonMatchBoardId);
         return board;
     }
 

@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -27,12 +28,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,37 +58,36 @@ public class BoardController {
     }
 
     @PostMapping("write")
-    public void writeBoard(@RequestParam MultipartFile files, BoardCreateDto boardCreateDto,
+    public void writeBoard(MultipartHttpServletRequest request, BoardCreateDto boardCreateDto,
                            HttpServletResponse response) throws IOException {
         try{
-            String originFilename = files.getOriginalFilename();
-            String filename = new MD5Generator(originFilename).toString();
+            List<com.Insurance.hm.global.domain.file.File> newFileList = new ArrayList<>();
             Path path = Paths.get("");
             String projectUrl = path.toAbsolutePath().toString();
-            String url = projectUrl+"/src/main/resources/static/file";
-            String savePath = url+"/"+boardCreateDto.getEmployeeId().toString();
-            System.out.println(savePath);
-            if(!new File(savePath).exists()){
+            String url = projectUrl + "/src/main/resources/static/file";
+            String savePath = url + "/" + boardCreateDto.getEmployeeId().toString();
+            if (!new File(savePath).exists()) {
                 try {
                     new File(savePath).mkdir();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.getStackTrace();
                 }
             }
-            String filePath = savePath+"/"+filename;
-            files.transferTo(new File(filePath));
-
-            SaveFileRequestDto saveFileRequestDto = SaveFileRequestDto.builder()
-                    .originFilename(originFilename)
-                    .filename(filename)
-                    .filePath(filePath)
-                    .build();
-
-            Long fileId = fileService.saveFile(saveFileRequestDto);
-            com.Insurance.hm.global.domain.file.File file = fileService.getFile(fileId);
-            boardCreateDto.setFile(file);
-            boardService.create(boardCreateDto);
-
+            for(MultipartFile file : request.getFiles("file")) {
+                String originFilename = file.getOriginalFilename();
+                String filename = new MD5Generator(originFilename).toString();
+                String filePath = savePath + "/" + filename;
+                file.transferTo(new File(filePath));
+                SaveFileRequestDto saveFileRequestDto = SaveFileRequestDto.builder()
+                        .originFilename(originFilename)
+                        .filename(filename)
+                        .filePath(filePath)
+                        .build();
+                Long fileId = fileService.saveFile(saveFileRequestDto);
+                com.Insurance.hm.global.domain.file.File findFile = fileService.getFile(fileId);
+                newFileList.add(findFile);
+            }
+            boardCreateDto.setFileList(newFileList);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -120,15 +122,18 @@ public class BoardController {
         response.sendRedirect(id.toString());
     }
 
-    @GetMapping("{id}/download")
-    public ResponseEntity<Resource> fileDownload(@PathVariable Long id) throws IOException{
+    @GetMapping("{id}/download/{fileIndex}")
+    public ResponseEntity<Resource> fileDownload(@PathVariable(value = "id") Long id,
+                                                 @PathVariable(value = "fileIndex") int fileIndex) throws IOException{
         Board findBoard = boardService.findById(id);
-        com.Insurance.hm.global.domain.file.File file = findBoard.getFile();
+        System.out.println(findBoard.getFileList().size());
+        com.Insurance.hm.global.domain.file.File file = findBoard.getFileList().get(fileIndex);
         Path path = Paths.get(file.getFilePath());
-        Resource resource = new InputStreamResource(Files.newInputStream(path));
+        Resource resource = new InputStreamResource(Files.newInputStream(path),"UTF-8");
+        String originFileName = new String(file.getOriginFilename().getBytes("UTF-8"), "ISO-8859-1");
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getOriginFilename()+"\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+originFileName+"\"")
                 .body(resource);
     }
 

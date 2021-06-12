@@ -9,10 +9,10 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Override
-    @EntityGraph(attributePaths = {"employee","file"})
+    @EntityGraph(attributePaths = {"employee","fileList"})
     Optional<Board> findById(Long aLong);
 
     @Override
-    @EntityGraph(attributePaths = {"employee","file"})
+    @EntityGraph(attributePaths = {"employee","fileList"})
     List<Board> findAll();
 }

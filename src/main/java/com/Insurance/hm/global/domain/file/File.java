@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class File extends BaseTime {
+public class File{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,8 @@ public class File extends BaseTime {
     @Column(nullable = false, name = "file_path")
     private String filePath;
 
-    @OneToOne(mappedBy = "file")
+    @ManyToOne
+    @JoinColumn(name = "board_id",insertable = false, updatable = false)
     private Board board;
 
     @Builder

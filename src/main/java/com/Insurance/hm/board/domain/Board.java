@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,9 +25,9 @@ public class Board extends BaseTime {
     private String title;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
-    private File file;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "board_id")
+    private List<File> fileList;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,16 +38,16 @@ public class Board extends BaseTime {
 
 
     @Builder
-    public Board(String title, Employee employee, String content, File file) {
+    public Board(String title, Employee employee, String content, List<File> fileList) {
         this.title = title;
         this.employee = employee;
         this.content = content;
-        this.file = file;
+        this.fileList = fileList;
     }
 
     public void update(BoardCreateDto boardCreateDto) {
         this.title = boardCreateDto.getTitle();
         this.content = boardCreateDto.getContent();
-        this.file = boardCreateDto.getFile();
+        this.fileList = boardCreateDto.getFileList();
     }
 }

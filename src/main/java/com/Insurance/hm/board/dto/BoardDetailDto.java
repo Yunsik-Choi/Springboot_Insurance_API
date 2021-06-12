@@ -10,6 +10,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Clob;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class BoardDetailDto{
@@ -18,7 +21,7 @@ public class BoardDetailDto{
     private String title;
     private String author;
     private Department department;
-    private Long fileId;
+    private List<Long> fileIdList = new ArrayList<>();
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
     private String content;
@@ -28,7 +31,7 @@ public class BoardDetailDto{
         this.title = board.getTitle();
         this.author = board.getEmployee().getName();
         this.department = board.getEmployee().getDepartment();
-        this.fileId = board.getFile().getId();
+        board.getFileList().stream().forEach(i -> fileIdList.add(i.getId()));
         this.createdDate = board.getCreatedDate();
         this.modifiedDate = board.getModifiedDate();
         this.content = board.getContent();
