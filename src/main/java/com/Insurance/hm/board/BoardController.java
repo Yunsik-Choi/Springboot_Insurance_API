@@ -67,6 +67,13 @@ public class BoardController {
             Path path = Paths.get("");
             String projectUrl = path.toAbsolutePath().toString();
             String url = projectUrl +"/file";
+            if (!new File(url).exists()) {
+                try {
+                    new File(url).mkdir();
+                } catch (Exception e) {
+                    e.getStackTrace();
+                }
+            }
             String savePath = url + "/" + boardCreateDto.getEmployeeId().toString();
             if (!new File(savePath).exists()) {
                 try {
