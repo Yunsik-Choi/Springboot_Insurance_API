@@ -3,6 +3,7 @@ package com.Insurance.hm.insurance.service;
 import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.dto.InsuranceChangeStatusRequestDto;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
+import com.Insurance.hm.insurance.dto.InsuranceUpdateRequestDto;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface InsuranceService {
     Insurance changeStatus(Long id, InsuranceChangeStatusRequestDto changeStatusRequestDto);
 
     List<Insurance> findAll();
+
+    Long update(Long id, InsuranceUpdateRequestDto requestDto);
 }

@@ -6,6 +6,7 @@ import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.insurance.domain.entity.InsuranceCategory;
 import com.Insurance.hm.insurance.domain.entity.InsuranceStatus;
 import com.Insurance.hm.insurance.domain.entity.InsuranceTarget;
+import com.Insurance.hm.insurance.dto.InsuranceUpdateRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -76,5 +77,17 @@ public class Insurance extends BaseTime {
 
     public void changeStatus(InsuranceStatus status) {
         this.status = status;
+    }
+
+    public void updateInsurance(InsuranceUpdateRequestDto requestDto, Employee employee){
+        this.name = requestDto.getName();
+        this.description = requestDto.getDescription();
+        this.coverage = requestDto.getCoverage();
+        this.registerDocument = requestDto.getRegisterDocument();
+        this.accidentDocument = requestDto.getAccidentDocument();
+        this.basePrice = requestDto.getBasePrice();
+        this.category = requestDto.getCategory();
+        this.target = requestDto.getTarget();
+        this.managementEmployee = employee;
     }
 }

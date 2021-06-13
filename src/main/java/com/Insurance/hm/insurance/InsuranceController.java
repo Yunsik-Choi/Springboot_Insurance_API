@@ -7,6 +7,7 @@ import com.Insurance.hm.insurance.domain.Insurance;
 import com.Insurance.hm.insurance.dto.InsuranceCreateRequestDto;
 import com.Insurance.hm.insurance.dto.InsuranceDetailDto;
 import com.Insurance.hm.insurance.dto.InsuranceChangeStatusRequestDto;
+import com.Insurance.hm.insurance.dto.InsuranceUpdateRequestDto;
 import com.Insurance.hm.insurance.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +70,13 @@ public class InsuranceController {
                         +InsuranceResponseConstants.CHANGE_INSURANCE_STATUS.getMessage())
                 .data(new InsuranceDetailDto(insurance))
                 .build();
+    }
+
+    @PostMapping("{id}")
+    public void updateInsurance(@PathVariable Long id, @RequestBody InsuranceUpdateRequestDto requestDto,
+                                       HttpServletResponse response) throws IOException {
+        Long updateId = insuranceService.update(id, requestDto);
+        response.sendRedirect(updateId.toString());
     }
 
 }
