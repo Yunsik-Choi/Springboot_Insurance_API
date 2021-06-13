@@ -16,6 +16,7 @@ public class ContractInfoDto {
     private Channel channel;
     private ContractDate contractDate;
     private Long clientId;
+    private int clientAge;
     private Long insuranceId;
     private Long employeeId;
 
@@ -27,6 +28,7 @@ public class ContractInfoDto {
         this.channel = contract.getChannel();
         this.contractDate = contract.getContractDate();
         this.clientId = contract.getClient().getId();
+        this.clientAge = contract.getClient().getAge();
         this.insuranceId = contract.getInsurance().getId();
         this.employeeId = contract.getEmployee().getId();
     }
