@@ -1,9 +1,12 @@
 package com.Insurance.hm.employee.service;
 
+import com.Insurance.hm.compensation.domain.CompensationRepository;
+import com.Insurance.hm.compensation.service.CompensationService;
 import com.Insurance.hm.employee.constants.EmployeeErrorConstants;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.EmployeeRepository;
 import com.Insurance.hm.employee.domain.entity.Department;
+import com.Insurance.hm.employee.dto.EmployeeDevelopmentDto;
 import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
 import com.Insurance.hm.employee.exception.*;
@@ -17,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -25,6 +29,7 @@ import java.util.Optional;
 public class EmployeeServiceImpl implements EmployeeService{
 
     private final EmployeeRepository employeeRepository;
+    private final CompensationRepository compensationRepository;
 
     @Override
     public Long join(EmployeeJoinRequestDto joinRequestDto){
@@ -69,6 +74,14 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> findByDepartment(Department department) {
         List<Employee> employeeByDepartment = employeeRepository.findEmployeeByDepartment(department);
         return employeeByDepartment;
+    }
+
+    @Override
+    public List<EmployeeDevelopmentDto> findDevelopment() {
+        List<Employee> department = employeeRepository.findEmployeeByDepartment(Department.보상);
+        List<EmployeeDevelopmentDto> findList = department.stream().map(i -> new EmployeeDevelopmentDto(i, compensationRepository.findByEmployee(i)))
+                .collect(Collectors.toList());
+        return findList;
     }
 
     private BusinessException findEmployeeByIdIsNull() {

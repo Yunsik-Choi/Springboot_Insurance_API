@@ -1,5 +1,6 @@
 package com.Insurance.hm.compensation.domain;
 
+import com.Insurance.hm.employee.domain.Employee;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -16,4 +17,8 @@ public interface CompensationRepository extends JpaRepository<Compensation, Long
     @Override
     @EntityGraph(value = "compensation-entity-graph", type = EntityGraph.EntityGraphType.LOAD)
     List<Compensation> findAll();
+
+
+    @EntityGraph(value = "compensation-entity-graph", type = EntityGraph.EntityGraphType.LOAD)
+    List<Compensation> findByEmployee(Employee employee);
 }

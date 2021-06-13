@@ -25,4 +25,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.valueOf(errorConstants.getStatus()));
     }
 
+    @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> methodNotSupportedException(MethodArgumentTypeMismatchException e){
+        ErrorConstants errorConstants = GlobalErrorConstants.HTTP_METHOD_MISMATCH;
+        ErrorResponse response = new ErrorResponse(e,errorConstants);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorConstants.getStatus()));
+    }
+
 }

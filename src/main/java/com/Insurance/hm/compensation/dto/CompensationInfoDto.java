@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 public class CompensationInfoDto {
 
     private Long id;
+    private Long cost;
     private CompensationStatus status;
 
     public CompensationInfoDto(Compensation compensation) {
         this.id = compensation.getId();
+        this.cost = compensation.getCost();
         this.status = compensation.getStatus();
     }
 }

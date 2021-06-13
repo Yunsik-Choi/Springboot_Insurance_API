@@ -3,10 +3,7 @@ package com.Insurance.hm.employee;
 import com.Insurance.hm.employee.constants.EmployeeResponseConstants;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.entity.Department;
-import com.Insurance.hm.employee.dto.EmployeeDetailDto;
-import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
-import com.Insurance.hm.employee.dto.EmployeeLoginResponseDto;
-import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
+import com.Insurance.hm.employee.dto.*;
 import com.Insurance.hm.employee.service.EmployeeService;
 import com.Insurance.hm.global.constants.GlobalConstants;
 import com.Insurance.hm.global.dto.ResponseDto;
@@ -78,8 +75,18 @@ public class EmployeeController {
         List<Employee> byDepartment = employeeService.findByDepartment(department);
         List<EmployeeDetailDto> result = byDepartment.stream().map(i -> new EmployeeDetailDto(i)).collect(Collectors.toList());
         return ResponseDto.builder()
-                .message(EmployeeResponseConstants.FIND_BY_DEPARTMENT+"부서 : "+department)
+                .message(EmployeeResponseConstants.FIND_BY_DEPARTMENT.getMessage()+"부서 : "+department)
                 .data(result)
+                .build();
+    }
+
+
+    @GetMapping("development")
+    public ResponseDto getDevelopment(){
+        List<EmployeeDevelopmentDto> development = employeeService.findDevelopment();
+        return ResponseDto.builder()
+                .message(EmployeeResponseConstants.FIND_WITH_COMPENSATION.getMessage())
+                .data(development)
                 .build();
     }
 

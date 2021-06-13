@@ -2,6 +2,7 @@ package com.Insurance.hm.employee.service;
 
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.entity.Department;
+import com.Insurance.hm.employee.dto.EmployeeDevelopmentDto;
 import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
 
@@ -20,4 +21,6 @@ public interface EmployeeService {
     List<Employee> findAll();
 
     List<Employee> findByDepartment(Department department);
+
+    List<EmployeeDevelopmentDto> findDevelopment();
 }
