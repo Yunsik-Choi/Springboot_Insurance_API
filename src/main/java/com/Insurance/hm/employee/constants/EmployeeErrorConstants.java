@@ -10,7 +10,8 @@ public enum EmployeeErrorConstants implements ErrorConstants {
     Already_Exists_LoginId(500,101,"이미 존재하는 아이디입니다."),
     Non_Exists_loginId(500,102,"존재하지 않는 아이디입니다."),
     Non_Match_Password(500,103,"비밀번호가 일치하지 않습니다."),
-    Non_Match_Id_Employee(500,104,"해당 아이디와 일치하는 Employee가 존재하지 않습니다.");
+    Non_Match_Id_Employee(500,104,"해당 아이디와 일치하는 Employee가 존재하지 않습니다."),
+    Non_Department_Employee(500,105,"해당 부서에 해당된 직원이 없습니다.");
 
     private int status;
     private int code;

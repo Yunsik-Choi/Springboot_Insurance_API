@@ -2,6 +2,7 @@ package com.Insurance.hm.employee;
 
 import com.Insurance.hm.employee.constants.EmployeeResponseConstants;
 import com.Insurance.hm.employee.domain.Employee;
+import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.dto.EmployeeDetailDto;
 import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginResponseDto;
@@ -71,6 +72,17 @@ public class EmployeeController {
                 .data(new EmployeeLoginResponseDto(findEmployee))
                 .build();
     }
+
+    @GetMapping("department")
+    public ResponseDto findByDepartment(@RequestParam(value = "department")Department department){
+        List<Employee> byDepartment = employeeService.findByDepartment(department);
+        List<EmployeeDetailDto> result = byDepartment.stream().map(i -> new EmployeeDetailDto(i)).collect(Collectors.toList());
+        return ResponseDto.builder()
+                .message(EmployeeResponseConstants.FIND_BY_DEPARTMENT+"부서 : "+department)
+                .data(result)
+                .build();
+    }
+
 
 
 

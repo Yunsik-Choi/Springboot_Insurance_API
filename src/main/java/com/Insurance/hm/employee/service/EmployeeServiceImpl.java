@@ -3,6 +3,7 @@ package com.Insurance.hm.employee.service;
 import com.Insurance.hm.employee.constants.EmployeeErrorConstants;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.EmployeeRepository;
+import com.Insurance.hm.employee.domain.entity.Department;
 import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
 import com.Insurance.hm.employee.exception.*;
@@ -62,6 +63,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> findAll() {
         List<Employee> all = employeeRepository.findAll();
         return all;
+    }
+
+    @Override
+    public List<Employee> findByDepartment(Department department) {
+        List<Employee> employeeByDepartment = employeeRepository.findEmployeeByDepartment(department);
+        return employeeByDepartment;
     }
 
     private BusinessException findEmployeeByIdIsNull() {
