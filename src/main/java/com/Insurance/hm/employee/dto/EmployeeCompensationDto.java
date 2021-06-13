@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class EmployeeDevelopmentDto {
+public class EmployeeCompensationDto {
 
     private Long id;
     private String name;
@@ -25,7 +25,7 @@ public class EmployeeDevelopmentDto {
     private Role role;
     private List<CompensationInfoDto> compensationList = new ArrayList<>();
 
-    public EmployeeDevelopmentDto(Employee i, List<Compensation> compensations) {
+    public EmployeeCompensationDto(Employee i, List<Compensation> compensations) {
         this.id = i.getId();
         this.name = i.getName();
         this.loginId = i.getLoginId();

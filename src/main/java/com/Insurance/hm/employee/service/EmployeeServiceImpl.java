@@ -1,12 +1,11 @@
 package com.Insurance.hm.employee.service;
 
 import com.Insurance.hm.compensation.domain.CompensationRepository;
-import com.Insurance.hm.compensation.service.CompensationService;
 import com.Insurance.hm.employee.constants.EmployeeErrorConstants;
 import com.Insurance.hm.employee.domain.Employee;
 import com.Insurance.hm.employee.domain.EmployeeRepository;
 import com.Insurance.hm.employee.domain.entity.Department;
-import com.Insurance.hm.employee.dto.EmployeeDevelopmentDto;
+import com.Insurance.hm.employee.dto.EmployeeCompensationDto;
 import com.Insurance.hm.employee.dto.EmployeeJoinRequestDto;
 import com.Insurance.hm.employee.dto.EmployeeLoginRequestDto;
 import com.Insurance.hm.employee.exception.*;
@@ -77,9 +76,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<EmployeeDevelopmentDto> findDevelopment() {
+    public List<EmployeeCompensationDto> findCompensation() {
         List<Employee> department = employeeRepository.findEmployeeByDepartment(Department.보상);
-        List<EmployeeDevelopmentDto> findList = department.stream().map(i -> new EmployeeDevelopmentDto(i, compensationRepository.findByEmployee(i)))
+        List<EmployeeCompensationDto> findList = department.stream().map(i -> new EmployeeCompensationDto(i, compensationRepository.findByEmployee(i)))
                 .collect(Collectors.toList());
         return findList;
     }

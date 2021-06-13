@@ -8,7 +8,6 @@ import com.Insurance.hm.employee.service.EmployeeService;
 import com.Insurance.hm.global.constants.GlobalConstants;
 import com.Insurance.hm.global.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -81,12 +80,12 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("development")
+    @GetMapping("compensation")
     public ResponseDto getDevelopment(){
-        List<EmployeeDevelopmentDto> development = employeeService.findDevelopment();
+        List<EmployeeCompensationDto> compensationEmployee = employeeService.findCompensation();
         return ResponseDto.builder()
                 .message(EmployeeResponseConstants.FIND_WITH_COMPENSATION.getMessage())
-                .data(development)
+                .data(compensationEmployee)
                 .build();
     }
 
