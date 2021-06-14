@@ -28,7 +28,7 @@
 
 # 웹 아키텍처
 
-![./architecture.png](./architecture.png)
+![./architecture.jpg](./architecture.jpg)
 
 # ERD
 
