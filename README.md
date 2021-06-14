@@ -27,6 +27,7 @@
 - 협업을 위한 API 명세
 
 # 웹 아키텍처
+
 ![./architecture.png](./architecture.png)
 
 # ERD
