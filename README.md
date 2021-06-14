@@ -14,17 +14,20 @@
 - 계약 관리, 고객 관리,  협력업체 관리
 - 사고접수, 사고이력 조회
 - 자동 보험 가입 심사, 자동 보험 심사
-- Spring REST Docs를 활용한 API 명세 최신화
+- Spring REST Docs를 활용한 API 명세
 
 # 사용 기술
 
-- Spring Boot, Gradle, Sprint Data JPA, Java8
+- Spring Boot, Gradle, Spring Data JPA, Java8
 
 # 기술적인 집중 요소
 
-- 객체지향의 원칙과 spring IOC, AOP 활용을 통한 코드 작성
+- 객체지향의 원칙과 spring IOC, AOP 활용한 코드 작성
 - Spring Data JPA를 사용한 성능 최적화
 - 협업을 위한 API 명세
+
+# 웹 아키텍처
+![./architecture.png](./architecture.png)
 
 # ERD
 
