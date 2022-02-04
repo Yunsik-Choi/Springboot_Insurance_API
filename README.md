@@ -17,7 +17,7 @@
 
 # 사용 기술
 
-- Spring Boot, Gradle, Spring Data JPA, Java8
+- Spring Boot, Spring MVC, Spring Data JPA, Java8
 
 # 기술적인 집중 요소
 
