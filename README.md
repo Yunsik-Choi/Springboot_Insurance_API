@@ -1,5 +1,4 @@
 # HM 보험 API
-[http://hminsu.net/docs/index.html](http://hminsu.net/docs/index.html)
 
 # 목적
 
